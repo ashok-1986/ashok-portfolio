@@ -239,16 +239,15 @@ export default function Hero() {
             href="#expertise"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
-              fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em',
+              fontSize: '11px', fontWeight: 600, letterSpacing: '0.2em',
               textTransform: 'uppercase', color: '#190805',
               background: '#FC4F2F', padding: '16px 40px', textDecoration: 'none',
             }}
           >
             See My Work ↓
           </a>
-         <a href="https://alchemetryx.com" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:'10px',fontSize:'11px',fontWeight:700,letterSpacing:'0.2em',textTransform:'uppercase',color:'#F0F3F5',border:'1px solid rgba(240,243,245,0.18)',padding:'15px 40px',textDecoration:'none'}}>Visit Alchemetryx</a>
+         <a href="https://alchemetryx.com" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:'10px',fontSize:'11px',fontWeight:600,letterSpacing:'0.2em',textTransform:'uppercase',color:'#F0F3F5',border:'1px solid rgba(240,243,245,0.18)',padding:'15px 40px',textDecoration:'none'}}>Visit Alchemetryx</a>
         </div>
-      </div>
 
       {/* Scroll indicator */}
       <div style={{
