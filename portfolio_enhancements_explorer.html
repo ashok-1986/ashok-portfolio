@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: transparent; font-family: var(--font-sans); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(0,0,0,0.08);
+}
+
+.card {
+  background: var(--color-background-primary);
+  padding: 28px 24px 24px;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent, #888);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.card:hover { background: var(--color-background-secondary); }
+.card:hover::after { transform: scaleX(1); }
+.card.active { background: var(--color-background-secondary); }
+.card.active::after { transform: scaleX(1); }
+
+.card-tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent, #888);
+  margin-bottom: 10px;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.card-sub {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+.effort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-border-secondary);
+}
+.dot.on { background: var(--accent, #888); }
+
+.detail-panel {
+  background: var(--color-background-secondary);
+  border-top: 0.5px solid var(--color-border-tertiary);
+  padding: 32px 28px;
+  display: none;
+}
+.detail-panel.open { display: block; }
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+.detail-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+.detail-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--border-radius-md);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.detail-body {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.detail-body strong { color: var(--color-text-primary); font-weight: 500; }
+.tech-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px;
+}
+.tech-pill {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 0.5px solid var(--color-border-secondary);
+  color: var(--color-text-secondary);
+}
+.close-btn {
+  margin-top: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  background: none;
+  border: 0.5px solid var(--color-border-tertiary);
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  border-radius: var(--border-radius-md);
+}
+.close-btn:hover { color: var(--color-text-primary); border-color: var(--color-border-primary); }
+
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  padding: 14px 20px 10px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  background: var(--color-background-primary);
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="section-label">Visual & Motion</div>
+<div class="grid" id="grid-visual">
+
+  <div class="card" data-id="splittext" style="--accent:#FC4F2F" onclick="toggle('splittext')">
+    <div class="card-tag">Typography</div>
+    <div class="card-title">GSAP SplitText Hero</div>
+    <div class="card-sub">Each letter of the headline drops in individually, like a sentence forming itself in real time.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+  <div class="card" data-id="morphing" style="--accent:#FC4F2F" onclick="toggle('morphing')">
+    <div class="card-tag">Animation</div>
+    <div class="card-title">Morphing background shapes</div>
+    <div class="card-sub">Slow-breathing organic blobs behind sections. They shift like heat — alive but not distracting.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+      Low effort
+    </div>
+  </div>
+
+  <div class="card" data-id="magnetic" style="--accent:#FC4F2F" onclick="toggle('magnetic')">
+    <div class="card-tag">Interaction</div>
+    <div class="card-title">Magnetic buttons</div>
+    <div class="card-sub">Buttons pull toward the cursor like a magnet. Premium micro-interaction that feels handcrafted.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+  <div class="card" data-id="depth" style="--accent:#FC4F2F" onclick="toggle('depth')">
+    <div class="card-tag">3D</div>
+    <div class="card-title">Depth-layered hero parallax</div>
+    <div class="card-sub">Multiple planes at different Z depths drift at different speeds. The particle field already exists — this layers the headline on top of it in true 3D space.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+      High effort
+    </div>
+  </div>
+
+  <div class="card" data-id="horzscroll" style="--accent:#FC4F2F" onclick="toggle('horzscroll')">
+    <div class="card-tag">Layout</div>
+    <div class="card-title">Horizontal scroll for expertise</div>
+    <div class="card-sub">The three pillar cards scroll sideways on a pinned section. Feels like a gallery. Unexpected in a portfolio context — which is exactly why it works.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+  <div class="card" data-id="cursor" style="--accent:#FC4F2F" onclick="toggle('cursor')">
+    <div class="card-tag">Interaction</div>
+    <div class="card-title">Context-aware cursor</div>
+    <div class="card-sub">Cursor transforms into a label on hover — "View", "Read", "Contact" — depending on what you're hovering. Feels intelligent and intentional.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+</div>
+
+<div id="panel-visual" class="detail-panel"></div>
+
+<div class="section-label">Content & Trust</div>
+<div class="grid" id="grid-content">
+
+  <div class="card" data-id="cases" style="--accent:#1D9E75" onclick="toggle('cases')">
+    <div class="card-tag">Content</div>
+    <div class="card-title">Case study pages</div>
+    <div class="card-sub">Each client engagement becomes a cinematic story. Problem. System built. Numbers that changed.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+      High impact
+    </div>
+  </div>
+
+  <div class="card" data-id="video" style="--accent:#1D9E75" onclick="toggle('video')">
+    <div class="card-tag">Media</div>
+    <div class="card-title">Founder video loop</div>
+    <div class="card-sub">A 30-second silent looping video of you — thinking, working, presenting. Plays in the hero alongside the particle field.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium impact
+    </div>
+  </div>
+
+  <div class="card" data-id="testimonials" style="--accent:#1D9E75" onclick="toggle('testimonials')">
+    <div class="card-tag">Social proof</div>
+    <div class="card-title">Client testimonials</div>
+    <div class="card-sub">Real words from real clients, with their name, company, and a photo. One line from the right person closes more deals than a thousand words of copy.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+      High impact
+    </div>
+  </div>
+
+  <div class="card" data-id="booking" style="--accent:#1D9E75" onclick="toggle('booking')">
+    <div class="card-tag">Conversion</div>
+    <div class="card-title">Embedded Calendly / Cal.com</div>
+    <div class="card-sub">Replace the contact form with a direct booking widget. Remove every step between interest and commitment.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+      Low effort, high payoff
+    </div>
+  </div>
+
+  <div class="card" data-id="protected" style="--accent:#1D9E75" onclick="toggle('protected')">
+    <div class="card-tag">B2B</div>
+    <div class="card-title">Password-protected case studies</div>
+    <div class="card-sub">You send a prospect a link and a password. They feel like they have been trusted with something private. That framing changes the conversation before it starts.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+  <div class="card" data-id="blog" style="--accent:#1D9E75" onclick="toggle('blog')">
+    <div class="card-tag">Authority</div>
+    <div class="card-title">Alchemetryx insight feed</div>
+    <div class="card-sub">Short sharp takes on analytics and SME operations. Not a blog. A signal feed. Pulls from the brand bible's thinking and keeps the site alive with fresh content.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+</div>
+
+<div id="panel-content" class="detail-panel"></div>
+
+<div class="section-label">Technical Intelligence</div>
+<div class="grid" id="grid-tech">
+
+  <div class="card" data-id="analytics" style="--accent:#378ADD" onclick="toggle('analytics')">
+    <div class="card-tag">Data</div>
+    <div class="card-title">GA4 + Hotjar on your own site</div>
+    <div class="card-sub">You sell analytics to clients. If you are not running it on your own site, you are the cobbler with no shoes. Install it on day one — it becomes a live demo you own.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+      Essential
+    </div>
+  </div>
+
+  <div class="card" data-id="i18n" style="--accent:#378ADD" onclick="toggle('i18n')">
+    <div class="card-tag">Global</div>
+    <div class="card-title">UK English variant</div>
+    <div class="card-sub">A simple URL flag (/uk) or IP-based redirect that serves UK-spellings and UK-context copy to British visitors. Small detail that signals local presence.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot"></span>
+      Medium effort
+    </div>
+  </div>
+
+  <div class="card" data-id="darklight" style="--accent:#378ADD" onclick="toggle('darklight')">
+    <div class="card-tag">Accessibility</div>
+    <div class="card-title">Light mode variant</div>
+    <div class="card-sub">The dark void is the default and the statement. But a high-contrast light mode for accessibility, toggled with a single button, shows polish and consideration.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+      High effort
+    </div>
+  </div>
+
+  <div class="card" data-id="perf" style="--accent:#378ADD" onclick="toggle('perf')">
+    <div class="card-tag">Performance</div>
+    <div class="card-title">Real-time Vercel Analytics</div>
+    <div class="card-sub">See exactly which section visitors spend the most time on. Which CTA gets clicked. Where they leave. Your own site becomes your best case study in conversion analytics.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+      Low effort
+    </div>
+  </div>
+
+  <div class="card" data-id="shader" style="--accent:#378ADD" onclick="toggle('shader')">
+    <div class="card-tag">Advanced 3D</div>
+    <div class="card-title">Reactive audio / scroll shader</div>
+    <div class="card-sub">The particle field reacts to scroll velocity — fast scroll ignites the particles, slow scroll lets them breathe. A moment of physical feedback that is genuinely unforgettable.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+      High effort
+    </div>
+  </div>
+
+  <div class="card" data-id="cms" style="--accent:#378ADD" onclick="toggle('cms')">
+    <div class="card-tag">Operations</div>
+    <div class="card-title">Sanity CMS integration</div>
+    <div class="card-sub">Edit copy, swap photos, publish case studies without touching code ever again. Connect Sanity to the Next.js build and the site becomes fully self-managed.</div>
+    <div class="effort">
+      <span class="dot on"></span><span class="dot on"></span><span class="dot on"></span>
+      High effort, permanent value
+    </div>
+  </div>
+
+</div>
+
+<div id="panel-tech" class="detail-panel"></div>
+
+<script>
+const details = {
+  splittext: {
+    title: "GSAP SplitText hero animation",
+    group: "visual",
+    labelText: "Typography · Medium",
+    labelColor: "background: rgba(252,79,47,0.1); color: #FC4F2F;",
+    body: `The headline "TURNING DATA INTO CLARITY" currently fades in as a block. SplitText breaks every character into its own element, then animates each one up with a stagger — 0.025s between each character. The effect feels like <strong>a sentence deciding to exist in front of you.</strong><br><br>On mobile it falls back to a simpler word-by-word reveal. The emotional impact on desktop is significant — it is the first thing a visitor sees and it signals craft before they read a single word.`,
+    tech: ["GSAP SplitText", "Next.js", "CSS clip-path", "stagger timing"]
+  },
+  morphing: {
+    title: "Morphing background shapes",
+    group: "visual",
+    labelText: "Animation · Low effort",
+    labelColor: "background: rgba(252,79,47,0.1); color: #FC4F2F;",
+    body: `Behind the About and Philosophy sections, slow-moving organic SVG blobs breathe and shift — barely visible, just enough to make the void feel <strong>alive rather than static.</strong> They pulse on a 12-second loop using CSS animation on SVG path points.<br><br>The key is restraint. These shapes sit at 3–5% opacity. You feel them more than you see them. Remove them and something feels flat. Keep them and the page breathes.`,
+    tech: ["SVG SMIL animation", "CSS keyframes", "clip-path blur", "opacity < 0.05"]
+  },
+  magnetic: {
+    title: "Magnetic button effect",
+    group: "visual",
+    labelText: "Interaction · Medium",
+    labelColor: "background: rgba(252,79,47,0.1); color: #FC4F2F;",
+    body: `Every button — "See My Work", "Let's Talk", "Send Message" — responds to the cursor before it arrives. As the mouse approaches within ~80px of the button, the button drifts toward the cursor. The effect is subtle: maximum 12px movement. It feels like the button <strong>wants to be clicked.</strong><br><br>This is a 30-line vanilla JS function using getBoundingClientRect and lerp. It lives on every interactive element across the site. It is the single detail that separates "nice portfolio" from "this person clearly cares about experience."`,
+    tech: ["vanilla JS", "getBoundingClientRect", "GSAP lerp", "mouseenter radius detection"]
+  },
+  depth: {
+    title: "True 3D depth-layered hero",
+    group: "visual",
+    labelText: "3D · High effort",
+    labelColor: "background: rgba(252,79,47,0.1); color: #FC4F2F;",
+    body: `Currently the particle field and the headline occupy the same CSS plane. In the enhanced version, the R3F scene has <strong>three discrete Z-layers:</strong> the deep particle field at z=−60, a mid-ground grid at z=−20, and the headline text rendered as a Three.js TextGeometry mesh at z=0. Mouse movement shifts all three layers at different parallax rates — a true sense of depth, like looking through glass into infinite space.<br><br>This is the most technically ambitious enhancement and the one with the most visible return. The hero becomes a world you feel like you are inside, not a screen you are looking at.`,
+    tech: ["React Three Fiber", "TextGeometry", "drei/Text", "depth-of-field post-processing", "mouse parallax layers"]
+  },
+  horzscroll: {
+    title: "Horizontal scroll — expertise section",
+    group: "visual",
+    labelText: "Layout · Medium",
+    labelColor: "background: rgba(252,79,47,0.1); color: #FC4F2F;",
+    body: `The three pillar cards currently sit in a vertical grid. In the enhanced version, the section <strong>pins to the viewport</strong> and the cards scroll horizontally as the visitor scrolls down. Each card is wider, taller, and more cinematic — more like a gallery installation than a list.<br><br>This is a classic GSAP ScrollTrigger pinning pattern. It adds roughly 2–3 hours of development time and creates one of the most memorable moments on the site. The visitor does not expect the direction to change. That surprise is the point.`,
+    tech: ["GSAP ScrollTrigger", "pin: true", "horizontal translate", "Lenis sync"]
+  },
+  cursor: {
+    title: "Context-aware cursor labels",
+    group: "visual",
+    labelText: "Interaction · Medium",
+    labelColor: "background: rgba(252,79,47,0.1); color: #FC4F2F;",
+    body: `The cursor already exists as a custom orange dot. In the enhanced version, hovering over different zones changes the cursor's inner label. Over the hero photo it reads "Profile". Over an expertise card it reads "Explore". Over the contact form it reads "Write". Over a link it reads "Visit".<br><br>This transforms the cursor from a design element into a <strong>navigation guide</strong>. The visitor always knows what will happen before they click. It also reinforces that every interaction on this site was deliberately considered.`,
+    tech: ["data-cursor attributes", "CSS transition on inner label", "IntersectionObserver zones", "GSAP scale on hover"]
+  },
+  cases: {
+    title: "Case study pages — the real work",
+    group: "content",
+    labelText: "Content · Highest impact",
+    labelColor: "background: rgba(29,158,117,0.1); color: #0F6E56;",
+    body: `This is the single most valuable thing you can add to the site after launch. Three case studies — ideally BookMyShow, Fichmu Foods, and one Alchemetryx client — each told as a <strong>three-act story:</strong><br><br><strong>Act 1 — The problem.</strong> What was broken, confused, or leaking money? What did the business look like before you arrived?<br><br><strong>Act 2 — The system.</strong> What did you actually build? The audit, the pipeline, the automation, the KPI framework. Show the process, not just the outcome.<br><br><strong>Act 3 — The number.</strong> 30% CAC reduction. 20% conversion lift. 10% engagement increase. One real number carries more weight than three paragraphs of copy.<br><br>Each case study gets its own URL, its own cinematic hero image, and its own scroll experience. These pages are what gets forwarded between decision-makers inside a prospect company.`,
+    tech: ["Next.js dynamic routes", "MDX or Sanity", "full-bleed photo sections", "animated stat counters"]
+  },
+  video: {
+    title: "Founder video — the human signal",
+    group: "content",
+    labelText: "Media · Medium impact",
+    labelColor: "background: rgba(29,158,117,0.1); color: #0F6E56;",
+    body: `A 30-second silent looping video of you — not a talking head, not a presentation, but a moment. You thinking at a desk. You on a call. You walking through a dashboard with someone. No sound needed. No words needed.<br><br>It sits in the hero alongside the particle field, playing automatically, looping silently. It does one thing: it <strong>makes you real.</strong> The site already has powerful photographs. Video adds movement — the final layer that converts a design into a person. UK SME owners who are deciding whether to trust you with their business want to see that you are a human being first.`,
+    tech: ["HTML5 video autoplay muted loop", "Next.js Video component", "webm + mp4 formats", "lazy load off-screen"]
+  },
+  testimonials: {
+    title: "Client testimonials — social proof",
+    group: "content",
+    labelText: "Social proof · High impact",
+    labelColor: "background: rgba(29,158,117,0.1); color: #0F6E56;",
+    body: `One section. Three testimonials maximum. Each one: a photo, a name, a company, and one powerful sentence. Not paragraphs. <strong>One sentence.</strong><br><br>"Ashok made us realise we had been measuring the wrong things for three years." That is more powerful than any copy you can write about yourself.<br><br>Placed immediately after the three pillars section, before the philosophy quote. The visitor has just read what you do — now they read what someone else says happened when you did it. That sequence closes the loop between promise and proof. Start collecting these now, before the site launches. A LinkedIn recommendation copied with permission is enough.`,
+    tech: ["static JSON data", "CSS scroll-snap testimonial row", "avatar image with lazy load", "star rating optional"]
+  },
+  booking: {
+    title: "Calendly / Cal.com booking widget",
+    group: "content",
+    labelText: "Conversion · Immediate",
+    labelColor: "background: rgba(29,158,117,0.1); color: #0F6E56;",
+    body: `The contact form currently requires a visitor to compose an email from scratch. That is friction. Every step between interest and commitment costs you conversions.<br><br>Replace or supplement it with an embedded <strong>30-minute clarity call</strong> booking widget. Cal.com is open source and free. Calendly has a generous free tier. Both embed cleanly into the dark aesthetic with a few lines of CSS override.<br><br>The framing matters as much as the widget itself. Do not call it a "discovery call" or a "sales call". Call it exactly what it is for your brand: <strong>"Book a Clarity Session."</strong> That language is pulled directly from your brand bible. It signals intent before the visitor even clicks.`,
+    tech: ["Cal.com embed", "Calendly widget", "CSS var overrides for dark theme", "custom booking page URL"]
+  },
+  protected: {
+    title: "Password-protected case studies",
+    group: "content",
+    labelText: "B2B sales · Strategic",
+    labelColor: "background: rgba(29,158,117,0.1); color: #0F6E56;",
+    body: `When you send a prospect a link and say "here is my case study — the password is in the email I sent you," you have done three things before they even read a word.<br><br>You have <strong>created exclusivity.</strong> You have demonstrated that you respect client confidentiality. And you have given them a reason to remember they received something from you personally.<br><br>Next.js middleware makes this a 20-line implementation. A simple password check on route entry, a beautiful password screen with the same dark void aesthetic. You use a different password per prospect — which also tells you exactly who is reading what.`,
+    tech: ["Next.js middleware", "edge cookies", "route-level password gate", "per-prospect URL params"]
+  },
+  blog: {
+    title: "Alchemetryx insight feed",
+    group: "content",
+    labelText: "Authority · Ongoing",
+    labelColor: "background: rgba(29,158,117,0.1); color: #0F6E56;",
+    body: `Not a blog. Not articles. A feed of <strong>sharp, short takes</strong> — 200–400 words each — on the exact problems your ICP is living with. "Why your GA4 data is lying to you." "The one dashboard metric that actually tells you if your business is healthy." "What BookMyShow taught me about measuring things that matter."<br><br>These posts do two things simultaneously. They feed Google with fresh, expert-level content on your exact keywords. And they give you material to distribute on LinkedIn — each post becomes a post, a comment, a conversation starter with a prospect.<br><br>Connect it to Sanity CMS so you can publish from a clean editor, not from code.`,
+    tech: ["Sanity CMS", "Next.js ISR", "MDX rendering", "OpenGraph per post", "LinkedIn share metadata"]
+  },
+  analytics: {
+    title: "GA4 + Hotjar on your own site",
+    group: "tech",
+    labelText: "Essential · Day one",
+    labelColor: "background: rgba(55,138,221,0.1); color: #185FA5;",
+    body: `This one is not optional. It is embarrassing to sell analytics strategy and not run it on your own domain. Your portfolio site should be <strong>your own live proof of concept.</strong><br><br>GA4 tells you where visitors come from, which sections they reach, and whether they submit the form. Hotjar records anonymous session replays — you can literally watch how a visitor moves through your site, where they pause, where they leave.<br><br>After 30 days of data, you will know which section loses people. You will know if the contact form is getting clicked or ignored. You will know whether mobile visitors are bouncing before they reach the expertise section. That data shapes every future decision about the site — and it becomes a story you can tell clients: "I tested my own site the same way I would test yours."`,
+    tech: ["GA4 via GTM", "Hotjar free tier", "Next.js Script component", "custom event tracking on CTA clicks"]
+  },
+  i18n: {
+    title: "UK English variant",
+    group: "tech",
+    labelText: "Localisation · Strategic",
+    labelColor: "background: rgba(55,138,221,0.1); color: #185FA5;",
+    body: `Your primary market is UK-based owner-led SMEs. A small but psychologically significant detail: UK visitors see "optimise" not "optimize", "colour" not "color", "behaviour" not "behavior". More importantly, the hero subline can reference <strong>UK-specific context</strong> — "helping owner-led UK businesses" rather than the generic version.<br><br>Next.js i18n routing handles this in about 2 hours. You create two content files — one for default, one for /uk. An IP geolocation middleware at the edge redirects UK visitors automatically. No page reload. No visible change. Just a signal to British prospects that you are not just globally positioned but locally present.`,
+    tech: ["Next.js i18n routing", "Vercel Edge Middleware", "IP geolocation", "two content JSON files"]
+  },
+  darklight: {
+    title: "Light mode — accessibility variant",
+    group: "tech",
+    labelText: "Accessibility · High effort",
+    labelColor: "background: rgba(55,138,221,0.1); color: #185FA5;",
+    body: `The dark void is the brand statement. It should remain the default. But some visitors — especially those with visual accessibility needs or reading in bright environments — genuinely struggle with dark interfaces.<br><br>A light mode does not dilute the brand if it is done with the same precision. <strong>#F0F3F5 becomes the background, #190805 becomes the text, #FC4F2F remains the edge.</strong> The typographic hierarchy, the spacing, the structure — all identical. Only the palette inverts.<br><br>A single CSS class toggle on the root element handles it. Persist the preference to localStorage. Respect the user's system preference via prefers-color-scheme. A small sun/moon icon in the nav. Three hours of CSS work that makes the site genuinely usable for every visitor.`,
+    tech: ["CSS custom properties", "prefers-color-scheme media query", "localStorage persistence", "root class toggle"]
+  },
+  perf: {
+    title: "Vercel Analytics — your site as a live dashboard",
+    group: "tech",
+    labelText: "Data · Immediate",
+    labelColor: "background: rgba(55,138,221,0.1); color: #185FA5;",
+    body: `Vercel's built-in analytics gives you real user metrics — Core Web Vitals from actual visitors, not synthetic tests. You see LCP, FID, CLS, and TTFB broken down by device and geography.<br><br>More importantly, it gives you <strong>the data you would want if this were a client's site.</strong> Bounce rate by page section. Time on page. Conversion rate on the contact form. Countries and cities your visitors are coming from.<br><br>Enable it in one click in the Vercel dashboard. Add a custom event for every contact form submission. After 30 days you have a live case study in your own hands — real numbers from a real site you built, designed, and optimised. That is the most credible thing you can show a potential client.`,
+    tech: ["Vercel Analytics (one click)", "custom events via @vercel/analytics", "Web Vitals reporting", "goal tracking"]
+  },
+  shader: {
+    title: "Scroll-reactive particle shader",
+    group: "tech",
+    labelText: "3D Advanced · High effort",
+    labelColor: "background: rgba(55,138,221,0.1); color: #185FA5;",
+    body: `Currently the particle field breathes on a time uniform — gentle, constant drift. In the enhanced version, a <strong>scroll velocity uniform</strong> is passed into the vertex shader. Fast scrolling ignites the particles: they accelerate, brighten, scatter outward. Slow scrolling lets them settle back into the void.<br><br>The physical metaphor is perfect for the brand. Data is inert until something moves it — then it illuminates everything around it. The faster you push, the more the signal burns through.<br><br>This is achieved by reading window.scrollY delta between animation frames, smoothing it with exponential decay, and passing it as a float uniform into the existing WebGL shader. The vertex shader multiplies particle velocity and size by this value. No new library. No new setup. Roughly 25 additional lines of GLSL.`,
+    tech: ["GLSL uniform float uScrollVelocity", "window.scrollY delta tracking", "exponential smoothing", "particle size + velocity multiplication"]
+  },
+  cms: {
+    title: "Sanity CMS — the site you own forever",
+    group: "tech",
+    labelText: "Operations · Long-term value",
+    labelColor: "background: rgba(55,138,221,0.1); color: #185FA5;",
+    body: `Right now, changing the hero copy means opening a code file. Adding a case study means creating a new page component. Publishing an insight post means a Git commit.<br><br>Sanity CMS gives you a <strong>clean, beautiful editing interface</strong> where you change copy, publish posts, add testimonials, and swap photos — all without touching code. It connects to Next.js via a live API. Changes appear on the site within seconds via ISR (Incremental Static Regeneration).<br><br>Sanity's free tier covers a personal portfolio site entirely. The setup takes a weekend. After that, the site becomes something you maintain, not something you manage. And when a client asks if you can help them build a content-managed marketing site, you can show them your own.`,
+    tech: ["Sanity Studio", "Next.js ISR", "@sanity/client", "GROQ queries", "Portable Text rendering"]
+  }
+};
+
+let openId = null;
+
+function toggle(id) {
+  const d = details[id];
+  if (!d) return;
+
+  const panelId = 'panel-' + d.group;
+  const panel = document.getElementById(panelId);
+  const allCards = document.querySelectorAll('.card');
+
+  if (openId === id) {
+    panel.classList.remove('open');
+    allCards.forEach(c => c.classList.remove('active'));
+    openId = null;
+    return;
+  }
+
+  document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('open'));
+  allCards.forEach(c => c.classList.remove('active'));
+
+  const card = document.querySelector(`[data-id="${id}"]`);
+  if (card) card.classList.add('active');
+
+  panel.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-title">${d.title}</div>
+      <span class="detail-label" style="${d.labelColor}">${d.labelText}</span>
+    </div>
+    <div class="detail-body">${d.body}</div>
+    <div class="tech-row">${d.tech.map(t => `<span class="tech-pill">${t}</span>`).join('')}</div>
+    <button class="close-btn" onclick="toggle('${id}')">Close ↑</button>
+  `;
+  panel.classList.add('open');
+  openId = id;
+
+  setTimeout(() => {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
+}
+</script>
