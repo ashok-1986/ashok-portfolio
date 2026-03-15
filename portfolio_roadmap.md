@@ -4,7 +4,7 @@
 - ✅ **Static HTML version** completed (ashok_verma_portfolio_final.html)
 - ✅ **Launch roadmap** visualized (ashok_verma_launch_roadmap.svg)
 - ✅ **Next.js architecture** planned (nextjs_build_architecture.svg)
-- ✅ **Domain ready**: ashok.alchemetryx.com
+- ✅ **Domain ready**: ashok.alchemetryx.com (temporary subdomain; production domains: ashokverma.com / ashokverma.co.uk)
 - ✅ **Galgo font family** available (Variable + Regular/Bold/Light)
 - 📋 **Enhancement ideas** catalogued (portfolio_enhancements_explorer.html)
 
@@ -95,7 +95,7 @@
 - [ ] robots.txt + sitemap.xml
 
 ### 3.4 Deployment
-- [ ] Register domain (ashokverma.com / ashokverma.co.uk)
+- [ ] Configure domain (ashok.alchemetryx.com is ready; ashokverma.com / ashokverma.co.uk are optional future production domains)
 - [ ] Connect Vercel
 - [ ] Configure DNS
 - [ ] Set up Resend API for contact form
@@ -112,12 +112,12 @@
   - Alchemetryx client — CAC reduction story
 - [ ] **Founder video loop** — 30s silent B-roll for hero
 - [ ] **Client testimonials** — photo, name, one powerful sentence
-- [ ] **Calendly/Cal.com widget** — "Book a Clarity Session"
+- [ ] **Cal.com booking widget** — "Book a Clarity Session"
 
 ### 4.2 Technical Intelligence
 - [ ] **GA4 + Hotjar** on your own site (non-negotiable)
 - [ ] **Vercel Analytics** — real-time performance monitoring
-- [ ] **UK English variant** — /uk URL flag for localization
+- [ ] **UK English variant** — /uk URL flag for localization (lightweight locale toggle, no i18n infrastructure)
 
 ### 4.3 B2B Features
 - [ ] **Password-protected case studies** — per-prospect URLs
@@ -128,14 +128,14 @@
 ## Phase 5: Advanced Enhancements (Optional, High Effort)
 
 ### 5.1 Visual Polish
-- [ ] **GSAP SplitText** — letter-by-letter hero reveal (desktop only)
-- [ ] **Horizontal scroll section** — expertise cards gallery-style
+- [ ] **GSAP SplitText** — letter-by-letter hero reveal (desktop only) — *Note: SplitText is a premium/paid Club GreenSock plugin; free alternatives include Splitting.js or custom CSS span-wrapping + keyframes*
+- [ ] **Horizontal scroll section** — expertise cards gallery-style (enhanced version of Phase 2's horizontal scroll pinning with additional gallery features)
 - [ ] **Light mode variant** — accessibility toggle
 - [ ] **Reactive audio/scroll shader** — particles respond to scroll velocity
 
 ### 5.2 Operations
 - [ ] **Sanity CMS integration** — edit copy without code
-- [ ] **Multi-language support** — i18n for UK/IN markets
+- [ ] **Multi-language support** — i18n for UK/IN markets (full i18n infrastructure with translation management and locale fallback, distinct from Phase 4's lightweight URL variant)
 
 ---
 
@@ -144,7 +144,7 @@
 | Enhancement | Effort | Impact | Priority |
 |-------------|--------|--------|----------|
 | Case study pages | High | Highest | 🔴 Must do |
-| Calendly booking | Low | High | 🔴 Must do |
+| Cal.com booking | Low | High | 🔴 Must do |
 | GA4 + Hotjar | Low | Essential | 🔴 Day one |
 | Testimonials | Medium | High | 🔴 Must do |
 | Founder video | Medium | Medium | 🟡 Post-launch |

@@ -221,8 +221,7 @@ section{position:relative;padding:120px 60px}
 #experience{background:var(--void)}
 .timeline{max-width:840px;width:100%;margin-top:64px;position:relative}
 .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--edge) 0%,rgba(252,79,47,.05) 100%)}
-.t-item{padding-left:48px;margin-bottom:60px;position:relative;opacity:0;transform:translateX(-24px);transition:opacity .7s ease,transform .7s ease}
-.t-item.vis{opacity:1;transform:translateX(0)}
+.t-item{padding-left:48px;margin-bottom:60px;position:relative}
 .t-item:nth-child(2){transition-delay:.08s}.t-item:nth-child(3){transition-delay:.16s}.t-item:nth-child(4){transition-delay:.24s}.t-item:nth-child(5){transition-delay:.32s}.t-item:nth-child(6){transition-delay:.40s}
 .t-dot{position:absolute;left:-5px;top:10px;width:10px;height:10px;background:var(--edge);border-radius:50%;box-shadow:0 0 18px rgba(252,79,47,.7)}
 .t-period{font-size:9.5px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--edge);margin-bottom:10px}
@@ -261,9 +260,11 @@ footer{padding:44px 60px;border-top:1px solid rgba(240,243,245,.055);display:fle
 .fl-row a{font-size:11px;letter-spacing:.12em;color:rgba(240,243,245,.18);text-decoration:none;transition:color .3s}
 .fl-row a:hover{color:var(--edge)}
 
-/* REVEAL */
-.rev{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
-.rev.vis{opacity:1;transform:translateY(0)}
+/* REVEAL — scoped under .js class for JS-enabled browsers only */
+.js .rev{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+.js .rev.vis{opacity:1;transform:translateY(0)}
+.js .t-item{opacity:0;transform:translateX(-24px);transition:opacity .7s ease,transform .7s ease}
+.js .t-item.vis{opacity:1;transform:translateX(0)}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 .tilt{transform-style:preserve-3d;transition:transform .25s ease}
 
@@ -295,6 +296,7 @@ footer{padding:44px 60px;border-top:1px solid rgba(240,243,245,.055);display:fle
 </style>
 </head>
 <body>
+<script>(function(){document.documentElement.classList.add('js');})();</script>
 
 <div id="cur"></div>
 <div id="cur-ring"></div>
@@ -481,10 +483,10 @@ footer{padding:44px 60px;border-top:1px solid rgba(240,243,245,.055);display:fle
     </div>
     <div class="rev d1">
       <form class="cf" onsubmit="submitForm(event)">
-        <div class="fg"><label class="fl">Your Name</label><input class="fi" type="text" placeholder="What should I call you?" required></div>
-        <div class="fg"><label class="fl">Your Business</label><input class="fi" type="text" placeholder="Company or website"></div>
-        <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="Where can I reach you?" required></div>
-        <div class="fg"><label class="fl">What's the problem?</label><textarea class="ft" placeholder="Describe what isn't working. No jargon needed."></textarea></div>
+        <div class="fg"><label class="fl" for="contact-name">Your Name</label><input id="contact-name" class="fi" type="text" name="name" placeholder="What should I call you?" required></div>
+        <div class="fg"><label class="fl" for="contact-business">Your Business</label><input id="contact-business" class="fi" type="text" name="business" placeholder="Company or website"></div>
+        <div class="fg"><label class="fl" for="contact-email">Email</label><input id="contact-email" class="fi" type="email" name="email" placeholder="Where can I reach you?" required></div>
+        <div class="fg"><label class="fl" for="contact-message">What's the problem?</label><textarea id="contact-message" class="ft" name="message" placeholder="Describe what isn't working. No jargon needed."></textarea></div>
         <button type="submit" class="fsub" id="fsub">Send Message →</button>
       </form>
     </div>
@@ -492,7 +494,7 @@ footer{padding:44px 60px;border-top:1px solid rgba(240,243,245,.055);display:fle
 </section>
 
 <footer>
-  <div class="fc">© 2025 Ashok Verma · Alchemetryx Consulting · Mumbai, India</div>
+  <div class="fc">© <span id="copyright-year">2025</span> Ashok Verma · Alchemetryx Consulting · Mumbai, India</div>
   <div class="fl-row">
     <a href="https://alchemetryx.com" target="_blank">Alchemetryx</a>
     <a href="https://linkedin.com/in/averma1986" target="_blank">LinkedIn</a>
@@ -576,7 +578,58 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 /* FORM */
-function submitForm(e){e.preventDefault();const b=document.getElementById('fsub');b.textContent='Message Sent ✓';b.style.cssText='background:rgba(240,243,245,.08);color:var(--clarity);border:1px solid rgba(240,243,245,.15);padding:16px 44px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;align-self:flex-start;display:inline-flex;';setTimeout(()=>{b.textContent='Send Message →';b.style.cssText='';e.target.reset();},4000);}
+function submitForm(e){
+  e.preventDefault();
+  const form=e.target;
+  const b=document.getElementById('fsub');
+  const formData=new FormData(form);
+  
+  // Demo mode: Show sending state without actual submission
+  const originalText=b.textContent;
+  b.textContent='Sending...';
+  b.disabled=true;
+  
+  // Simulate API call (replace with actual fetch to your backend)
+  setTimeout(()=>{
+    b.textContent='Message Sent ✓';
+    b.style.cssText='background:rgba(240,243,245,.08);color:var(--clarity);border:1px solid rgba(240,243,245,.15);padding:16px 44px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;align-self:flex-start;display:inline-flex;';
+    setTimeout(()=>{
+      form.reset();
+      b.textContent=originalText;
+      b.style.cssText='';
+      b.disabled=false;
+    },4000);
+  },1500);
+  
+  /* 
+  // REAL SUBMISSION EXAMPLE (uncomment and configure):
+  fetch('https://your-api-endpoint.com/contact', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    b.textContent='Message Sent ✓';
+    b.style.cssText='background:rgba(240,243,245,.08);color:var(--clarity);border:1px solid rgba(240,243,245,.15);padding:16px 44px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:none;align-self:flex-start;display:inline-flex;';
+    setTimeout(()=>{form.reset();b.textContent='Send Message →';b.style.cssText='';b.disabled=false;},4000);
+  })
+  .catch(error => {
+    b.textContent='Error — Try Again';
+    b.style.cssText='background:rgba(252,79,47,.3);color:var(--clarity);';
+    b.disabled=false;
+    setTimeout(()=>{b.textContent=originalText;b.style.cssText='';},4000);
+  });
+  */
+}
+
+/* DYNAMIC COPYRIGHT YEAR */
+(function(){
+  const yearEl=document.getElementById('copyright-year');
+  if(yearEl){yearEl.textContent=new Date().getFullYear();}
+})();
 </script>
 </body>
 </html>

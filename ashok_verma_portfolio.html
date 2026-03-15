@@ -826,7 +826,54 @@
   /* Mobile responsive */
   @media (max-width: 900px) {
     nav { padding: 24px 32px; }
-    nav .nav-links { display: none; }
+    .nav-links { 
+      position: fixed;
+      top: 70px;
+      right: 0;
+      background: var(--void);
+      flex-direction: column;
+      gap: 0;
+      width: 280px;
+      max-width: 80vw;
+      padding: 24px 0;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      border-left: 1px solid rgba(240,243,245,0.08);
+    }
+    .nav-links.nav-open { 
+      display: flex;
+      transform: translateX(0);
+    }
+    .nav-links a {
+      padding: 16px 32px;
+      display: block;
+    }
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 600;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--clarity);
+      transition: all 0.3s ease;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
     section { padding: 100px 32px; }
     .hero-content { padding: 0 32px; }
     .about-grid { grid-template-columns: 1fr; gap: 60px; }
@@ -834,6 +881,11 @@
     .contact-grid { grid-template-columns: 1fr; gap: 60px; }
     .stat-row { grid-template-columns: 1fr 1fr; }
     footer { flex-direction: column; gap: 24px; text-align: center; }
+  }
+
+  /* Desktop: hide menu toggle */
+  @media (min-width: 901px) {
+    .menu-toggle { display: none; }
   }
 
   /* ALCHEMETRYX ORB */
@@ -890,6 +942,11 @@
 <!-- NAVIGATION -->
 <nav>
   <div class="nav-logo">Ashok <span>Verma</span></div>
+  <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#expertise">Expertise</a></li>
@@ -1203,20 +1260,20 @@
       <div class="reveal reveal-delay-1">
         <form class="contact-form" onsubmit="handleSubmit(event)">
           <div class="form-group">
-            <label class="form-label">Your Name</label>
-            <input type="text" class="form-input" placeholder="What should I call you?" required>
+            <label class="form-label" for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" class="form-input" placeholder="What should I call you?" name="name" required>
           </div>
           <div class="form-group">
-            <label class="form-label">Your Business</label>
-            <input type="text" class="form-input" placeholder="Company or website">
+            <label class="form-label" for="contact-business">Your Business</label>
+            <input type="text" id="contact-business" class="form-input" placeholder="Company or website" name="business">
           </div>
           <div class="form-group">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="Where can I reach you?" required>
+            <label class="form-label" for="contact-email">Email</label>
+            <input type="email" id="contact-email" class="form-input" placeholder="Where can I reach you?" name="email" required>
           </div>
           <div class="form-group">
-            <label class="form-label">What's the problem?</label>
-            <textarea class="form-textarea" placeholder="Describe what's not working in your business. No jargon needed."></textarea>
+            <label class="form-label" for="contact-message">What's the problem?</label>
+            <textarea id="contact-message" class="form-textarea" placeholder="Describe what's not working in your business. No jargon needed." name="message"></textarea>
           </div>
           <button type="submit" class="form-submit">Send Message →</button>
         </form>
@@ -1227,7 +1284,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-copy">© 2025 Ashok Verma · Alchemetryx Consulting · Mumbai</div>
+  <div class="footer-copy">© <span id="copyright-year">2025</span> Ashok Verma · Alchemetryx Consulting · Mumbai</div>
   <div class="footer-links">
     <a href="https://alchemetryx.com" target="_blank">Alchemetryx</a>
     <a href="https://linkedin.com/in/averma1986" target="_blank">LinkedIn</a>
@@ -1269,6 +1326,31 @@ document.querySelectorAll('a, button, .expertise-card, .timeline-item').forEach(
   el.addEventListener('mouseleave', () => {
     cursor.classList.remove('hover');
     ring.classList.remove('hover');
+  });
+});
+
+/* =============================
+   MOBILE MENU TOGGLE
+   ============================= */
+function toggleMenu() {
+  const navLinks = document.querySelector('.nav-links');
+  const menuToggle = document.querySelector('.menu-toggle');
+  if (navLinks && menuToggle) {
+    const isOpen = navLinks.classList.contains('nav-open');
+    navLinks.classList.toggle('nav-open');
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+  }
+}
+
+// Close menu when clicking a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (navLinks && menuToggle) {
+      navLinks.classList.remove('nav-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 });
 
@@ -1447,16 +1529,65 @@ document.querySelectorAll('.tilt-card').forEach(card => {
    ============================= */
 function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.textContent = 'Message Sent ✓';
-  btn.style.background = 'rgba(240,243,245,0.1)';
-  btn.style.color = 'var(--clarity)';
-  btn.style.border = '1px solid rgba(240,243,245,0.2)';
+  const form = e.target;
+  const btn = form.querySelector('.form-submit');
+  const formData = new FormData(form);
+  
+  // Demo mode: Show success message without actual submission
+  // To enable real submission, replace this block with a fetch() call to your endpoint
+  const originalText = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  
+  // Simulate API call (replace with actual fetch to your backend)
   setTimeout(() => {
-    btn.textContent = 'Send Message →';
-    btn.style.cssText = '';
-    e.target.reset();
-  }, 4000);
+    // Success state
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'rgba(240,243,245,0.1)';
+    btn.style.color = 'var(--clarity)';
+    btn.style.border = '1px solid rgba(240,243,245,0.2)';
+    
+    // Reset form after delay
+    setTimeout(() => {
+      form.reset();
+      btn.textContent = originalText;
+      btn.style.cssText = '';
+      btn.disabled = false;
+    }, 4000);
+  }, 1500);
+  
+  /* 
+  // REAL SUBMISSION EXAMPLE (uncomment and configure):
+  fetch('https://your-api-endpoint.com/contact', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = 'rgba(240,243,245,0.1)';
+    btn.style.color = 'var(--clarity)';
+    btn.style.border = '1px solid rgba(240,243,245,0.2)';
+    setTimeout(() => {
+      form.reset();
+      btn.textContent = 'Send Message →';
+      btn.style.cssText = '';
+      btn.disabled = false;
+    }, 4000);
+  })
+  .catch(error => {
+    btn.textContent = 'Error — Try Again';
+    btn.style.background = 'rgba(252,79,47,0.3)';
+    btn.disabled = false;
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.cssText = '';
+    }, 4000);
+  });
+  */
 }
 
 /* =============================
@@ -1467,6 +1598,16 @@ window.addEventListener('scroll', () => {
   const orb = document.getElementById('orb');
   if (orb) orb.style.transform = `translateY(calc(-50% + ${y * 0.25}px))`;
 }, { passive: true });
+
+/* =============================
+   DYNAMIC COPYRIGHT YEAR
+   ============================= */
+(function() {
+  const yearEl = document.getElementById('copyright-year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
+})();
 </script>
 
 </body>

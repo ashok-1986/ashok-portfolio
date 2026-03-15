@@ -81,12 +81,58 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: var(--void);
   color: var(--clarity);
   font-family: 'Galgo', sans-serif;
   overflow-x: hidden;
-  cursor: none; /* For custom cursor */
+  cursor: auto; /* Fallback for custom cursor */
+}
+
+/* Custom cursor element (JS-driven) */
+.custom-cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--edge);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: normal;
+}
+.custom-cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(252,79,47,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+.custom-cursor.hover { width: 20px; height: 20px; background: var(--edge); }
+.custom-cursor-ring.hover { width: 60px; height: 60px; border-color: var(--edge); }
+
+/* Hide custom cursor when keyboard focused or reduced motion preferred */
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor,
+  .custom-cursor-ring {
+    display: none;
+  }
+}
+.no-custom-cursor .custom-cursor,
+.no-custom-cursor .custom-cursor-ring {
+  display: none;
 }
 ```
 
@@ -115,7 +161,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>\
+      <body>{children}</body>
     </html>
   );
 }

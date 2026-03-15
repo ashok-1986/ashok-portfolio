@@ -25,7 +25,7 @@ npx create-next-app@latest ashok-portfolio --typescript --tailwind --eslint
 cd ashok-portfolio
 
 # Animation & 3D
-npm install gsap @studio-freight/lenis three @types/three @react-three/fiber @react-three/drei
+npm install gsap lenis three @types/three @react-three/fiber @react-three/drei
 
 # Icons (optional)
 npm install lucide-react
@@ -224,7 +224,7 @@ export const EXPERTISE = [
     number: '03',
     title: 'Conversion Optimization',
     body: 'VWO, Hotjar, session replays. I find where your funnel leaks and fix it with data-backed experiments, not guesses.',
-    tools: ['VWO', 'Hotjar', 'Optimizely', 'Google Optimize'],
+    tools: ['VWO', 'Hotjar', 'Optimizely', 'Google A/B Testing'],
   },
 ] as const;
 
@@ -316,15 +316,14 @@ export function Layout({ children }: LayoutProps) {
 ## Step 9: Create Lenis Hook (`src/hooks/useLenis.ts`)
 
 ```ts
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
+
+let rafId: number | null = null;
 
 export function initLenis() {
   const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
     mouseMultiplier: 1,
     smoothTouch: false,
     touchMultiplier: 2,
@@ -333,10 +332,20 @@ export function initLenis() {
 
   function raf(time: number) {
     lenis.raf(time);
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
   }
 
-  requestAnimationFrame(raf);
+  rafId = requestAnimationFrame(raf);
+
+  // Return lenis instance with destroy method that also cancels RAF
+  const originalDestroy = lenis.destroy.bind(lenis);
+  lenis.destroy = function() {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    originalDestroy();
+  };
 
   return lenis;
 }
@@ -370,6 +379,17 @@ export default function Home() {
   );
 }
 ```
+
+> **Note on Section Components**: The imports above reference components (`Layout`, `Hero`, `About`, `Expertise`, `Experience`, `Philosophy`, `Contact`, `Footer`) that you need to create. Create each as a functional React component in the `src/components/sections/` directory. For example, create `src/components/sections/Hero.tsx`, `src/components/sections/About.tsx`, etc. You can start with minimal placeholder implementations:
+>
+> ```tsx
+> // src/components/sections/Hero.tsx
+> export function Hero() {
+>   return <section id="hero">Hero Section</section>;
+> }
+> ```
+>
+> Repeat this pattern for each component (`About`, `Expertise`, `Experience`, `Philosophy`, `Contact`, `Footer`), then gradually port your HTML/CSS content into each one.
 
 ---
 

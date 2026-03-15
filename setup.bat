@@ -17,11 +17,16 @@ if errorlevel 1 (
 )
 
 cd ashok-portfolio
+if errorlevel 1 (
+    echo ERROR: Failed to change directory to ashok-portfolio. Please ensure the directory exists.
+    pause
+    exit /b 1
+)
 
 REM Step 2: Install dependencies
 echo.
 echo [2/5] Installing dependencies...
-npm install gsap @studio-freight/lenis three @types/three @react-three/fiber @react-three/drei lucide-react clsx tailwind-merge
+npm install gsap lenis three @types/three @react-three/fiber @react-three/drei lucide-react clsx tailwind-merge
 if errorlevel 1 (
     echo ERROR: Failed to install dependencies
     pause
