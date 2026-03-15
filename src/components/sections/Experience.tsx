@@ -48,7 +48,7 @@ export default function Experience() {
               {item.company}
             </div>
             <p className="t-desc text-[14px] leading-[1.78] text-[rgba(240,243,245,0.38)]">
-              {item.description}
+              {item.desc}
             </p>
             {item.metric && (
               <div className="t-metric inline-flex items-center gap-2.5 mt-3.5 text-[10px] font-bold tracking-[0.18em] uppercase text-[#FC4F2F]">
