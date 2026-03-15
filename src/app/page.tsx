@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { STATS, EXPERTISE, EXPERIENCE } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -243,18 +244,12 @@ export default function Home() {
         </div>
 
         <div className="stat-strip" style={{ display: 'flex', gap: 0, borderTop: '1px solid rgba(240,243,245,0.07)', marginTop: '56px', paddingTop: '48px', width: '100%', maxWidth: '1200px' }}>
-          <div className="stat-item rev" style={{ flex: 1, paddingRight: '40px', borderRight: '1px solid rgba(240,243,245,0.07)', marginRight: '40px' }}>
-            <div className="stat-num" style={{ fontSize: '52px', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: '#F0F3F5', marginBottom: '8px' }}>15<em style={{ color: '#FC4F2F', fontStyle: 'normal' }}>+</em></div>
-            <div className="stat-lbl" style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(240,243,245,0.55)' }}>Years In Digital Analytics</div>
-          </div>
-          <div className="stat-item rev d1" style={{ flex: 1, paddingRight: '40px', borderRight: '1px solid rgba(240,243,245,0.07)', marginRight: '40px' }}>
-            <div className="stat-num" style={{ fontSize: '52px', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: '#F0F3F5', marginBottom: '8px' }}>30<em style={{ color: '#FC4F2F', fontStyle: 'normal' }}>%</em></div>
-            <div className="stat-lbl" style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(240,243,245,0.55)' }}>CAC Reduction Delivered</div>
-          </div>
-          <div className="stat-item rev d2" style={{ flex: 1, paddingRight: 0, borderRight: 'none', marginRight: 0 }}>
-            <div className="stat-num" style={{ fontSize: '52px', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: '#F0F3F5', marginBottom: '8px' }}>50<em style={{ color: '#FC4F2F', fontStyle: 'normal' }}>+</em></div>
-            <div className="stat-lbl" style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(240,243,245,0.55)' }}>Projects Transformed</div>
-          </div>
+          {STATS.map((stat, index) => (
+            <div className="stat-item rev" key={index} style={{ flex: 1, paddingRight: '40px', borderRight: index < STATS.length - 1 ? '1px solid rgba(240,243,245,0.07)' : 'none', marginRight: index < STATS.length - 1 ? '40px' : 0 }}>
+              <div className="stat-num" style={{ fontSize: '52px', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, color: '#F0F3F5', marginBottom: '8px' }}>{stat.number}<em style={{ color: '#FC4F2F', fontStyle: 'normal' }}>{stat.suffix}</em></div>
+              <div className="stat-lbl" style={{ fontSize: '10px', letterSpacing: '0.22em', textTransform: 'uppercase', color: 'rgba(240,243,245,0.55)' }}>{stat.label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -266,49 +261,19 @@ export default function Home() {
         </div>
 
         <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', width: '100%', maxWidth: '1200px', background: 'rgba(240,243,245,0.055)' }}>
-          <div className="card rev" style={{ background: '#1d0906', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', transition: 'background 0.4s', cursor: 'default' }}>
-            <div className="card-num" style={{ position: 'absolute', top: '28px', right: '32px', fontSize: '72px', fontWeight: 900, color: 'rgba(240,243,245,0.03)', letterSpacing: '-0.05em', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>01</div>
-            <div className="card-label" style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '24px' }}>01</div>
-            <h3 className="card-title" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '18px', lineHeight: 1.05 }}>Analytics Strategy</h3>
-            <p className="card-body" style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(240,243,245,0.55)' }}>
-              GA4, Adobe Analytics, BigQuery — I architect the full pipeline. Not just implementation, but the operational logic that turns data into decisions.
-            </p>
-            <div className="tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '28px' }}>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>GA4</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>BigQuery</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>Looker Studio</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>Alteryx</span>
+          {EXPERTISE.map((exp, index) => (
+            <div className="card rev" key={index} style={{ background: '#1d0906', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', transition: 'background 0.4s', cursor: 'default' }}>
+              <div className="card-num" style={{ position: 'absolute', top: '28px', right: '32px', fontSize: '72px', fontWeight: 900, color: 'rgba(240,243,245,0.03)', letterSpacing: '-0.05em', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>{exp.num}</div>
+              <div className="card-label" style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '24px' }}>{exp.num}</div>
+              <h3 className="card-title" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '18px', lineHeight: 1.05 }}>{exp.label}</h3>
+              <p className="card-body" style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(240,243,245,0.55)' }}>{exp.body}</p>
+              <div className="tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '28px' }}>
+                {exp.tags.map((tag, tagIndex) => (
+                  <span className="tag" key={tagIndex} style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>{tag}</span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className="card rev d1" style={{ background: '#1d0906', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', transition: 'background 0.4s', cursor: 'default' }}>
-            <div className="card-num" style={{ position: 'absolute', top: '28px', right: '32px', fontSize: '72px', fontWeight: 900, color: 'rgba(240,243,245,0.03)', letterSpacing: '-0.05em', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>02</div>
-            <div className="card-label" style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '24px' }}>02</div>
-            <h3 className="card-title" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '18px', lineHeight: 1.05 }}>Marketing Automation</h3>
-            <p className="card-body" style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(240,243,245,0.55)' }}>
-              CleverTap, MoEngage, Braze. I build engagement systems that scale personalization without scaling headcount.
-            </p>
-            <div className="tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '28px' }}>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>CleverTap</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>MoEngage</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>Braze</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>Segment</span>
-            </div>
-          </div>
-
-          <div className="card rev d2" style={{ background: '#1d0906', padding: '48px 40px 44px', position: 'relative', overflow: 'hidden', transition: 'background 0.4s', cursor: 'default' }}>
-            <div className="card-num" style={{ position: 'absolute', top: '28px', right: '32px', fontSize: '72px', fontWeight: 900, color: 'rgba(240,243,245,0.03)', letterSpacing: '-0.05em', lineHeight: 1, pointerEvents: 'none', userSelect: 'none' }}>03</div>
-            <div className="card-label" style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '24px' }}>03</div>
-            <h3 className="card-title" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '18px', lineHeight: 1.05 }}>Conversion Optimization</h3>
-            <p className="card-body" style={{ fontSize: '14px', lineHeight: 1.8, color: 'rgba(240,243,245,0.55)' }}>
-              VWO, Hotjar, session replays. I find where your funnel leaks and fix it with data-backed experiments, not guesses.
-            </p>
-            <div className="tags" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '28px' }}>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>VWO</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>Hotjar</span>
-              <span className="tag" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(252,79,47,0.7)', border: '1px solid rgba(252,79,47,0.2)', padding: '5px 11px' }}>Optimizely</span>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -324,61 +289,19 @@ export default function Home() {
         <div className="timeline" style={{ maxWidth: '840px', width: '100%', marginTop: '64px', position: 'relative' }}>
           <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '1px', background: 'linear-gradient(to bottom, #FC4F2F 0%, rgba(252,79,47,0.05) 100%)' }}></div>
 
-          <div className="t-item" style={{ paddingLeft: '48px', marginBottom: '60px', position: 'relative', opacity: 0, transform: 'translateX(-24px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
-            <div className="t-dot" style={{ position: 'absolute', left: '-5px', top: '10px', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', boxShadow: '0 0 18px rgba(252,79,47,0.7)' }}></div>
-            <div className="t-period" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '10px' }}>2019 — Present</div>
-            <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>Founder</h3>
-            <div className="t-co" style={{ fontSize: '13px', color: 'rgba(240,243,245,0.55)', letterSpacing: '0.06em', marginBottom: '16px' }}>Alchemetryx Consulting</div>
-            <p className="t-desc" style={{ fontSize: '14px', lineHeight: 1.78, color: 'rgba(240,243,245,0.38)' }}>
-              Built a analytics consultancy for owner-led SMEs. Reduced CAC by 30% for clients. Built systems that reduced founder dependency on gut feel.
-            </p>
-            <div className="t-metric" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginTop: '14px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F' }}>
-              <span style={{ width: '18px', height: '1px', background: '#FC4F2F', display: 'inline-block' }}></span>
-              30% avg. CAC reduction
+          {EXPERIENCE.map((exp, index) => (
+            <div className="t-item" key={index} style={{ paddingLeft: '48px', marginBottom: '60px', position: 'relative', opacity: 0, transform: 'translateX(-24px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
+              <div className="t-dot" style={{ position: 'absolute', left: '-5px', top: '10px', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', boxShadow: '0 0 18px rgba(252,79,47,0.7)' }}></div>
+              <div className="t-period" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '10px' }}>{exp.period}</div>
+              <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>{exp.role}</h3>
+              <div className="t-co" style={{ fontSize: '13px', color: 'rgba(240,243,245,0.55)', letterSpacing: '0.06em', marginBottom: '16px' }}>{exp.company}</div>
+              <p className="t-desc" style={{ fontSize: '14px', lineHeight: 1.78, color: 'rgba(240,243,245,0.38)' }}>{exp.desc}</p>
+              <div className="t-metric" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginTop: '14px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F' }}>
+                <span style={{ width: '18px', height: '1px', background: '#FC4F2F', display: 'inline-block' }}></span>
+                {exp.metric}
+              </div>
             </div>
-          </div>
-
-          <div className="t-item" style={{ paddingLeft: '48px', marginBottom: '60px', position: 'relative', opacity: 0, transform: 'translateX(-24px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
-            <div className="t-dot" style={{ position: 'absolute', left: '-5px', top: '10px', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', boxShadow: '0 0 18px rgba(252,79,47,0.7)' }}></div>
-            <div className="t-period" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '10px' }}>2015 — 2019</div>
-            <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>Head of Digital Analytics</h3>
-            <div className="t-co" style={{ fontSize: '13px', color: 'rgba(240,243,245,0.55)', letterSpacing: '0.06em', marginBottom: '16px' }}>BookMyShow</div>
-            <p className="t-desc" style={{ fontSize: '14px', lineHeight: 1.78, color: 'rgba(240,243,245,0.38)' }}>
-              Led analytics for India's largest ticketing platform. Managed team of 8. Built real-time dashboards used by C-suite daily.
-            </p>
-            <div className="t-metric" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginTop: '14px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F' }}>
-              <span style={{ width: '18px', height: '1px', background: '#FC4F2F', display: 'inline-block' }}></span>
-              10M+ monthly transactions
-            </div>
-          </div>
-
-          <div className="t-item" style={{ paddingLeft: '48px', marginBottom: '60px', position: 'relative', opacity: 0, transform: 'translateX(-24px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
-            <div className="t-dot" style={{ position: 'absolute', left: '-5px', top: '10px', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', boxShadow: '0 0 18px rgba(252,79,47,0.7)' }}></div>
-            <div className="t-period" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '10px' }}>2012 — 2015</div>
-            <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>Senior Analytics Manager</h3>
-            <div className="t-co" style={{ fontSize: '13px', color: 'rgba(240,243,245,0.55)', letterSpacing: '0.06em', marginBottom: '16px' }}>L&T Finance</div>
-            <p className="t-desc" style={{ fontSize: '14px', lineHeight: 1.78, color: 'rgba(240,243,245,0.38)' }}>
-              First analytics hire. Built the entire digital measurement framework from scratch.
-            </p>
-            <div className="t-metric" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginTop: '14px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F' }}>
-              <span style={{ width: '18px', height: '1px', background: '#FC4F2F', display: 'inline-block' }}></span>
-              First analytics hire
-            </div>
-          </div>
-
-          <div className="t-item" style={{ paddingLeft: '48px', marginBottom: '60px', position: 'relative', opacity: 0, transform: 'translateX(-24px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
-            <div className="t-dot" style={{ position: 'absolute', left: '-5px', top: '10px', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', boxShadow: '0 0 18px rgba(252,79,47,0.7)' }}></div>
-            <div className="t-period" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '10px' }}>2010 — 2012</div>
-            <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>Digital Analyst</h3>
-            <div className="t-co" style={{ fontSize: '13px', color: 'rgba(240,243,245,0.55)', letterSpacing: '0.06em', marginBottom: '16px' }}>Fichmu Foods</div>
-            <p className="t-desc" style={{ fontSize: '14px', lineHeight: 1.78, color: 'rgba(240,243,245,0.38)' }}>
-              Solo analyst for FMCG brand. E-commerce analytics, supply chain optimization, pricing strategy.
-            </p>
-            <div className="t-metric" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginTop: '14px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F' }}>
-              <span style={{ width: '18px', height: '1px', background: '#FC4F2F', display: 'inline-block' }}></span>
-              Solo analyst
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
@@ -418,16 +341,20 @@ export default function Home() {
 
           <form className="cf rev" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
             <div className="fg" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label className="fl" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F' }}>Name</label>
-              <input type="text" className="fi" placeholder="Your name" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%' }} />
+              <label className="fl" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F' }}>Your Name</label>
+              <input type="text" className="fi" placeholder="What should I call you?" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%' }} />
+            </div>
+            <div className="fg" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label className="fl" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F' }}>Your Business</label>
+              <input type="text" className="fi" placeholder="Company or website" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%' }} />
             </div>
             <div className="fg" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <label className="fl" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F' }}>Email</label>
-              <input type="email" className="fi" placeholder="your@email.com" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%' }} />
+              <input type="email" className="fi" placeholder="Where can I reach you?" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%' }} />
             </div>
             <div className="fg" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <label className="fl" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F' }}>Message</label>
-              <textarea className="ft" placeholder="Tell me about your project..." rows={4} style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%', resize: 'none', minHeight: '90px' }}></textarea>
+              <label className="fl" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#FC4F2F' }}>What's the problem?</label>
+              <textarea className="ft" placeholder="Describe what isn't working. No jargon needed." rows={4} style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(240,243,245,0.1)', color: '#F0F3F5', fontFamily: 'Urbanist, sans-serif', fontSize: '15px', padding: '12px 0', outline: 'none', transition: 'border-color 0.3s', width: '100%', resize: 'none', minHeight: '90px' }}></textarea>
             </div>
             <button type="submit" className="fsub" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#190805', background: '#FC4F2F', border: 'none', padding: '16px 44px', cursor: 'none', transition: 'opacity 0.3s, transform 0.3s', alignSelf: 'flex-start' }}>Send Message →</button>
           </form>
