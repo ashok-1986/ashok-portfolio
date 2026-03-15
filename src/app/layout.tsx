@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   },
 };
 
+import CustomCursor from "@/components/ui/CustomCursor";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,6 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning className="antialiased overflow-x-hidden border-[#190805] bg-[#190805]">
+        <CustomCursor />
         {children}
       </body>
     </html>

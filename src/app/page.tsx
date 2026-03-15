@@ -10,41 +10,8 @@ import Contact from '@/components/sections/Contact';
 import Footer from '@/components/sections/Footer';
 
 export default function Home() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorRingRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const cursor = cursorRef.current;
-    const ring = cursorRingRef.current;
-    if (!cursor || !ring) return;
-
-    let rx = 0, ry = 0, cx = 0, cy = 0;
-
-    const onMove = (e: MouseEvent) => {
-      cx = e.clientX; cy = e.clientY;
-      cursor.style.left = `${cx}px`;
-      cursor.style.top = `${cy}px`;
-    };
-
-    const trackRing = () => {
-      rx += (cx - rx) * 0.13;
-      ry += (cy - ry) * 0.13;
-      ring.style.left = `${rx}px`;
-      ring.style.top = `${ry}px`;
-      requestAnimationFrame(trackRing);
-    };
-    trackRing();
-
-    document.addEventListener('mousemove', onMove, { passive: true });
-    return () => document.removeEventListener('mousemove', onMove);
-  }, []);
-
   return (
     <main>
-      {/* Cursor */}
-      <div ref={cursorRef} style={{ position: 'fixed', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', pointerEvents: 'none', zIndex: 9999, transform: 'translate(-50%,-50%)', transition: 'width .25s,height .25s', mixBlendMode: 'screen' }} />
-      <div ref={cursorRingRef} style={{ position: 'fixed', width: '38px', height: '38px', border: '1px solid rgba(252,79,47,0.4)', borderRadius: '50%', pointerEvents: 'none', zIndex: 9998, transform: 'translate(-50%,-50%)', transition: 'width .3s,height .3s,border-color .3s' }} />
-
       <Hero />
 
       {/* Marquee */}
