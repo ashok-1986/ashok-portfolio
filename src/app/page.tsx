@@ -1,11 +1,12 @@
 // src/app/page.tsx
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Expertise from '@/components/sections/Expertise';
 import Experience from '@/components/sections/Experience';
+import EyeSection from '@/components/sections/EyeSection';
 import Philosophy from '@/components/sections/Philosophy';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/sections/Footer';
@@ -15,74 +16,26 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorRingRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const cursor = cursorRef.current;
-    const ring = cursorRingRef.current;
-    if (!cursor || !ring) return;
+    // Reveal animations for general sections if any classes are missed
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('vis');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    let rx = 0, ry = 0, cx = 0, cy = 0;
+    document.querySelectorAll('.rev').forEach((el) => observer.observe(el));
 
-    const handleMouseMove = (e: MouseEvent) => {
-      cx = e.clientX; cy = e.clientY;
-      cursor.style.left = `${cx}px`;
-      cursor.style.top  = `${cy}px`;
-    };
-
-    const trackRing = () => {
-      rx += (cx - rx) * 0.13;
-      ry += (cy - ry) * 0.13;
-      ring.style.left = `${rx}px`;
-      ring.style.top  = `${ry}px`;
-      requestAnimationFrame(trackRing);
-    };
-    trackRing();
-
-    document.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width  = '18px';
-        cursor.style.height = '18px';
-        ring.style.width    = '56px';
-        ring.style.height   = '56px';
-        ring.style.borderColor = '#FC4F2F';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width  = '10px';
-        cursor.style.height = '10px';
-        ring.style.width    = '38px';
-        ring.style.height   = '38px';
-        ring.style.borderColor = 'rgba(252,79,47,0.4)';
-      });
-    });
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <main>
-      {/* Custom Cursor */}
-      <div id="cur" ref={cursorRef} style={{
-        position: 'fixed', width: '10px', height: '10px',
-        background: '#FC4F2F', borderRadius: '50%',
-        pointerEvents: 'none', zIndex: 9999,
-        transform: 'translate(-50%,-50%)',
-        transition: 'width .25s, height .25s',
-        mixBlendMode: 'screen',
-      }} />
-      <div id="cur-ring" ref={cursorRingRef} style={{
-        position: 'fixed', width: '38px', height: '38px',
-        border: '1px solid rgba(252,79,47,0.4)', borderRadius: '50%',
-        pointerEvents: 'none', zIndex: 9998,
-        transform: 'translate(-50%,-50%)',
-        transition: 'width .3s, height .3s, border-color .3s',
-      }} />
-
       <Hero />
 
       {/* MARQUEE */}
@@ -108,6 +61,7 @@ export default function Home() {
       <About />
       <Expertise />
       <Experience />
+      <EyeSection />
       <Philosophy />
       <Contact />
       <Footer />

@@ -1,54 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
 import { NAVIGATION } from '@/lib/constants';
 
 export default function Navigation() {
-  useEffect(() => {
-    const cursor = document.querySelector('.cursor') as HTMLElement;
-    const ring = document.querySelector('.cursor-ring') as HTMLElement;
-
-    if (!cursor || !ring) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
-      ring.style.left = `${e.clientX}px`;
-      ring.style.top = `${e.clientY}px`;
-    };
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'A' || target.tagName === 'BUTTON') {
-        cursor.classList.add('hover');
-        ring.classList.add('hover');
-      } else {
-        cursor.classList.remove('hover');
-        ring.classList.remove('hover');
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseover', handleMouseOver);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseover', handleMouseOver);
-    };
-  }, []);
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-[60px] py-7 flex justify-between items-center">
-      <div className="text-[13px] font-medium tracking-[0.25em] uppercase text-[#F0F3F5]">
-        Ashok <span className="text-[#FC4F2F]">Verma</span>
-      </div>
+    <nav className="fixed top-0 left-0 right-0 z-[500] px-[30px] md:px-[60px] py-[20px] md:py-[26px] flex justify-between items-center bg-gradient-to-b from-[rgba(25,8,5,0.95)] to-transparent">
+      <a href="/" className="nav-logo relative font-bold tracking-[0.28em] uppercase text-[#F0F3F5] transition-opacity hover:opacity-80">
+        Ashok <em>Verma</em>
+      </a>
 
-      <ul className="flex gap-10 list-none">
+      <ul className="hidden lg:flex gap-10 list-none m-0 p-0">
         {NAVIGATION.map((item) => (
           <li key={item.label}>
             <a
               href={item.href}
-              className="text-[11px] font-medium tracking-[0.2em] uppercase text-[rgba(240,243,245,0.55)] no-underline transition-colors hover:text-[#F0F3F5]"
+              className="text-[10.5px] font-semibold tracking-[0.22em] uppercase text-[rgba(240,243,245,0.7)] no-underline transition-colors hover:text-[#F0F3F5]"
             >
               {item.label}
             </a>
@@ -58,7 +24,7 @@ export default function Navigation() {
 
       <a
         href="mailto:verma.86ashok@gmail.com"
-        className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#190805] bg-[#FC4F2F] px-6 py-2.5 no-underline transition-opacity hover:opacity-85"
+        className="nav-cta relative inline-block text-[9px] md:text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#190805] bg-[#FC4F2F] px-[18px] md:px-[26px] py-[9px] md:py-[11px] no-underline transition-opacity hover:opacity-80"
       >
         Let's Talk
       </a>
