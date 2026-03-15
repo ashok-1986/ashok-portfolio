@@ -1,6 +1,0 @@
-{
-  "outputDirectory": "ashok-portfolio/.next",
-  "installCommand": "cd ashok-portfolio && npm install",
-  "buildCommand": "cd ashok-portfolio && npm run build",
-  "framework": "nextjs"
-}
