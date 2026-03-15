@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -101,32 +102,31 @@ export default function Home() {
 
         {/* Hero Photo Column */}
         <div className="hero-photo-col" style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '42%', zIndex: 5, overflow: 'hidden', opacity: 0.4 }}>
-          <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '280px', background: 'linear-gradient(to right, #190805 0%, rgba(25,8,5,0.7) 40%, transparent 100%)', zIndex: 2, pointerEvents: 'none' }}></div>
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(to top, #190805 0%, transparent 100%)', zIndex: 2, pointerEvents: 'none' }}></div>
+          <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '280px', background: 'linear-gradient(to right, #190805 0%, rgba(25,8,5,0.7) 40%, transparent 100%)', zIndex: 20, pointerEvents: 'none' }}></div>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(to top, #190805 0%, transparent 100%)', zIndex: 20, pointerEvents: 'none' }}></div>
           
-          {/* Hero Image - Using a professional placeholder */}
-          <div style={{ 
-            position: 'absolute', 
-            inset: 0, 
-            background: 'linear-gradient(135deg, #2a1a15 0%, #1a0a05 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '14px',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'rgba(252,79,47,0.3)'
-          }}>
-            {/* Replace with your actual photo */}
-            <span>Your Photo Here</span>
+          {/* Hero Image */}
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <Image
+              src="/images/hero.png"
+              alt="Ashok Verma"
+              fill
+              priority
+              sizes="42vw"
+              style={{
+                objectFit: 'cover',
+                objectPosition: 'center top',
+                filter: 'grayscale(100%) contrast(1.12) brightness(0.88)',
+              }}
+            />
           </div>
 
           {/* Orange corner accents */}
-          <div className="corner-tr" style={{ position: 'absolute', top: '80px', right: '40px', width: '36px', height: '36px', borderTop: '2px solid #FC4F2F', borderRight: '2px solid #FC4F2F', zIndex: 3 }}></div>
-          <div className="corner-bl" style={{ position: 'absolute', bottom: '80px', left: 0, width: '36px', height: '36px', borderBottom: '2px solid #FC4F2F', borderLeft: '2px solid #FC4F2F', zIndex: 3 }}></div>
+          <div className="corner-tr" style={{ position: 'absolute', top: '80px', right: '40px', width: '36px', height: '36px', borderTop: '2px solid #FC4F2F', borderRight: '2px solid #FC4F2F', zIndex: 30 }}></div>
+          <div className="corner-bl" style={{ position: 'absolute', bottom: '80px', left: 0, width: '36px', height: '36px', borderBottom: '2px solid #FC4F2F', borderLeft: '2px solid #FC4F2F', zIndex: 30 }}></div>
 
           {/* Name overlay */}
-          <div style={{ position: 'absolute', bottom: '88px', right: '40px', textAlign: 'right', zIndex: 3 }}>
+          <div style={{ position: 'absolute', bottom: '88px', right: '40px', textAlign: 'right', zIndex: 30 }}>
             <div className="pname" style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F0F3F5' }}>ASHOK VERMA</div>
             <div className="ptitle" style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F', marginTop: '4px' }}>FOUNDER · ALCHEMETRYX</div>
           </div>
