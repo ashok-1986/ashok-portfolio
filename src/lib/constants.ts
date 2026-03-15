@@ -13,25 +13,25 @@ export const STATS = [
 
 export const EXPERTISE = [
   {
-    num: '01',
+    number: '01',
     label: 'Decision Intelligence',
     title: "You Have Data.\nYou Don't Have Clarity.",
     body: 'I build the instrumentation, dashboards, and KPI frameworks that turn your analytics stack into actual decisions — not just reporting theatre.',
-    tags: ['GA4 Audits', 'BigQuery', 'Looker Studio', 'KPI Design']
+    tools: ['GA4 Audits', 'BigQuery', 'Looker Studio', 'KPI Design']
   },
   {
-    num: '02',
+    number: '02',
     label: 'Digital Platforms',
     title: "Every Pound\nAccountable.",
     body: 'Websites that track properly. Campaigns that convert, not just impress. Every marketing decision rooted in evidence — not gut feeling.',
-    tags: ['GTM', 'WordPress', 'SEO', 'Campaign Analytics']
+    tools: ['GTM', 'WordPress', 'SEO', 'Campaign Analytics']
   },
   {
-    num: '03',
+    number: '03',
     label: 'Intelligent Automation',
     title: "Systems That\nScale Without You.",
     body: 'Marketing automation that actually personalises. Retention strategies built on real customer behaviour. Less manual work, more intelligent follow-through.',
-    tags: ['CleverTap', 'MoEngage', 'VWO', 'Email Automation']
+    tools: ['CleverTap', 'MoEngage', 'VWO', 'Email Automation']
   },
 ] as const;
 

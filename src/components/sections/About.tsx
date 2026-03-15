@@ -84,7 +84,7 @@ export default function About() {
         {STATS.map((stat, index) => (
           <div key={stat.label} className={`stat-item flex-1 pr-10 border-r border-[rgba(240,243,245,0.07)] mr-10 ${index === STATS.length - 1 ? 'border-r-0 mr-0 pr-0' : ''} rev ${index === 0 ? 'd1' : index === 1 ? 'd2' : 'd3'}`}>
             <div className="stat-num text-[52px] font-black tracking-[-0.04em] leading-[1] text-[#F0F3F5] mb-2">
-              {stat.value}
+              {stat.number}{stat.suffix}
             </div>
             <div className="stat-lbl text-[10px] tracking-[0.22em] uppercase text-[rgba(240,243,245,0.55)]">
               {stat.label}
