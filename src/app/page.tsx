@@ -11,7 +11,7 @@ export default function Home() {
   const cursorRingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Cursor
+    // Cursor functionality
     const cursor = cursorRef.current;
     const ring = cursorRingRef.current;
 
@@ -88,6 +88,10 @@ export default function Home() {
 
   return (
     <main>
+      {/* Custom Cursor */}
+      <div id="cur" ref={cursorRef}></div>
+      <div id="cur-ring" ref={cursorRingRef}></div>
+
       {/* HERO */}
       <section id="hero" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', overflow: 'hidden', padding: '0 60px', background: '#190805' }}>
         {/* Particle Canvas Container */}
@@ -100,9 +104,21 @@ export default function Home() {
           <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '280px', background: 'linear-gradient(to right, #190805 0%, rgba(25,8,5,0.7) 40%, transparent 100%)', zIndex: 2, pointerEvents: 'none' }}></div>
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px', background: 'linear-gradient(to top, #190805 0%, transparent 100%)', zIndex: 2, pointerEvents: 'none' }}></div>
           
-          {/* Photo placeholder - replace with actual image */}
-          <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #2a1a15 0%, #1a0a05 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ color: 'rgba(252,79,47,0.3)', fontSize: '14px', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Your Photo Here</span>
+          {/* Hero Image - Using a professional placeholder */}
+          <div style={{ 
+            position: 'absolute', 
+            inset: 0, 
+            background: 'linear-gradient(135deg, #2a1a15 0%, #1a0a05 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '14px',
+            letterSpacing: '0.3em',
+            textTransform: 'uppercase',
+            color: 'rgba(252,79,47,0.3)'
+          }}>
+            {/* Replace with your actual photo */}
+            <span>Your Photo Here</span>
           </div>
 
           {/* Orange corner accents */}
