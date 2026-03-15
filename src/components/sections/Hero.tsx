@@ -235,7 +235,7 @@ export default function Hero() {
             opacity: 0, transform: 'translateY(20px)',
           }}
         >
-          
+          <a
             href="#expertise"
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
@@ -246,20 +246,7 @@ export default function Hero() {
           >
             See My Work ↓
           </a>
-          
-            href="https://alchemetryx.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '10px',
-              fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em',
-              textTransform: 'uppercase', color: '#F0F3F5',
-              border: '1px solid rgba(240,243,245,0.18)',
-              padding: '15px 40px', textDecoration: 'none',
-            }}
-          >
-            Visit Alchemetryx
-          </a>
+         <a href="https://alchemetryx.com" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex',alignItems:'center',gap:'10px',fontSize:'11px',fontWeight:700,letterSpacing:'0.2em',textTransform:'uppercase',color:'#F0F3F5',border:'1px solid rgba(240,243,245,0.18)',padding:'15px 40px',textDecoration:'none'}}>Visit Alchemetryx</a>
         </div>
       </div>
 
