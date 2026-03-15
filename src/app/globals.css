@@ -4,7 +4,8 @@
 /* Galgo Font - Headings (from local files) */
 @font-face {
   font-family: 'Galgo';
-  src: url('/fonts/galgo-var.woff') format('woff');
+  src: url('/fonts/galgo-var.woff') format('woff'),
+       url('/fonts/galgo-var.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -12,7 +13,8 @@
 
 @font-face {
   font-family: 'Galgo';
-  src: url('/fonts/galgo-regular.woff') format('woff');
+  src: url('/fonts/galgo-regular.woff') format('woff'),
+       url('/fonts/galgo-regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,7 +22,8 @@
 
 @font-face {
   font-family: 'Galgo';
-  src: url('/fonts/galgo-bold.woff') format('woff');
+  src: url('/fonts/galgo-bold.woff') format('woff'),
+       url('/fonts/galgo-bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -28,7 +31,8 @@
 
 @font-face {
   font-family: 'Galgo';
-  src: url('/fonts/galgo-light.woff') format('woff');
+  src: url('/fonts/galgo-light.woff') format('woff'),
+       url('/fonts/galgo-light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -67,7 +71,7 @@ body {
 
 /* Headings use Galgo font */
 h1, h2, h3, h4, h5, h6, .nav-logo, .hero-headline, .sec-title, .about-statement, .card-title, .contact-cta, .phil-quote {
-  font-family: 'Galgo', sans-serif;
+  font-family: 'Galgo', 'Urbanist', sans-serif;
 }
 
 /* Custom Cursor */

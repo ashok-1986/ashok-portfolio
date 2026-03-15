@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ashok Verma — Alchemetryx",
     description: "Turning Data Into Clarity",
-    images: ["/images/og-image.jpg"],
+    images: [{ url: "/images/og-image.jpg", width: 1200, height: 630, alt: "Ashok Verma - Alchemetryx" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Ashok Verma — Alchemetryx",
     description: "Turning Data Into Clarity",
-    images: ["/images/og-image.jpg"],
+    images: [{ url: "/images/og-image.jpg", width: 1200, height: 630, alt: "Ashok Verma - Alchemetryx" }],
   },
   robots: {
     index: true,
