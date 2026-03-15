@@ -4,36 +4,9 @@
 /* Galgo Font - Headings (from local files) */
 @font-face {
   font-family: 'Galgo';
-  src: url('/fonts/galgo-var.woff') format('woff'),
-       url('/fonts/galgo-var.woff2') format('woff2');
+  src: url('/fonts/WOFF/GalgoVF.woff2') format('woff2'),
+       url('/fonts/WOFF/GalgoVF.woff') format('woff');
   font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Galgo';
-  src: url('/fonts/galgo-regular.woff') format('woff'),
-       url('/fonts/galgo-regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Galgo';
-  src: url('/fonts/galgo-bold.woff') format('woff'),
-       url('/fonts/galgo-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Galgo';
-  src: url('/fonts/galgo-light.woff') format('woff'),
-       url('/fonts/galgo-light.woff2') format('woff2');
-  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
@@ -184,7 +157,7 @@ nav::before {
 .nav-cta {
   position: relative;
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--void);
@@ -196,6 +169,71 @@ nav::before {
   transition: opacity 0.3s;
   display: inline-block;
   font-family: 'Urbanist', sans-serif;
+}
+
+/* Timeline Section */
+.t-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 40px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--clarity-dim);
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.t-year {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--edge);
+  padding-top: 6px;
+}
+
+.t-role {
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--clarity);
+  margin-bottom: 4px;
+  line-height: 1.05;
+}
+
+.t-company {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clarity-mid);
+  margin-bottom: 20px;
+}
+
+.t-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--clarity-mid);
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.t-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.t-tag {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240, 243, 245, 0.35);
+  border: 1px solid rgba(240, 243, 245, 0.1);
+  padding: 6px 14px;
+  border-radius: 4px;
 }
 
 .nav-cta:hover {

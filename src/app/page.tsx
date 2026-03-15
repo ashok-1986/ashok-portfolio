@@ -141,7 +141,7 @@ export default function Home() {
 
           <h1 className="h1" style={{ fontSize: 'clamp(64px, 11vw, 172px)', fontWeight: 900, lineHeight: 0.88, textTransform: 'uppercase', letterSpacing: '-0.035em', marginBottom: '44px', opacity: 0, transform: 'translateY(20px)' }}>
             <span className="solid" style={{ color: '#F0F3F5', display: 'block' }}>Turning</span>
-            <span className="hollow" style={{ color: 'transparent', WebkitTextStroke: '1.5px rgba(240,243,245,0.2)', display: 'block' }}>Data</span>
+            <span className="hollow" style={{ color: 'transparent', WebkitTextStroke: '1.0px rgba(240,243,245,0.2)', display: 'block' }}>Data</span>
             <span className="fire" style={{ color: '#FC4F2F', textShadow: '0 0 100px rgba(252,79,47,0.55), 0 0 40px rgba(252,79,47,0.3)', display: 'block' }}>Into</span>
             <span className="solid" style={{ color: '#F0F3F5', display: 'block' }}>Clarity</span>
           </h1>
@@ -341,7 +341,7 @@ export default function Home() {
           <div className="t-item" style={{ paddingLeft: '48px', marginBottom: '60px', position: 'relative', opacity: 0, transform: 'translateX(-24px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}>
             <div className="t-dot" style={{ position: 'absolute', left: '-5px', top: '10px', width: '10px', height: '10px', background: '#FC4F2F', borderRadius: '50%', boxShadow: '0 0 18px rgba(252,79,47,0.7)' }}></div>
             <div className="t-period" style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '10px' }}>2015 — 2019</div>
-            <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>Head of Digital Analytics</h3>
+            <h3 className="t-role" style={{ fontSize: '22px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '-0.02em', color: '#F0F3F5', marginBottom: '4px', lineHeight: 1.05 }}>Head of Digital Analytics</h3>
             <div className="t-co" style={{ fontSize: '13px', color: 'rgba(240,243,245,0.55)', letterSpacing: '0.06em', marginBottom: '16px' }}>BookMyShow</div>
             <p className="t-desc" style={{ fontSize: '14px', lineHeight: 1.78, color: 'rgba(240,243,245,0.38)' }}>
               Led analytics for India's largest ticketing platform. Managed team of 8. Built real-time dashboards used by C-suite daily.
