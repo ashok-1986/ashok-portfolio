@@ -186,6 +186,26 @@ export default function Home() {
 
         <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '100px', width: '100%', maxWidth: '1200px', alignItems: 'start' }}>
           <div>
+            {/* About Photo */}
+            <div className="about-photo-frame rev" style={{ position: 'relative', width: '100%', paddingBottom: '118%', overflow: 'hidden', marginBottom: '36px' }}>
+              <Image
+                src="/images/about.png"
+                alt="Ashok Verma"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{
+                  objectFit: 'cover',
+                  objectPosition: 'center 15%',
+                  filter: 'grayscale(100%) contrast(1.15) brightness(0.82)',
+                }}
+              />
+              {/* Frame corners */}
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '28px', height: '28px', borderTop: '2px solid #FC4F2F', borderLeft: '2px solid #FC4F2F', zIndex: 2 }}></div>
+              <div style={{ position: 'absolute', bottom: 0, right: 0, width: '28px', height: '28px', borderBottom: '2px solid #FC4F2F', borderRight: '2px solid #FC4F2F', zIndex: 2 }}></div>
+              {/* Bottom fade */}
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '120px', background: 'linear-gradient(to top, rgba(25,8,5,0.6), transparent)', zIndex: 1, pointerEvents: 'none' }}></div>
+            </div>
+
             <h2 className="about-statement rev" style={{ fontSize: 'clamp(40px, 5.5vw, 68px)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.03em', lineHeight: 0.9, color: '#F0F3F5', marginBottom: '44px' }}>
               Not A<br />
               <span className="o" style={{ color: 'transparent', WebkitTextStroke: '1px rgba(240,243,245,0.2)', display: 'block' }}>Tool</span><br />
