@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ashok.alchemetryx.com'),
   title: 'Ashok Verma | Systems & Operational Clarity',
   description: '15 years of transforming data into predictable growth systems for owner-led SMEs.',
+  alternates: {
+    canonical: 'https://ashok.alchemetryx.com',
+  },
   openGraph: {
     title: 'Ashok Verma | Systems & Operational Clarity',
     description: 'Operational clarity that reduces owner dependency and makes growth predictable.',
