@@ -79,9 +79,9 @@ export default function Home() {
         if (eyeImg) {
           gsap.fromTo(
             eyeImg,
-            { y: '-12%' },
+            { y: '-20%' },
             {
-              y: '12%',
+              y: '20%',
               ease: 'none',
               scrollTrigger: {
                 trigger: eyeSection,

@@ -469,7 +469,7 @@ nav::before {
   top: 50%;
   width: 100%;
   /* Extra height gives parallax room to translate without exposing edges */
-  height: 130%;
+  height: 150%;
   transform: translateY(-50%);
   object-fit: cover;
   object-position: center 30%;
