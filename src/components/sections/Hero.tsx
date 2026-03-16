@@ -11,88 +11,144 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    // Explicitly set initial states so Strict Mode double-invoke can't leave
-    // elements stuck at whatever state the previous run left them in.
-    gsap.set(['.hero-chip', '.h1', '.hero-sub', '.hero-btns', '.scroll-pill'], {
-      opacity: 0,
-      y: 40,
-    });
-    gsap.set('.hero-photo-col', { opacity: 0 });
+    // Kill any previous timeline from Strict Mode double-invoke
+    tlRef.current?.kill();
 
-    const tl = gsap.timeline();
+    // Small timeout lets React finish hydration before GSAP touches the DOM
+    const timer = setTimeout(() => {
+      // Set initial states
+      gsap.set([
+        '.hero-chip',
+        '.h1',
+        '.hero-sub',
+        '.hero-btns',
+        '.scroll-pill',
+      ], { opacity: 0, y: 40, immediateRender: true });
 
-    tl.to('.hero-chip', { opacity: 1, y: 0, duration: 0.9, delay: 0.3, ease: 'power3.out' })
-      .to('.h1', { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, '-=0.6')
-      .to('.hero-sub', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.65')
-      .to('.hero-btns', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
-      .to('.hero-photo-col', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=1')
-      .to('.scroll-pill', { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out' }, '-=0.5');
+      gsap.set('.hero-photo-col', { opacity: 0, immediateRender: true });
 
-    // Image parallax on scroll
-    let st: ScrollTrigger | null = null;
-    if (imageRef.current) {
-      st = ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          if (imageRef.current) {
-            gsap.set(imageRef.current, { y: `${self.progress * 20}%` });
-          }
-        },
-      });
-    }
+      // Build timeline
+      const tl = gsap.timeline();
+      tlRef.current = tl;
+
+      tl.to('.hero-chip', {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+      })
+        .to('.h1', {
+          opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
+        }, '-=0.6')
+        .to('.hero-sub', {
+          opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        }, '-=0.65')
+        .to('.hero-btns', {
+          opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        }, '-=0.6')
+        .to('.hero-photo-col', {
+          opacity: 1, duration: 1.4, ease: 'power2.out',
+        }, '-=1.0')
+        .to('.scroll-pill', {
+          opacity: 1, y: 0, duration: 1.0, ease: 'power2.out',
+        }, '-=0.5');
+
+      // Image parallax on scroll
+      if (imageRef.current) {
+        ScrollTrigger.create({
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          onUpdate: (self) => {
+            if (imageRef.current) {
+              gsap.set(imageRef.current, { y: `${self.progress * 20}%` });
+            }
+          },
+        });
+      }
+    }, 100); // 100ms is enough for hydration to complete
 
     return () => {
-      tl.kill();
-      st?.kill();
+      clearTimeout(timer);
+      tlRef.current?.kill();
+      ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
 
-
   return (
     <section id="hero" ref={containerRef}>
-      {/* Background Particles */}
+
+      {/* Background particle field */}
       <ParticleCanvas />
 
-      {/* Hero Photo Column */}
+      {/* Hero photo — right side */}
       <div className="hero-photo-col">
-        {/* Using a generated cinematic image or placeholder */}
-        <div className="hero-image-wrap" style={{ overflow: 'hidden', height: '100%', width: '100%' }}>
+        <div className="hero-image-wrap">
           <img
             ref={imageRef}
             src="/images/hero.png"
-            alt="Ashok Verma Cinematic Staircase"
-            style={{ height: '120%', width: '100%', objectFit: 'cover', top: '-10%' }}
+            alt="Ashok Verma"
+            style={{
+              height: '120%',
+              width: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center top',
+              top: '-10%',
+              position: 'relative',
+              filter: 'grayscale(100%) contrast(1.12) brightness(0.88)',
+            }}
           />
         </div>
-        <div className="corner-tr"></div>
-        <div className="corner-bl"></div>
+
+        {/* Left fade gradient */}
+        <div style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: '280px',
+          background: 'linear-gradient(to right, #190805 0%, rgba(25,8,5,0.7) 40%, transparent 100%)',
+          zIndex: 2, pointerEvents: 'none',
+        }} />
+
+        {/* Bottom fade gradient */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: '200px',
+          background: 'linear-gradient(to top, #190805 0%, transparent 100%)',
+          zIndex: 2, pointerEvents: 'none',
+        }} />
+
+        {/* Orange corner accents */}
+        <div className="corner-tr" />
+        <div className="corner-bl" />
+
+        {/* Name tag */}
         <div className="hero-name-tag">
           <div className="pname">ASHOK VERMA</div>
           <div className="ptitle">FOUNDER · ALCHEMETRYX</div>
         </div>
       </div>
 
+      {/* Hero content — left side */}
       <div className="hero-inner">
+
         <p className="hero-chip">
+          <span style={{
+            width: '28px', height: '1px',
+            background: '#FC4F2F', display: 'inline-block',
+          }} />
           Digital Analytics Strategist · Founder · Alchemetryx
         </p>
 
         <h1 className="h1">
           <span className="solid">Turning</span>
-          <span className="fire">Data</span>
-          <span className="hollow">Into</span>
+          <span className="hollow">Data</span>
+          <span className="fire">Into</span>
           <span className="solid">Clarity</span>
         </h1>
 
         <p className="hero-sub">
-          15 years of converting digital noise into <strong>strategic intelligence</strong>.
-          From BookMyShow to building Alchemetryx — I help owner-led businesses
-          see what matters, and <strong>act on it</strong>.
+          15 years of converting digital noise into{' '}
+          <strong>strategic intelligence</strong>. From BookMyShow to
+          building Alchemetryx — I help owner-led businesses see what
+          matters, and <strong>act on it</strong>.
         </p>
 
         <div className="hero-btns">
@@ -114,11 +170,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <div className="scroll-pill">
         <span className="scroll-label">Scroll</span>
-        <div className="scroll-line"></div>
+        <div className="scroll-line" />
       </div>
+
     </section>
   );
 }
