@@ -202,18 +202,19 @@ nav::before {
 
 .h1 .solid {
   color: #F0F3F5;
-  display: block;
 }
 
 .h1 .hollow {
   color: transparent;
   -webkit-text-stroke: 2px rgba(240, 243, 245, 0.25);
-  display: block;
 }
 
 .h1 .fire {
   color: #FC4F2F;
   text-shadow: 0 0 100px rgba(252, 79, 47, 0.55);
+}
+
+.h1 span {
   display: block;
 }
 
@@ -1655,6 +1656,89 @@ footer {
   }
 }
 
+
+/* CUSTOM CURSOR */
+.custom-cursor-point {
+  width: 6px;
+  height: 6px;
+  background: #FC4F2F;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.custom-cursor-follower {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(240, 243, 245, 0.2);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.cursor-text {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #FC4F2F;
+  text-transform: uppercase;
+  position: absolute;
+}
+
+@media (pointer: coarse) {
+
+  .custom-cursor-point,
+  .custom-cursor-follower {
+    display: none;
+  }
+}
+
+/* BACKGROUND SHAPES */
+.bg-shapes-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--void);
+}
+
+.blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(252, 79, 47, 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
+}
+
+.blob-1 {
+  top: -100px;
+  left: -100px;
+}
+
+.blob-2 {
+  bottom: -100px;
+  right: -100px;
+}
+
+.bg-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(25, 8, 5, 0.4) 100%);
+}
 
 @media (max-width: 768px) {
   .cs-nav {

@@ -1,74 +1,88 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 
 export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
-    const ringRef = useRef<HTMLDivElement>(null);
+    const followerRef = useRef<HTMLDivElement>(null);
+    const [cursorText, setCursorText] = useState('');
+    const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
         const cursor = cursorRef.current;
-        const ring = ringRef.current;
+        const follower = followerRef.current;
+        if (!cursor || !follower) return;
 
-        if (!cursor || !ring) return;
-
-        let mouseX = 0;
-        let mouseY = 0;
-        let ringX = 0;
-        let ringY = 0;
-
-        const handleMouseMove = (e: MouseEvent) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            // Direct position for small dot
-            cursor.style.left = `${mouseX}px`;
-            cursor.style.top = `${mouseY}px`;
+        // Movement logic
+        const moveCursor = (e: MouseEvent) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1,
+                ease: 'none'
+            });
+            gsap.to(follower, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.4,
+                ease: 'power3.out'
+            });
         };
 
-        // Smooth lerp for ring
-        const animate = () => {
-            ringX += (mouseX - ringX) * 0.15;
-            ringY += (mouseY - ringY) * 0.15;
-
-            ring.style.left = `${ringX}px`;
-            ring.style.top = `${ringY}px`;
-
-            requestAnimationFrame(animate);
-        };
-
+        // Hover logic
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
-            if (
-                target.tagName === 'A' ||
-                target.tagName === 'BUTTON' ||
-                target.closest('a') ||
-                target.closest('button') ||
-                target.classList.contains('clickable')
-            ) {
-                cursor.classList.add('hover');
-                ring.classList.add('hover');
-            } else {
-                cursor.classList.remove('hover');
-                ring.classList.remove('hover');
+            const hoverElement = target.closest('a, button, .card-link, [data-cursor]');
+
+            if (hoverElement) {
+                setIsHovering(true);
+                const text = hoverElement.getAttribute('data-cursor');
+                setCursorText(text || '');
+
+                gsap.to(follower, {
+                    scale: 3,
+                    backgroundColor: 'rgba(252, 79, 47, 0.1)',
+                    borderColor: 'rgba(252, 79, 47, 0.5)',
+                    duration: 0.3
+                });
             }
         };
 
-        window.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseover', handleMouseOver);
-        const animationFrame = requestAnimationFrame(animate);
+        const handleMouseOut = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            const hoverElement = target.closest('a, button, .card-link, [data-cursor]');
+
+            if (hoverElement) {
+                setIsHovering(false);
+                setCursorText('');
+
+                gsap.to(follower, {
+                    scale: 1,
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgba(240, 243, 245, 0.2)',
+                    duration: 0.3
+                });
+            }
+        };
+
+        window.addEventListener('mousemove', moveCursor);
+        window.addEventListener('mouseover', handleMouseOver);
+        window.addEventListener('mouseout', handleMouseOut);
 
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseover', handleMouseOver);
-            cancelAnimationFrame(animationFrame);
+            window.removeEventListener('mousemove', moveCursor);
+            window.removeEventListener('mouseover', handleMouseOver);
+            window.removeEventListener('mouseout', handleMouseOut);
         };
     }, []);
 
     return (
         <>
-            <div id="cur" ref={cursorRef}></div>
-            <div id="cur-ring" ref={ringRef}></div>
+            <div ref={cursorRef} className="custom-cursor-point" />
+            <div ref={followerRef} className="custom-cursor-follower">
+                {cursorText && <span className="cursor-text">{cursorText}</span>}
+            </div>
         </>
     );
 }

@@ -22,15 +22,26 @@ export default function Hero() {
         // No need for immediate set(0) because it's now in globals.css
       });
 
-      tl.to('.hero-chip', {
-        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-      })
-        .to('.h1', {
-          opacity: 1, y: 0, duration: 1.0, ease: 'power3.out',
-        }, '-=0.6')
-        .to('.hero-sub', {
-          opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-        }, '-=0.65')
+      tl.fromTo('.hero-chip',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+      )
+        .fromTo('.reveal-text',
+          { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)', y: 50 },
+          {
+            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+            y: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: 'expo.out'
+          },
+          '-=0.4'
+        )
+        .fromTo('.hero-sub',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+          '-=0.8'
+        )
         .to('.hero-btns', {
           opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
         }, '-=0.6')
@@ -122,10 +133,9 @@ export default function Hero() {
         </p>
 
         <h1 className="h1">
-          <span className="solid">Turning</span>
-          <span className="hollow">Data</span>
-          <span className="fire">Into</span>
-          <span className="solid">Clarity</span>
+          <span className="solid reveal-text">Systems &</span>
+          <span className="hollow reveal-text">Operational</span>
+          <span className="fire reveal-text">Clarity</span>
         </h1>
 
         <p className="hero-sub">
@@ -140,7 +150,7 @@ export default function Hero() {
             <CalBooking />
           </Magnetic>
           <Magnetic strength={0.2}>
-            <a href="#expertise" className="btn-ghost">
+            <a href="#expertise" className="btn-ghost" data-cursor="EXPLORE">
               See My Work ↓
             </a>
           </Magnetic>

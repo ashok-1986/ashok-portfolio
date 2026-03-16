@@ -32,6 +32,7 @@ export default function CalBooking({
             data-cal-link="ashok-verma/30min"
             data-cal-config='{"layout":"month_view","theme":"dark"}'
             className={buttonClass}
+            data-cursor="BOOK"
         >
             {buttonText}
         </button>

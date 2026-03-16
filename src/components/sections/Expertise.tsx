@@ -75,7 +75,12 @@ export default function Expertise() {
 
       <div className="cards-grid" ref={gridRef}>
         {EXPERTISE.map((item, index) => (
-          <Link key={index} href={`/work/${item.slug}`} className="card-link">
+          <Link
+            key={index}
+            href={item.slug ? `/work/${item.slug}` : "#"}
+            className="card-link"
+            data-cursor="VIEW"
+          >
             <div className="card">
               <div className="card-num">{item.num}</div>
               <div className="card-label">{item.label}</div>

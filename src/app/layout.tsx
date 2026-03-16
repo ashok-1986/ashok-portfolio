@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import CustomCursor from '@/components/ui/CustomCursor';
+import BackgroundShapes from '@/components/canvas/BackgroundShapes';
 import LenisProvider from '@/components/providers/LenisProvider';
 
 export const metadata: Metadata = {
@@ -43,6 +44,7 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning>
         <LenisProvider>
+          <BackgroundShapes />
           <CustomCursor />
           {children}
         </LenisProvider>
