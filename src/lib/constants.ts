@@ -83,6 +83,30 @@ export const CASE_STUDIES = {
   }
 } as const;
 
+export const TESTIMONIALS = [
+  {
+    name: "Sunil Joshi",
+    role: "Former CTO",
+    company: "BookMyShow",
+    content: "Ashok has a unique ability to bridge the gap between technical complexity and business growth. His work on our analytics infrastructure was pivotal in how we understood our customers.",
+    image: "/images/sunil.jpg"
+  },
+  {
+    name: "Sarah Jenkins",
+    role: "Owner",
+    company: "UK SME Client",
+    content: "We were drowning in data but starving for insights. Ashok simplified everything. We now have a clear dashboard that tells us exactly where to invest our marketing budget.",
+    image: "/images/sarah.jpg"
+  },
+  {
+    name: "Rajesh Kumar",
+    role: "Marketing Director",
+    company: "Fichmu Foods",
+    content: "The 30% reduction in CAC wasn't an accident. It was the direct result of the attribution models and automation Ashok built for us. He is a systems thinker through and through.",
+    image: "/images/rajesh.jpg"
+  }
+] as const;
+
 export const EXPERIENCE = [
   {
     period: 'Jan 2024 — Present',
