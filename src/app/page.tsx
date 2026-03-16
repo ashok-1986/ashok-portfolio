@@ -20,25 +20,42 @@ export default function Home() {
     // Reveal animations for all elements with .rev
     const revealElements = document.querySelectorAll('.rev');
     revealElements.forEach((el) => {
-      gsap.to(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          onEnter: () => el.classList.add('vis'),
-          once: true,
-        },
-      });
+      // For staggered character reveals
+      if (el.classList.contains('sec-title')) {
+        const text = el.textContent || '';
+        el.innerHTML = '';
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          span.className = 'rev-char';
+          el.appendChild(span);
+        });
+
+        const chars = el.querySelectorAll('.rev-char');
+        gsap.to(chars, {
+          y: 0,
+          opacity: 1,
+          stagger: 0.05,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+          },
+        });
+      } else {
+        gsap.to(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            onEnter: () => el.classList.add('vis'),
+            once: true,
+          },
+        });
+      }
     });
 
-    // Marquee animation
-    gsap.to('.marquee-track', {
-      xPercent: -50,
-      ease: 'none',
-      duration: 20,
-      repeat: -1,
-    });
-
-    // Timeline item reveals (specific logic if needed, but .rev handles basics)
+    // Timeline item reveals
     const timelineItems = document.querySelectorAll('.t-item');
     timelineItems.forEach((el) => {
       ScrollTrigger.create({

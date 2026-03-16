@@ -2,30 +2,58 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import Magnetic from '@/components/ui/Magnetic';
+import ParticleCanvas from '@/components/canvas/ParticleCanvas';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline();
 
+    // Entry animations
     tl.to('.hero-chip', { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: 'power3.out' })
       .to('.h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.6')
       .to('.hero-sub', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.65')
       .to('.hero-btns', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
       .to('.hero-photo-col', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=1')
       .to('.scroll-pill', { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }, '-=0.5');
+
+    // Image parallax
+    if (imageRef.current) {
+      gsap.to(imageRef.current, {
+        y: '20%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
   }, []);
 
   return (
     <section id="hero" ref={containerRef}>
-      {/* Background Particles Placeholder */}
-      <canvas id="gl-canvas"></canvas>
+      {/* Background Particles */}
+      <ParticleCanvas />
 
       {/* Hero Photo Column */}
       <div className="hero-photo-col">
         {/* Using a generated cinematic image or placeholder */}
-        <img src="/images/hero.png" alt="Ashok Verma Cinematic Staircase" />
+        <div className="hero-image-wrap" style={{ overflow: 'hidden', height: '100%', width: '100%' }}>
+          <img
+            ref={imageRef}
+            src="/images/hero.png"
+            alt="Ashok Verma Cinematic Staircase"
+            style={{ height: '120%', width: '100%', objectFit: 'cover', top: '-10%' }}
+          />
+        </div>
         <div className="corner-tr"></div>
         <div className="corner-bl"></div>
         <div className="hero-name-tag">
@@ -53,17 +81,21 @@ export default function Hero() {
         </p>
 
         <div className="hero-btns">
-          <a href="#expertise" className="btn-fire">
-            See My Work ↓
-          </a>
-          <a
-            href="https://alchemetryx.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-ghost"
-          >
-            Visit Alchemetryx
-          </a>
+          <Magnetic strength={0.2}>
+            <a href="#expertise" className="btn-fire">
+              See My Work ↓
+            </a>
+          </Magnetic>
+          <Magnetic strength={0.2}>
+            <a
+              href="https://alchemetryx.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost"
+            >
+              Visit Alchemetryx
+            </a>
+          </Magnetic>
         </div>
       </div>
 

@@ -1,8 +1,63 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { EXPERTISE } from '@/lib/constants';
 
 export default function Expertise() {
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Reveal animation
+    const cards = gsap.utils.toArray<HTMLElement>('.card');
+    gsap.fromTo(cards,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 80%',
+        }
+      }
+    );
+
+    // Mouse tilt effect
+    cards.forEach((card) => {
+      const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = card.getBoundingClientRect();
+        const x = (clientX - left) / width - 0.5;
+        const y = (clientY - top) / height - 0.5;
+
+        gsap.to(card, {
+          rotateY: x * 15,
+          rotateX: -y * 15,
+          transformPerspective: 1000,
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(card, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 0.5,
+          ease: 'power2.out',
+        });
+      };
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      card.addEventListener('mousemove', handleMouseMove as any);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      card.addEventListener('mouseleave', handleMouseLeave as any);
+    });
+  }, []);
+
   return (
     <section id="expertise">
       <div className="exp-header">
@@ -14,9 +69,9 @@ export default function Expertise() {
         </p>
       </div>
 
-      <div className="cards-grid">
+      <div className="cards-grid" ref={gridRef}>
         {EXPERTISE.map((item, index) => (
-          <div key={index} className={`card rev d${index}`}>
+          <div key={index} className="card">
             <div className="card-num">{item.num}</div>
             <div className="card-label">{item.label}</div>
             <h3 className="card-title">{item.title}</h3>

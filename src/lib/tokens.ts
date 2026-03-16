@@ -11,7 +11,7 @@ export const tokens = {
     bodyOpacity: '0.80',
   },
   fonts: {
-    primary: 'Galgo, sans-serif',
+    primary: 'Urbanist, sans-serif',
   },
   spacing: {
     section: '120px',

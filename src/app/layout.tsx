@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import CustomCursor from '@/components/ui/CustomCursor';
+import LenisProvider from '@/components/providers/LenisProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ashok.alchemetryx.com'),
@@ -41,8 +42,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <CustomCursor />
-        {children}
+        <LenisProvider>
+          <CustomCursor />
+          {children}
+        </LenisProvider>
       </body>
     </html>
   );
