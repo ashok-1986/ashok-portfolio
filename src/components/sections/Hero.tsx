@@ -5,7 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Magnetic from '@/components/ui/Magnetic';
 import ParticleCanvas from '@/components/canvas/ParticleCanvas';
-import CalBooking from '@/components/ui/CalBooking';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -147,7 +146,9 @@ export default function Hero() {
 
         <div className="hero-btns">
           <Magnetic strength={0.2}>
-            <CalBooking />
+            <a href="#contact" className="btn-primary" data-cursor="BOOK">
+              Let&apos;s Talk →
+            </a>
           </Magnetic>
           <Magnetic strength={0.2}>
             <a href="#expertise" className="btn-ghost" data-cursor="EXPLORE">
