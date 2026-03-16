@@ -91,13 +91,13 @@ export default function Home() {
       <About />
 
       {/* EYE SECTION - INTERSTITIAL */}
-      <section className="eye-section">
-        <img src="https://images.unsplash.com/photo-1516339900600-af08448510a3?auto=format&fit=crop&q=80&w=2000" alt="Cinematic Eye" />
+      <div className="eye-section">
+        <img src="https://images.unsplash.com/photo-1494869042583-f6c911f04b4c?auto=format&fit=crop&q=80&w=2000" alt="Cinematic Eye Close-Up" />
         <div className="eye-text">
-          <p className="rev">The Vision</p>
-          <h2 className="rev">Seeing <em>Everything</em>. Missing <em>Nothing</em>.</h2>
+          <p className="rev">The Detail That Changes Everything</p>
+          <h2 className="rev">Most businesses<br />have <em>data.</em><br />Few have <em>clarity.</em></h2>
         </div>
-      </section>
+      </div>
 
       <Expertise />
       <Experience />
