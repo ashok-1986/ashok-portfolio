@@ -88,7 +88,7 @@ nav::before {
 .nav-logo {
   position: relative;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.28em;
   color: var(--clarity);
   text-decoration: none;
@@ -442,7 +442,7 @@ section {
 
 .about-statement {
   font-size: clamp(40px, 5.5vw, 68px);
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.03em;
   line-height: 0.9;
@@ -521,7 +521,7 @@ section {
 
 .stat-num {
   font-size: 52px;
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1;
   color: var(--clarity);
@@ -556,7 +556,7 @@ section {
 
 .sec-title {
   font-size: clamp(52px, 7.5vw, 110px);
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.04em;
   line-height: 0.88;
@@ -621,7 +621,7 @@ section {
   top: 28px;
   right: 32px;
   font-size: 72px;
-  font-weight: 900;
+  font-weight: 600;
   color: rgba(240, 243, 245, 0.03);
   letter-spacing: -0.05em;
   line-height: 1;
@@ -640,7 +640,7 @@ section {
 
 .card-title {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   color: var(--clarity);
@@ -729,7 +729,7 @@ section {
 
 .t-role {
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   color: var(--clarity);
