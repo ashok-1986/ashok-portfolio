@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Magnetic from '@/components/ui/Magnetic';
 import ParticleCanvas from '@/components/canvas/ParticleCanvas';
 
@@ -13,30 +13,45 @@ export default function Hero() {
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    // Explicitly set initial states so Strict Mode double-invoke can't leave
+    // elements stuck at whatever state the previous run left them in.
+    gsap.set(['.hero-chip', '.h1', '.hero-sub', '.hero-btns', '.scroll-pill'], {
+      opacity: 0,
+      y: 40,
+    });
+    gsap.set('.hero-photo-col', { opacity: 0 });
+
     const tl = gsap.timeline();
 
-    // Entry animations
-    tl.to('.hero-chip', { opacity: 1, y: 0, duration: 0.9, delay: 0.4, ease: 'power3.out' })
-      .to('.h1', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.6')
+    tl.to('.hero-chip', { opacity: 1, y: 0, duration: 0.9, delay: 0.3, ease: 'power3.out' })
+      .to('.h1', { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, '-=0.6')
       .to('.hero-sub', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.65')
       .to('.hero-btns', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
       .to('.hero-photo-col', { opacity: 1, duration: 1.2, ease: 'power2.out' }, '-=1')
-      .to('.scroll-pill', { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }, '-=0.5');
+      .to('.scroll-pill', { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out' }, '-=0.5');
 
-    // Image parallax
+    // Image parallax on scroll
+    let st: ScrollTrigger | null = null;
     if (imageRef.current) {
-      gsap.to(imageRef.current, {
-        y: '20%',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
+      st = ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+        onUpdate: (self) => {
+          if (imageRef.current) {
+            gsap.set(imageRef.current, { y: `${self.progress * 20}%` });
+          }
         },
       });
     }
+
+    return () => {
+      tl.kill();
+      st?.kill();
+    };
   }, []);
+
 
   return (
     <section id="hero" ref={containerRef}>
