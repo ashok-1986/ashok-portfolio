@@ -8,7 +8,6 @@ import Navigation from '@/components/sections/Navigation';
 import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Expertise from '@/components/sections/Expertise';
-import Testimonials from '@/components/sections/Testimonials';
 import Experience from '@/components/sections/Experience';
 import Philosophy from '@/components/sections/Philosophy';
 import Contact from '@/components/sections/Contact';

@@ -971,8 +971,9 @@ section {
 /* CONTACT */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 120px;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 80px;
+  align-items: start;
   width: 100%;
   max-width: 1200px;
   margin-top: 64px;
