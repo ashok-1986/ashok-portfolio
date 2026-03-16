@@ -13,45 +13,8 @@ export default function Hero() {
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // GSAP Context handles all scoped animations and cleanup automatically
     const ctx = gsap.context(() => {
-
-      const tl = gsap.timeline({
-        delay: 0.1, // Small delay for hydration safety
-        // No need for immediate set(0) because it's now in globals.css
-      });
-
-      tl.fromTo('.hero-chip',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
-      )
-        .fromTo('.reveal-text',
-          { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)', y: 50 },
-          {
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-            y: 0,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: 'expo.out'
-          },
-          '-=0.4'
-        )
-        .fromTo('.hero-sub',
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-          '-=0.8'
-        )
-        .to('.hero-btns', {
-          opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-        }, '-=0.6')
-        .to('.hero-photo-col', {
-          opacity: 1, duration: 1.4, ease: 'power2.out',
-        }, '-=1.0')
-        .to('.scroll-pill', {
-          opacity: 1, y: 0, duration: 1.0, ease: 'power2.out',
-        }, '-=0.5');
-
-      // Image parallax on scroll
+      // Image parallax on scroll only — reveal is handled by CSS animations
       if (imageRef.current) {
         ScrollTrigger.create({
           trigger: containerRef.current,
@@ -65,9 +28,9 @@ export default function Hero() {
           },
         });
       }
-    }, containerRef); // Scope all selectors to the container
+    }, containerRef);
 
-    return () => ctx.revert(); // Reverts all animations and kills scrolltriggers
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -94,8 +57,10 @@ export default function Hero() {
         </h1>
 
         <p className="hero-sub">
-          I help UK owner-led businesses turn messy analytics into clear decisions.{' '}
-          <strong>GA4 · BigQuery · Automation · Strategy.</strong>
+          15 years of converting digital noise into{' '}
+          <strong>strategic intelligence</strong>. From BookMyShow
+          to Alchemetryx — helping owner-led businesses see what
+          matters, and <strong>act on it. Without chaos.</strong>
         </p>
 
         <div className="hero-btns">
