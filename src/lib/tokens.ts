@@ -8,6 +8,7 @@ export const tokens = {
     edgeDim: 'rgba(252,79,47,0.12)',
     clarityMid: 'rgba(240,243,245,0.55)',
     clarityDim: 'rgba(240,243,245,0.08)',
+    bodyOpacity: '0.80',
   },
   fonts: {
     primary: 'Galgo, sans-serif',

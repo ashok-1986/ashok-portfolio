@@ -11,7 +11,7 @@ export default function About() {
         <div className="about-photo-wrap">
           <div className="about-photo-frame rev">
             {/* Cinematic grayscale portrait placeholder */}
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1000" alt="Ashok Verma" />
+            <img src="/images/about.png" alt="Ashok Verma Portrait" />
             <div className="fr-tl"></div>
             <div className="fr-br"></div>
           </div>

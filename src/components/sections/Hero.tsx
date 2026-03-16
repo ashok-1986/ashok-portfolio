@@ -25,7 +25,7 @@ export default function Hero() {
       {/* Hero Photo Column */}
       <div className="hero-photo-col">
         {/* Using a generated cinematic image or placeholder */}
-        <img src="https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&q=80&w=2000" alt="Cinematic Staircase" />
+        <img src="/images/hero.png" alt="Ashok Verma Cinematic Staircase" />
         <div className="corner-tr"></div>
         <div className="corner-bl"></div>
         <div className="hero-name-tag">

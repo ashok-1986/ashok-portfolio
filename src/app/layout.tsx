@@ -3,8 +3,31 @@ import './globals.css';
 import CustomCursor from '@/components/ui/CustomCursor';
 
 export const metadata: Metadata = {
-  title: 'Ashok Verma | Digital Analytics Strategist',
-  description: '15 years of converting digital noise into strategic intelligence. Founder of Alchemetryx Consulting.',
+  metadataBase: new URL('https://ashok.alchemetryx.com'),
+  title: 'Ashok Verma | Systems & Operational Clarity',
+  description: '15 years of transforming data into predictable growth systems for owner-led SMEs.',
+  openGraph: {
+    title: 'Ashok Verma | Systems & Operational Clarity',
+    description: 'Operational clarity that reduces owner dependency and makes growth predictable.',
+    url: 'https://ashok.alchemetryx.com',
+    siteName: 'Ashok Verma Portfolio',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Ashok Verma | Operational Clarity',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ashok Verma | Systems & Operational Clarity',
+    description: '15 years of transforming data into predictable growth systems.',
+    images: ['/images/og-image.png'],
+  },
 };
 
 export default function RootLayout({
