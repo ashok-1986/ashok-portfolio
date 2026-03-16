@@ -23,13 +23,13 @@ export default function About() {
 
   return (
     <section id="about" className="relative py-[120px] px-[60px] bg-[#190805]">
-      <div className="label rev inline-flex items-center gap-[14px] text-[10px] font-bold tracking-[0.35em] uppercase text-[#FC4F2F] mb-5">
+      <div className="label rev inline-flex items-center gap-[14px] text-[10px] font-semibold tracking-[0.35em] uppercase text-[#FC4F2F] mb-5">
         The Founder
       </div>
 
       <div className="about-grid grid grid-cols-1 md:grid-cols-2 gap-[100px] w-full max-w-[1200px]">
         <div>
-          <h2 className="about-statement text-[clamp(40px,5.5vw,68px)] text-[#F0F3F5] mb-11">
+          <h2 className="about-statement text-[clamp(40px,5.5vw,68px)] font-semibold text-[#F0F3F5] mb-11">
             Not A<br />
             <span className="o block text-transparent" style={{ WebkitTextStroke: '1px rgba(240,243,245,0.2)' }}>Tool</span>
             Seller.<br />
@@ -72,10 +72,10 @@ export default function About() {
       <div className="stat-strip flex gap-0 border-t border-[rgba(240,243,245,0.07)] mt-14 pt-12 w-full max-w-[1200px]">
         {STATS.map((stat, index) => (
           <div key={stat.label} className={`stat-item flex-1 pr-10 border-r border-[rgba(240,243,245,0.07)] mr-10 ${index === STATS.length - 1 ? 'border-r-0 mr-0 pr-0' : ''} rev ${index === 0 ? 'd1' : index === 1 ? 'd2' : 'd3'}`}>
-            <div className="stat-num display-font text-[52px] font-black tracking-[-0.04em] leading-[1] text-[#F0F3F5] mb-2">
+            <div className="stat-num display-font text-[52px] font-semibold tracking-[-0.04em] leading-[1] text-[#F0F3F5] mb-2">
               {stat.number}{stat.suffix}
             </div>
-            <div className="stat-lbl text-[10px] font-bold tracking-[0.22em] uppercase text-[rgba(240,243,245,0.55)]">
+            <div className="stat-lbl text-[10px] font-semibold tracking-[0.22em] uppercase text-[rgba(240,243,245,0.55)]">
               {stat.label}
             </div>
           </div>

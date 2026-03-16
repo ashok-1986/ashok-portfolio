@@ -23,11 +23,11 @@ export default function Experience() {
 
   return (
     <section id="experience" className="relative py-[120px] px-[60px] bg-[#190805]">
-      <div className="label rev inline-flex items-center gap-[14px] text-[10px] font-bold tracking-[0.35em] uppercase text-[#FC4F2F] mb-5">
+      <div className="label rev inline-flex items-center gap-[14px] text-[10px] font-semibold tracking-[0.35em] uppercase text-[#FC4F2F] mb-5">
         Career Journey
       </div>
 
-      <h2 className="sec-title rev text-[clamp(52px,7.5vw,110px)] text-[#F0F3F5] mb-[72px] max-w-[1200px]">
+      <h2 className="sec-title rev text-[clamp(52px,7.5vw,110px)] font-semibold text-[#F0F3F5] mb-[72px] max-w-[1200px]">
         Experience
       </h2>
 
@@ -41,10 +41,10 @@ export default function Experience() {
             style={{ transitionDelay: `${index * 0.12}s` }}
           >
             <div className="t-dot absolute left-[-5px] top-2.5 w-[10px] h-[10px] bg-[#FC4F2F] rounded-full shadow-[0_0_18px_rgba(252,79,47,0.7)]"></div>
-            <div className="t-period display-font text-[9.5px] font-bold tracking-[0.28em] text-[#FC4F2F] mb-2.5">
+            <div className="t-period display-font text-[9.5px] font-semibold tracking-[0.28em] text-[#FC4F2F] mb-2.5">
               {item.period}
             </div>
-            <h3 className="t-role text-[22px] text-[#F0F3F5] mb-1 leading-[1.05]">
+            <h3 className="t-role text-[22px] font-semibold text-[#F0F3F5] mb-1 leading-[1.05]">
               {item.role}
             </h3>
             <div className="t-co text-[13px] font-medium text-[rgba(240,243,245,0.6)] tracking-[0.06em] mb-4">
@@ -54,7 +54,7 @@ export default function Experience() {
               {item.desc}
             </p>
             {item.metric && (
-              <div className="t-metric inline-flex items-center gap-2.5 mt-4 text-[10.5px] font-bold tracking-[0.18em] uppercase text-[#FC4F2F]">
+              <div className="t-metric inline-flex items-center gap-2.5 mt-4 text-[10.5px] font-semibold tracking-[0.18em] uppercase text-[#FC4F2F]">
                 <span className="w-[18px] h-[1px] bg-[#FC4F2F]"></span>
                 {item.metric}
               </div>

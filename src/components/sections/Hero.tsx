@@ -122,7 +122,7 @@ export default function Hero() {
         <div style={{ position: 'absolute', top: '80px', right: '40px', width: '36px', height: '36px', borderTop: '2px solid #FC4F2F', borderRight: '2px solid #FC4F2F', zIndex: 3 }} />
         <div style={{ position: 'absolute', bottom: '80px', left: 0, width: '36px', height: '36px', borderBottom: '2px solid #FC4F2F', borderLeft: '2px solid #FC4F2F', zIndex: 3 }} />
         <div style={{ position: 'absolute', bottom: '88px', right: '40px', textAlign: 'right', zIndex: 3 }}>
-          <div style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F0F3F5' }}>ASHOK VERMA</div>
+          <div style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#F0F3F5' }}>ASHOK VERMA</div>
           <div style={{ fontSize: '10px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#FC4F2F', marginTop: '4px' }}>FOUNDER · ALCHEMETRYX</div>
         </div>
       </div>
@@ -130,12 +130,12 @@ export default function Hero() {
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 10, maxWidth: '820px', paddingTop: '80px' }}>
 
-        <p ref={chipRef} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '10px', fontWeight: 700, letterSpacing: '0.32em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '36px', opacity: 0 }}>
+        <p ref={chipRef} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '10px', fontWeight: 600, letterSpacing: '0.32em', textTransform: 'uppercase', color: '#FC4F2F', marginBottom: '36px', opacity: 0 }}>
           <span style={{ width: '28px', height: '1px', background: '#FC4F2F', display: 'inline-block' }} />
           Digital Analytics Strategist · Founder · Alchemetryx
         </p>
 
-        <h1 ref={h1Ref} style={{ fontSize: 'clamp(64px, 11vw, 172px)', fontWeight: 900, lineHeight: 0.88, textTransform: 'uppercase', letterSpacing: '-0.035em', marginBottom: '44px', opacity: 0 }}>
+        <h1 ref={h1Ref} style={{ fontSize: 'clamp(64px, 11vw, 172px)', fontWeight: 600, lineHeight: 0.88, textTransform: 'uppercase', letterSpacing: '-0.035em', marginBottom: '44px', opacity: 0 }}>
           <span style={{ color: '#F0F3F5', display: 'block' }}>Turning</span>
           <span style={{ color: 'transparent', WebkitTextStroke: '2px rgba(240,243,245,0.25)', display: 'block' }}>Data</span>
           <span style={{ color: '#FC4F2F', textShadow: '0 0 100px rgba(252,79,47,0.55)', display: 'block' }}>Into</span>
@@ -150,8 +150,8 @@ export default function Hero() {
         </p>
 
         <div ref={btnsRef} style={{ display: 'flex', gap: '20px', alignItems: 'center', opacity: 0 }}>
-          <a href="#expertise" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#190805', background: '#FC4F2F', padding: '16px 40px', textDecoration: 'none' }}>See My Work ↓</a>
-          <a href="https://alchemetryx.com" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F0F3F5', border: '1px solid rgba(240,243,245,0.18)', padding: '15px 40px', textDecoration: 'none' }}>Visit Alchemetryx</a>
+          <a href="#expertise" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#190805', background: '#FC4F2F', padding: '16px 40px', textDecoration: 'none' }}>See My Work ↓</a>
+          <a href="https://alchemetryx.com" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', fontSize: '11px', fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#F0F3F5', border: '1px solid rgba(240,243,245,0.18)', padding: '15px 40px', textDecoration: 'none' }}>Visit Alchemetryx</a>
         </div>
       </div>
 

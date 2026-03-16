@@ -21,7 +21,7 @@
   --clarity-mid: rgba(240, 243, 245, 0.8);
   --clarity-dim: rgba(240, 243, 245, 0.08);
 
-  --font-display: 'Galgo', 'Bebas Neue', 'Arial Black', sans-serif;
+  --font-display: 'Urbanist', 'Galgo', 'Bebas Neue', 'Arial Black', sans-serif;
   --font-body: 'Urbanist', sans-serif;
 }
 
@@ -60,7 +60,7 @@ h6,
 .contact-cta,
 .t-role {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -381,7 +381,7 @@ body::after {
 }
 
 .marquee-track:hover {
-  animation-play-state: paused;
+  animation-play-state: play;
 }
 
 .m-item {
@@ -960,5 +960,51 @@ section {
   .fl-row {
     justify-content: center !important;
     width: 100% !important;
+  }
+}
+
+@keyframes revealFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollLine {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1.05);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }
