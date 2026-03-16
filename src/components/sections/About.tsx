@@ -28,28 +28,26 @@ export default function About() {
 
           <div className="about-body">
             <p className="rev">
-              I&apos;m <strong>Ashok Verma</strong>, founder of Alchemetryx Consulting.
-              For 15 years I&apos;ve sat inside the machine — at BookMyShow, L&T Finance,
-              Fichmu Foods — watching businesses collect data and do nothing with it.
+              I am <strong>Ashok Verma</strong> — analytics consultant, systems thinker,
+              and founder of Alchemetryx Consulting.
             </p>
             <p className="rev">
-              That&apos;s the problem I built Alchemetryx to solve.
-              <strong>Not dashboards. Not reports. Systems.</strong>
-              Operational clarity that reduces owner dependency, speeds up decisions,
-              and makes growth predictable.
+              For 15 years I have sat inside businesses — from BookMyShow to L&amp;T Finance —
+              and watched companies collect mountains of data while making decisions based on
+              gut instinct.
             </p>
             <p className="rev">
-              I work with UK-based owner-led SMEs who are drowning in tools
-              and starving for direction.
-              <strong>Clarity before you commit</strong> — that&apos;s the promise.
+              I built Alchemetryx to fix that. My work lives at the intersection of{' '}
+              <strong>digital analytics, marketing automation, and business strategy</strong>{' '}
+              — with one purpose: making your data work for your decisions.
             </p>
           </div>
 
           <div className="cert-row rev">
-            <div className="cert">GA4 Certified</div>
-            <div className="cert">Gen AI — Google</div>
-            <div className="cert">Coursera Analytics</div>
-            <div className="cert">B.E. Electronics</div>
+            <div className="cert">Google Analytics Certified</div>
+            <div className="cert">Google Tag Manager</div>
+            <div className="cert">HubSpot Marketing Automation</div>
+            <div className="cert">BigQuery · SQL</div>
           </div>
         </div>
       </div>

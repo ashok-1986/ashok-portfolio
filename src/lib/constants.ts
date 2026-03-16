@@ -6,9 +6,10 @@ export const NAVIGATION = [
 ] as const;
 
 export const STATS = [
-  { number: '15', suffix: '+', label: 'Years In Digital Analytics' },
-  { number: '30', suffix: '%', label: 'CAC Reduction Delivered' },
-  { number: '20', suffix: '%', label: 'Conversion Lift Achieved' },
+  { number: '15', suffix: '+', label: 'Years In Analytics' },
+  { number: '50', suffix: '+', label: 'Brands Worked With' },
+  { number: '30', suffix: '%', label: 'Avg. CAC Reduction' },
+  { number: '100', suffix: '%', label: 'Data Capture Accuracy' },
 ] as const;
 
 export const EXPERTISE = [

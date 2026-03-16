@@ -66,10 +66,10 @@ export default function Expertise() {
     <section id="expertise">
       <div className="exp-header">
         <h2 className="sec-title rev">
-          Expe<em>rtise</em>
+          Three<br /><em>Pillars</em>
         </h2>
         <p className="exp-desc rev">
-          Three pillars of digital analytics transformation
+          One goal: a business that does not need you in every room, every decision, every day.
         </p>
       </div>
 

@@ -84,26 +84,24 @@ export default function Hero() {
             width: '28px', height: '1px',
             background: '#FC4F2F', display: 'inline-block',
           }} />
-          Digital Analytics Strategist · Founder · Alchemetryx
+          Digital Intelligence · Analytics Strategy · UK SMEs
         </p>
 
         <h1 className="h1">
-          <span className="solid reveal-text">Systems &</span>
-          <span className="hollow reveal-text">Operational</span>
-          <span className="fire reveal-text">Clarity</span>
+          <span className="solid reveal-text">TURNING</span>
+          <span className="hollow reveal-text">DATA INTO</span>
+          <span className="fire reveal-text">CLARITY</span>
         </h1>
 
         <p className="hero-sub">
-          15 years of converting digital noise into{' '}
-          <strong>strategic intelligence</strong>. From BookMyShow to
-          building Alchemetryx — I help owner-led businesses see what
-          matters, and <strong>act on it</strong>.
+          I help UK owner-led businesses turn messy analytics into clear decisions.{' '}
+          <strong>GA4 · BigQuery · Automation · Strategy.</strong>
         </p>
 
         <div className="hero-btns">
           <Magnetic strength={0.2}>
-            <a href="#contact" className="btn-primary" data-cursor="BOOK">
-              Let&apos;s Talk →
+            <a href="#contact" className="btn-fire" data-cursor="BOOK">
+              Book a Free Audit →
             </a>
           </Magnetic>
           <Magnetic strength={0.2}>

@@ -114,10 +114,10 @@ export default function Home() {
       <div className="marquee-wrap">
         <div className="marquee-track">
           <div className="m-item">
-            Google Analytics <span className="m-dot">✦</span> Adobe Analytics <span className="m-dot">✦</span> BigQuery <span className="m-dot">✦</span> Looker Studio <span className="m-dot">✦</span> Tableau <span className="m-dot">✦</span> CleverTap <span className="m-dot">✦</span> MoEngage <span className="m-dot">✦</span> Google Tag Manager <span className="m-dot">✦</span> VWO <span className="m-dot">✦</span> Alteryx <span className="m-dot">✦</span>
+            GA4 Analytics <span className="m-dot">✦</span> BigQuery <span className="m-dot">✦</span> Looker Studio <span className="m-dot">✦</span> Marketing Automation <span className="m-dot">✦</span> Klaviyo <span className="m-dot">✦</span> SEO Strategy <span className="m-dot">✦</span> GTM <span className="m-dot">✦</span> Data Strategy <span className="m-dot">✦</span> CRO <span className="m-dot">✦</span> Retention <span className="m-dot">✦</span>
           </div>
           <div className="m-item">
-            Google Analytics <span className="m-dot">✦</span> Adobe Analytics <span className="m-dot">✦</span> BigQuery <span className="m-dot">✦</span> Looker Studio <span className="m-dot">✦</span> Tableau <span className="m-dot">✦</span> CleverTap <span className="m-dot">✦</span> MoEngage <span className="m-dot">✦</span> Google Tag Manager <span className="m-dot">✦</span> VWO <span className="m-dot">✦</span> Alteryx <span className="m-dot">✦</span>
+            GA4 Analytics <span className="m-dot">✦</span> BigQuery <span className="m-dot">✦</span> Looker Studio <span className="m-dot">✦</span> Marketing Automation <span className="m-dot">✦</span> Klaviyo <span className="m-dot">✦</span> SEO Strategy <span className="m-dot">✦</span> GTM <span className="m-dot">✦</span> Data Strategy <span className="m-dot">✦</span> CRO <span className="m-dot">✦</span> Retention <span className="m-dot">✦</span>
           </div>
         </div>
       </div>
