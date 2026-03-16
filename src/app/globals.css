@@ -1238,7 +1238,7 @@ footer {
 }
 
 /* MOBILE */
-@media (max-width: 960px) {
+@media (max-width: 768px) {
   nav {
     padding: 22px 28px;
   }
@@ -1269,6 +1269,7 @@ footer {
     inset: 0 !important;
     width: 100% !important;
     opacity: .4 !important;
+    pointer-events: none !important;
   }
 
   .hero-photo-col::before {
