@@ -5,8 +5,8 @@ import { EXPERIENCE } from '@/lib/constants';
 export default function Experience() {
   return (
     <section id="experience">
-      <div className="label rev">Career Journey</div>
-      <h2 className="sec-title rev">Experience</h2>
+      <div className="label rev">Career Arc</div>
+      <h2 className="sec-title rev d1">Where I&apos;ve<br /><em>Been</em></h2>
 
       <div className="timeline">
         {EXPERIENCE.map((item, index) => (

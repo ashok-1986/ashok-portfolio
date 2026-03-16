@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERTISE } from '@/lib/constants';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Expertise() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -74,7 +77,14 @@ export default function Expertise() {
           <div key={index} className="card">
             <div className="card-num">{item.num}</div>
             <div className="card-label">{item.label}</div>
-            <h3 className="card-title">{item.title}</h3>
+            <h3 className="card-title">
+              {item.title.split('\n').map((line, i) => (
+                <span key={i}>
+                  {line}
+                  {i < item.title.split('\n').length - 1 && <br />}
+                </span>
+              ))}
+            </h3>
             <p className="card-body">{item.body}</p>
             <div className="tags">
               {item.tags.map((tag) => (

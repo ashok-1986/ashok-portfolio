@@ -69,8 +69,8 @@ export default function Hero() {
 
         <h1 className="h1">
           <span className="solid">Turning</span>
-          <span className="hollow">Data</span>
-          <span className="fire">Into</span>
+          <span className="fire">Data</span>
+          <span className="hollow">Into</span>
           <span className="solid">Clarity</span>
         </h1>
 

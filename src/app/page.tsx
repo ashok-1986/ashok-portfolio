@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -16,6 +16,8 @@ import Footer from '@/components/sections/Footer';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const eyeSectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     // Reveal animations for all elements with .rev
     const revealElements = document.querySelectorAll('.rev');
@@ -66,6 +68,51 @@ export default function Home() {
       });
     });
 
+    // ── EYE SECTION PARALLAX ──────────────────────────────────────
+    const eyeSection = eyeSectionRef.current;
+    if (eyeSection) {
+      const eyeImg = eyeSection.querySelector<HTMLElement>('img');
+      const eyeText = eyeSection.querySelector<HTMLElement>('.eye-text');
+
+      // Parallax: image moves at ~40% of scroll speed (slower = deeper)
+      if (eyeImg) {
+        gsap.fromTo(
+          eyeImg,
+          { y: '-12%' },
+          {
+            y: '12%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: eyeSection,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
+      }
+
+      // Text reveal: fade + rise when section enters viewport
+      if (eyeText) {
+        gsap.fromTo(
+          eyeText,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: eyeSection,
+              start: 'top 75%',
+              once: true,
+            },
+          }
+        );
+      }
+    }
+    // ─────────────────────────────────────────────────────────────
+
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
@@ -91,17 +138,17 @@ export default function Home() {
       <About />
 
       {/* EYE SECTION - INTERSTITIAL */}
-      <div className="eye-section">
+      <div className="eye-section" ref={eyeSectionRef}>
         <img src="https://images.unsplash.com/photo-1494869042583-f6c911f04b4c?auto=format&fit=crop&q=80&w=2000" alt="Cinematic Eye Close-Up" />
         <div className="eye-text">
-          <p className="rev">The Detail That Changes Everything</p>
-          <h2 className="rev">Most businesses<br />have <em>data.</em><br />Few have <em>clarity.</em></h2>
+          <p>The Detail That Changes Everything</p>
+          <h2>Most businesses<br />have <em>data.</em><br />Few have <em>clarity.</em></h2>
         </div>
       </div>
 
       <Expertise />
-      <Experience />
       <Philosophy />
+      <Experience />
       <Contact />
       <Footer />
     </main>

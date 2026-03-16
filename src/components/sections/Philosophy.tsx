@@ -4,10 +4,13 @@ export default function Philosophy() {
   return (
     <section id="philosophy">
       <div className="phil-bg"></div>
-      <p className="phil-quote rev">
-        &quot;Clarity <em>before</em> you commit. That&apos;s the <em>only</em> promise that matters.&quot;
-      </p>
-      <p className="phil-attr rev">Ashok Verma — Founder, Alchemetryx</p>
+      <blockquote className="phil-quote rev">
+        &quot;Businesses were sold <em>products</em><br />
+        when they needed <em>systems.</em><br />
+        That gap is where<br />
+        Alchemetryx lives.&quot;
+      </blockquote>
+      <p className="phil-attr rev d1">— Ashok Verma · Founder, Alchemetryx Consulting</p>
     </section>
   );
 }

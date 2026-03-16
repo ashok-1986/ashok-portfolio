@@ -465,18 +465,16 @@ nav::before {
 
 .eye-section img {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 50%;
   width: 100%;
-  height: 100%;
+  /* Extra height gives parallax room to translate without exposing edges */
+  height: 130%;
+  transform: translateY(-50%);
   object-fit: cover;
   object-position: center 30%;
   filter: grayscale(100%) contrast(1.2) brightness(.55);
-  transform: scale(1.04);
-  transition: transform 8s ease;
-}
-
-.eye-section:hover img {
-  transform: scale(1.0);
+  will-change: transform;
 }
 
 .eye-section::before {
@@ -499,6 +497,8 @@ nav::before {
   position: relative;
   z-index: 3;
   text-align: center;
+  /* GSAP will animate opacity/y in */
+  opacity: 0;
 }
 
 .eye-text p {
@@ -672,7 +672,7 @@ section {
 .about-statement {
   font-family: var(--font-display);
   font-size: clamp(40px, 5.5vw, 68px);
-  font-weight: 400;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .04em;
   line-height: .9;
@@ -751,7 +751,7 @@ section {
 .sec-title {
   font-family: var(--font-display);
   font-size: clamp(52px, 7.5vw, 110px);
-  font-weight: 400;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .03em;
   line-height: .88;
@@ -835,7 +835,7 @@ section {
 .card-title {
   font-family: var(--font-display);
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .04em;
   color: var(--clarity);
@@ -892,7 +892,7 @@ section {
 .phil-quote {
   font-family: var(--font-display);
   font-size: clamp(28px, 4vw, 64px);
-  font-weight: 400;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .04em;
   line-height: 1.1;
@@ -965,7 +965,7 @@ section {
 .t-role {
   font-family: var(--font-display);
   font-size: 28px;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .04em;
   color: var(--clarity);
@@ -1018,7 +1018,7 @@ section {
 .contact-cta {
   font-family: var(--font-display);
   font-size: clamp(44px, 6.5vw, 84px);
-  font-weight: 400;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .03em;
   line-height: .92;
@@ -1251,6 +1251,26 @@ footer {
 .rev-char.vis {
   transform: translateY(0);
   transition: transform .8s var(--ease-out);
+}
+
+/* DESKTOP — 100vh sections */
+@media (min-width: 961px) {
+
+  #about,
+  #expertise,
+  #experience,
+  #contact,
+  #philosophy {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eye-section {
+    min-height: 100vh;
+    height: 100vh;
+  }
 }
 
 /* MOBILE */
