@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERTISE } from '@/lib/constants';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,28 +75,37 @@ export default function Expertise() {
 
       <div className="cards-grid" ref={gridRef}>
         {EXPERTISE.map((item, index) => (
-          <div key={index} className="card">
-            <div className="card-num">{item.num}</div>
-            <div className="card-label">{item.label}</div>
-            <h3 className="card-title">
-              {item.title.split('\n').map((line, i) => (
-                <span key={i}>
-                  {line}
-                  {i < item.title.split('\n').length - 1 && <br />}
-                </span>
-              ))}
-            </h3>
-            <p className="card-body">{item.body}</p>
-            <div className="tags">
-              {item.tags.map((tag) => (
-                <span key={tag} className="tag">
-                  {tag}
-                </span>
-              ))}
+          <Link key={index} href={`/work/${item.slug}`} className="card-link">
+            <div className="card">
+              <div className="card-num">{item.num}</div>
+              <div className="card-label">{item.label}</div>
+              <h3 className="card-title">
+                {item.title.split('\n').map((line, i) => (
+                  <span key={i}>
+                    {line}
+                    {i < item.title.split('\n').length - 1 && <br />}
+                  </span>
+                ))}
+              </h3>
+              <p className="card-body">{item.body}</p>
+              <div className="tags">
+                {item.tags.map((tag) => (
+                  <span key={tag} className="tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="card-footer">
+                <span className="read-more">View Case Study</span>
+                <span className="arrow">→</span>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
   );
 }
+
+
