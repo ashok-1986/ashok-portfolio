@@ -76,6 +76,44 @@ export default function Hero() {
       {/* Background particle field */}
       <ParticleCanvas />
 
+      {/* Hero content — left side */}
+      <div className="hero-inner">
+
+        <p className="hero-chip">
+          <span style={{
+            width: '28px', height: '1px',
+            background: '#FC4F2F', display: 'inline-block',
+          }} />
+          Digital Analytics Strategist · Founder · Alchemetryx
+        </p>
+
+        <h1 className="h1">
+          <span className="solid reveal-text">Systems &</span>
+          <span className="hollow reveal-text">Operational</span>
+          <span className="fire reveal-text">Clarity</span>
+        </h1>
+
+        <p className="hero-sub">
+          15 years of converting digital noise into{' '}
+          <strong>strategic intelligence</strong>. From BookMyShow to
+          building Alchemetryx — I help owner-led businesses see what
+          matters, and <strong>act on it</strong>.
+        </p>
+
+        <div className="hero-btns">
+          <Magnetic strength={0.2}>
+            <a href="#contact" className="btn-primary" data-cursor="BOOK">
+              Let&apos;s Talk →
+            </a>
+          </Magnetic>
+          <Magnetic strength={0.2}>
+            <a href="#expertise" className="btn-ghost" data-cursor="EXPLORE">
+              See My Work ↓
+            </a>
+          </Magnetic>
+        </div>
+      </div>
+
       {/* Hero photo — right side */}
       <div className="hero-photo-col">
         <div className="hero-image-wrap">
@@ -117,44 +155,6 @@ export default function Hero() {
         <div className="hero-name-tag">
           <div className="pname">ASHOK VERMA</div>
           <div className="ptitle">FOUNDER · ALCHEMETRYX</div>
-        </div>
-      </div>
-
-      {/* Hero content — left side */}
-      <div className="hero-inner">
-
-        <p className="hero-chip">
-          <span style={{
-            width: '28px', height: '1px',
-            background: '#FC4F2F', display: 'inline-block',
-          }} />
-          Digital Analytics Strategist · Founder · Alchemetryx
-        </p>
-
-        <h1 className="h1">
-          <span className="solid reveal-text">Systems &</span>
-          <span className="hollow reveal-text">Operational</span>
-          <span className="fire reveal-text">Clarity</span>
-        </h1>
-
-        <p className="hero-sub">
-          15 years of converting digital noise into{' '}
-          <strong>strategic intelligence</strong>. From BookMyShow to
-          building Alchemetryx — I help owner-led businesses see what
-          matters, and <strong>act on it</strong>.
-        </p>
-
-        <div className="hero-btns">
-          <Magnetic strength={0.2}>
-            <a href="#contact" className="btn-primary" data-cursor="BOOK">
-              Let&apos;s Talk →
-            </a>
-          </Magnetic>
-          <Magnetic strength={0.2}>
-            <a href="#expertise" className="btn-ghost" data-cursor="EXPLORE">
-              See My Work ↓
-            </a>
-          </Magnetic>
         </div>
       </div>
 
