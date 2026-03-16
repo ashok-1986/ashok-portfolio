@@ -127,7 +127,19 @@ export default function Home() {
 
       {/* EYE SECTION - INTERSTITIAL */}
       <div className="eye-section" ref={eyeSectionRef}>
-        <img src="https://images.unsplash.com/photo-1494869042583-f6c911f04b4c?auto=format&fit=crop&q=80&w=2000" alt="Cinematic Eye Close-Up" />
+        <img
+          src="/images/og-image.png"
+          alt="Ashok Verma"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center 30%',
+            filter: 'grayscale(100%) contrast(1.2) brightness(0.55)',
+          }}
+        />
         <div className="eye-text">
           <p>The Detail That Changes Everything</p>
           <h2>Most businesses<br />have <em>data.</em><br />Few have <em>clarity.</em></h2>
