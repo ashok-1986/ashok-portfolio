@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import CalBooking from '@/components/ui/CalBooking';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', business: '', email: '', message: '' });
@@ -46,6 +47,11 @@ export default function Contact() {
           <p className="contact-sub rev d1">
             Every engagement begins with understanding your business as it actually is. No assumptions. No templates. Just clear thinking applied specifically to you.
           </p>
+
+          <div className="contact-booking rev d2">
+            <CalBooking buttonText="Schedule a 1:1 Clarity Session →" />
+            <p className="booking-note">Skip the form and book directly into my calendar.</p>
+          </div>
 
           <div className="contact-links rev d2">
             <a href="mailto:verma.86ashok@gmail.com" className="c-link">
