@@ -19,34 +19,29 @@ export default function Home() {
   const eyeSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Use a scoped GSAP context so cleanup ONLY kills page-level triggers,
-    // not the Hero component's own entry timeline.
     const ctx = gsap.context(() => {
-      // Reveal animations for all elements with .rev
+
+      // Reveal all .rev elements — but never touch anything inside #hero
       const revealElements = document.querySelectorAll('.rev');
       revealElements.forEach((el) => {
-        if (el.classList.contains('sec-title')) {
-          const text = el.textContent || '';
-          el.innerHTML = '';
-          text.split('').forEach((char) => {
-            const span = document.createElement('span');
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            span.className = 'rev-char';
-            el.appendChild(span);
-          });
 
-          const chars = el.querySelectorAll('.rev-char');
-          gsap.to(chars, {
-            y: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-            },
-          });
+        // Hero has its own GSAP timeline — leave it completely alone
+        if (el.closest('#hero')) return;
+
+        if (el.classList.contains('sec-title')) {
+          // Safe fade-up — no innerHTML destruction
+          gsap.fromTo(el,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1, y: 0,
+              duration: 0.9, ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                once: true,
+              },
+            }
+          );
         } else {
           gsap.to(el, {
             scrollTrigger: {
@@ -60,8 +55,7 @@ export default function Home() {
       });
 
       // Timeline item reveals
-      const timelineItems = document.querySelectorAll('.t-item');
-      timelineItems.forEach((el) => {
+      document.querySelectorAll('.t-item').forEach((el) => {
         ScrollTrigger.create({
           trigger: el,
           start: 'top 85%',
@@ -70,19 +64,17 @@ export default function Home() {
         });
       });
 
-      // ── EYE SECTION PARALLAX ──────────────────────────────────────
+      // Eye section parallax
       const eyeSection = eyeSectionRef.current;
       if (eyeSection) {
         const eyeImg = eyeSection.querySelector<HTMLElement>('img');
         const eyeText = eyeSection.querySelector<HTMLElement>('.eye-text');
 
         if (eyeImg) {
-          gsap.fromTo(
-            eyeImg,
+          gsap.fromTo(eyeImg,
             { y: '-20%' },
             {
-              y: '20%',
-              ease: 'none',
+              y: '20%', ease: 'none',
               scrollTrigger: {
                 trigger: eyeSection,
                 start: 'top bottom',
@@ -94,14 +86,11 @@ export default function Home() {
         }
 
         if (eyeText) {
-          gsap.fromTo(
-            eyeText,
+          gsap.fromTo(eyeText,
             { opacity: 0, y: 32 },
             {
-              opacity: 1,
-              y: 0,
-              duration: 1.1,
-              ease: 'power3.out',
+              opacity: 1, y: 0,
+              duration: 1.1, ease: 'power3.out',
               scrollTrigger: {
                 trigger: eyeSection,
                 start: 'top 75%',
@@ -111,10 +100,9 @@ export default function Home() {
           );
         }
       }
-      // ─────────────────────────────────────────────────────────────
     });
 
-    return () => ctx.revert(); // Only kills animations created in this context
+    return () => ctx.revert();
   }, []);
 
   return (
