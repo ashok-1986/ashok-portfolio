@@ -10,64 +10,63 @@ export default function EyeSection() {
     useEffect(() => {
         const handleScroll = () => {
             if (!containerRef.current) return;
-
-            const rect = containerRef.current.getBoundingClientRect();
             const scrollY = window.scrollY;
             const offsetTop = containerRef.current.offsetTop;
-
-            // Ported logic: translateY(${(y - es.closest('.eye-section').offsetTop) * 0.1}px)
-            // Here y is the scroll position
-            const scrollOffset = (scrollY - offsetTop) * 0.1;
+            const scrollOffset = (scrollY - offsetTop) * 0.15;
             setTranslateY(scrollOffset);
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Initial call
-
+        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
         <section
             ref={containerRef}
-            className="eye-section relative h-[90vh] overflow-hidden bg-[#1D0906]"
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
+            className="eye-section relative h-[100vh] overflow-hidden bg-[#000]"
         >
-            <div className="absolute inset-0 z-0 opacity-20">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#1D0906] via-transparent to-[#1D0906]" />
-            </div>
-
-            <div className="relative z-10 w-full max-w-[1400px] h-full flex items-center justify-center pointer-events-none">
+            {/* Background Image Container */}
+            <div className="absolute inset-0 z-0">
                 <div
-                    className="relative transition-transform duration-100 ease-out will-change-transform"
-                    style={{ transform: `scale(1.04) translateY(${translateY}px)` }}
+                    className="relative w-full h-[120%] -top-[10%] transition-transform duration-75 ease-out will-change-transform opacity-60"
+                    style={{ transform: `translateY(${translateY}px)` }}
                 >
                     <Image
-                        src="/images/eye-v3.png"
-                        alt="Interactive Eye"
-                        width={1200}
-                        height={800}
-                        className="object-contain"
+                        src="/images/eye_closeup_cinematic.png"
+                        alt="Cinematic Eye Background"
+                        fill
+                        className="object-cover grayscale brightness-50"
                         priority
                     />
                 </div>
+                {/* Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-b from-[#190805] via-transparent to-[#190805]" />
+                <div className="absolute inset-0 bg-black/40" />
             </div>
 
-            {/* Text overlay similar to v3 if needed */}
-            <div className="absolute inset-x-0 bottom-[15%] z-20 flex justify-center">
-                <div className="text-center">
-                    <p className="display-font text-[10px] font-bold tracking-[0.4em] text-[#FC4F2F] mb-4">
-                        Total Visibility
-                    </p>
-                    <h2 className="display-font text-[clamp(40px,8vw,90px)] text-[#F0F3F5] leading-[0.9]">
-                        I See What <br />
-                        <span className="block text-transparent" style={{ WebkitTextStroke: '1px rgba(240,243,245,0.3)' }}>Others Miss</span>
-                    </h2>
-                </div>
+            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-[30px]">
+                <p className="text-[10px] md:text-[12px] font-semibold tracking-[0.4em] text-[#FC4F2F] uppercase mb-6">
+                    The detail that changes everything
+                </p>
+                <h2 className="text-[clamp(36px,7.5vw,96px)] font-semibold text-[#F0F3F5] leading-[0.95] max-w-[900px]">
+                    MOST BUSINESSES <br />
+                    HAVE <span className="text-[#FC4F2F]">DATA.</span> <br />
+                    FEW HAVE <span className="text-[#FC4F2F]">CLARITY.</span>
+                </h2>
+            </div>
+
+            {/* Label in bottom left */}
+            <div className="absolute bottom-[40px] left-[30px] md:left-[60px] z-20 flex items-center gap-4 group">
+                <div className="w-[40px] h-[1px] bg-[#FC4F2F] transition-all group-hover:w-[60px]"></div>
+                <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[#FC4F2F]">
+                    What I Solve
+                </span>
+            </div>
+
+            {/* Animated dot on the left if applicable */}
+            <div className="absolute left-[30px] md:left-[60px] top-1/2 -translate-y-1/2 z-20 hidden md:block">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#FC4F2F] shadow-[0_0_12px_#FC4F2F] animate-pulse"></div>
             </div>
         </section>
     );

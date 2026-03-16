@@ -5,6 +5,7 @@ import Hero from '@/components/sections/Hero';
 import About from '@/components/sections/About';
 import Expertise from '@/components/sections/Expertise';
 import Experience from '@/components/sections/Experience';
+import EyeSection from '@/components/sections/EyeSection';
 import Philosophy from '@/components/sections/Philosophy';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/sections/Footer';
@@ -37,6 +38,7 @@ export default function Home() {
       <About />
       <Expertise />
       <Experience />
+      <EyeSection />
       <Philosophy />
       <Contact />
       <Footer />

@@ -1,7 +1,7 @@
 export const NAVIGATION = [
   { label: 'About', href: '#about' },
   { label: 'Expertise', href: '#expertise' },
-  { label: 'Work', href: '#experience' },
+  { label: 'Career', href: '#experience' },
   { label: 'Contact', href: '#contact' },
 ] as const;
 
