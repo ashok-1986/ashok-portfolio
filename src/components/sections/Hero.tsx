@@ -11,28 +11,15 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
 
   useEffect(() => {
-    // Kill any previous timeline from Strict Mode double-invoke
-    tlRef.current?.kill();
+    // GSAP Context handles all scoped animations and cleanup automatically
+    const ctx = gsap.context(() => {
 
-    // Small timeout lets React finish hydration before GSAP touches the DOM
-    const timer = setTimeout(() => {
-      // Set initial states
-      gsap.set([
-        '.hero-chip',
-        '.h1',
-        '.hero-sub',
-        '.hero-btns',
-        '.scroll-pill',
-      ], { opacity: 0, y: 40, immediateRender: true });
-
-      gsap.set('.hero-photo-col', { opacity: 0, immediateRender: true });
-
-      // Build timeline
-      const tl = gsap.timeline();
-      tlRef.current = tl;
+      const tl = gsap.timeline({
+        delay: 0.1, // Small delay for hydration safety
+        // No need for immediate set(0) because it's now in globals.css
+      });
 
       tl.to('.hero-chip', {
         opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
@@ -67,13 +54,9 @@ export default function Hero() {
           },
         });
       }
-    }, 100); // 100ms is enough for hydration to complete
+    }, containerRef); // Scope all selectors to the container
 
-    return () => {
-      clearTimeout(timer);
-      tlRef.current?.kill();
-      ScrollTrigger.getAll().forEach(st => st.kill());
-    };
+    return () => ctx.revert(); // Reverts all animations and kills scrolltriggers
   }, []);
 
   return (
