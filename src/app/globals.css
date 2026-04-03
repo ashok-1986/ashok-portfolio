@@ -19,9 +19,9 @@
   --clarity-dim: rgba(240, 243, 245, 0.08);
 
   /* Typography */
-  --font-display: 'Bebas Neue', 'Arial Black', sans-serif;
+  --font-display: 'Urbanist', sans-serif;
   --font-body: 'Urbanist', sans-serif;
-  --font-weight-display: 400;
+  --font-weight-display: 600;
   --font-weight-body: 600;
 
   /* Spacing rhythm — 8px base */
@@ -236,7 +236,7 @@ nav::before,
 
 .h1 {
   font-size: clamp(64px, 11vw, 172px);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 0.88;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -684,7 +684,7 @@ section {
 
 .stat-num {
   font-size: 52px;
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: -.04em;
   line-height: 1;
   color: var(--clarity);
@@ -706,7 +706,7 @@ section {
 .about-statement {
   font-family: var(--font-display);
   font-size: clamp(40px, 5.5vw, 68px);
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .04em;
   line-height: .9;
@@ -785,7 +785,7 @@ section {
 .sec-title {
   font-family: var(--font-display);
   font-size: clamp(52px, 7.5vw, 110px);
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .03em;
   line-height: .88;
@@ -926,7 +926,7 @@ section {
 .phil-quote {
   font-family: var(--font-display);
   font-size: clamp(28px, 4vw, 64px);
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .04em;
   line-height: 1.1;
@@ -1069,7 +1069,7 @@ section {
 .contact-cta {
   font-family: var(--font-display);
   font-size: clamp(44px, 6.5vw, 84px);
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .03em;
   line-height: .92;
@@ -1464,7 +1464,7 @@ footer {
 
 .cs-title {
   font-size: clamp(48px, 6vw, 84px);
-  font-weight: 900;
+  font-weight: 600;
   text-transform: uppercase;
   line-height: 1;
   margin-bottom: 20px;
