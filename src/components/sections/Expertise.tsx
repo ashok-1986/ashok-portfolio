@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERTISE } from '@/lib/constants';
-import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,105 +11,87 @@ export default function Expertise() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Reveal animation
-    const cards = gsap.utils.toArray<HTMLElement>('.card');
-    gsap.fromTo(cards,
-      { opacity: 0, y: 30 },
+    const cards = gsap.utils.toArray<HTMLElement>('.exp-card');
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 40 },
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        stagger: 0.15,
+        duration: 0.9,
+        stagger: 0.18,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: gridRef.current,
           start: 'top 80%',
-        }
+        },
       }
     );
 
-    // Mouse tilt effect
     cards.forEach((card) => {
-      const handleMouseMove = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const { left, top, width, height } = card.getBoundingClientRect();
-        const x = (clientX - left) / width - 0.5;
-        const y = (clientY - top) / height - 0.5;
-
-        gsap.to(card, {
-          rotateY: x * 15,
-          rotateX: -y * 15,
-          transformPerspective: 1000,
-          duration: 0.5,
-          ease: 'power2.out',
-        });
+      const onMove = (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12;
+        card.style.transform =
+          `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg) translateZ(6px)`;
       };
-
-      const handleMouseLeave = () => {
-        gsap.to(card, {
-          rotateY: 0,
-          rotateX: 0,
-          duration: 0.5,
-          ease: 'power2.out',
-        });
+      const onLeave = () => {
+        card.style.transform =
+          'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
       };
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      card.addEventListener('mousemove', handleMouseMove as any);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      card.addEventListener('mouseleave', handleMouseLeave as any);
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', onLeave);
     });
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (
     <section id="expertise">
       <div className="exp-header">
+        <div className="section-label rev">What I Solve</div>
         <h2 className="sec-title rev">
-          Three<br /><em>Pillars</em>
+          Three<em>Pillars</em>
         </h2>
         <p className="exp-desc rev">
-          One goal: a business that does not need you in every room, every decision, every day.
+          One goal: a business that does not need you in every room,
+          every decision, every day.
         </p>
       </div>
 
-      <div className="cards-grid" ref={gridRef}>
+      <div className="exp-grid" ref={gridRef}>
         {EXPERTISE.map((item, index) => (
-          <Link
-            key={index}
-            href={item.slug ? `/work/${item.slug}` : "#"}
-            className="card-link"
-            data-cursor="VIEW"
-          >
-            <div className="card">
-              <div className="card-num">{item.num}</div>
-              <div className="card-label">{item.label}</div>
-              <h3 className="card-title">
+          <div key={index} className="exp-card">
+            <div className="exp-card-inner">
+              <span className="exp-num">{item.num}</span>
+              <div className="exp-label">{item.label}</div>
+              <h3 className="exp-card-title">
                 {item.title.split('\n').map((line, i) => (
-                  <span key={i}>
-                    {line}
-                    {i < item.title.split('\n').length - 1 && <br />}
-                  </span>
+                  <span key={i} style={{ display: 'block' }}>{line}</span>
                 ))}
               </h3>
-              <p className="card-body">{item.body}</p>
-              <div className="tags">
+              <p className="exp-card-body">{item.body}</p>
+              <div className="exp-tags">
                 {item.tags.map((tag) => (
-                  <span key={tag} className="tag">
-                    {tag}
-                  </span>
+                  <span key={tag} className="exp-tag">{tag}</span>
                 ))}
               </div>
-
-              <div className="card-footer">
-                <span className="read-more">View Case Study</span>
-                <span className="arrow">→</span>
+              <div className="exp-card-foot">
+                <a
+                  href={item.slug ? `/work/${item.slug}` : '#expertise'}
+                  className="exp-read-more"
+                  aria-label={`View ${item.label} case study`}
+                >
+                  View Case Study
+                  <span className="exp-arrow">→</span>
+                </a>
               </div>
             </div>
-          </Link>
+            <div className="exp-card-accent" />
+          </div>
         ))}
       </div>
     </section>
   );
 }
-
-

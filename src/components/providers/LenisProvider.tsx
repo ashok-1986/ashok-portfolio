@@ -1,40 +1,42 @@
 'use client';
-import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis';
 
+import { useEffect } from 'react';
+import Lenis from 'lenis';
 
-export default function LenisProvider({ children }: { children: React.ReactNode }) {
-    const lenisRef = useRef<Lenis | null>(null);
+let globalLenis: Lenis | null = null;
 
+export function getLenis() {
+    return globalLenis;
+}
+
+export default function LenisProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     useEffect(() => {
         const lenis = new Lenis({
             duration: 1.4,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-
             orientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 0.8,
-            touchMultiplier: 1.5,
-            infinite: false,
+            wheelMultiplier: 0.85,
+            touchMultiplier: 1.8,
         });
 
-        lenisRef.current = lenis;
+        globalLenis = lenis;
 
-        // Connect GSAP ScrollTrigger to Lenis
-        lenis.on('scroll', () => {
-            if (typeof window !== 'undefined' && (window as any).ScrollTrigger) {
-                (window as any).ScrollTrigger.update();
-            }
-        });
-
+        let rafId: number;
         const raf = (time: number) => {
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         };
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         return () => {
+            cancelAnimationFrame(rafId);
             lenis.destroy();
+            globalLenis = null;
         };
     }, []);
 

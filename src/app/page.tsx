@@ -21,24 +21,19 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      // Scroll reveal — ALL sections EXCEPT #hero (hero uses CSS)
+      // Scroll reveal — skip #hero (uses CSS animations)
       const revealEls = document.querySelectorAll('.rev');
       revealEls.forEach((el) => {
-        if (el.closest('#hero')) return; // NEVER touch hero elements
+        if (el.closest('#hero')) return;
 
         if (el.classList.contains('sec-title')) {
-          // Safe fade-up — no innerHTML destruction
           gsap.fromTo(el,
             { opacity: 0, y: 40 },
             {
               opacity: 1, y: 0,
               duration: 0.9,
               ease: 'power3.out',
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 85%',
-                once: true,
-              },
+              scrollTrigger: { trigger: el, start: 'top 85%', once: true },
             }
           );
         } else {
@@ -63,27 +58,22 @@ export default function Home() {
         });
       });
 
-      // Eye section parallax
+      // Eye section
       const eyeSection = eyeSectionRef.current;
       if (eyeSection) {
         const eyeImg = eyeSection.querySelector<HTMLElement>('img');
-        const eyeText = eyeSection.querySelector<HTMLElement>('.eye-text');
 
         if (eyeImg) {
-          gsap.fromTo(eyeImg,
-            { y: '-20%' },
-            {
-              y: '20%', ease: 'none',
-              scrollTrigger: {
-                trigger: eyeSection,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
-              },
-            }
-          );
+          const onEyeScroll = () => {
+            const rect = eyeSection.getBoundingClientRect();
+            const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
+            const y = progress * 40;
+            eyeImg.style.transform = `translateY(${y}%)`;
+          };
+          window.addEventListener('scroll', onEyeScroll, { passive: true });
         }
 
+        const eyeText = eyeSection.querySelector<HTMLElement>('.eye-text');
         if (eyeText) {
           gsap.fromTo(eyeText,
             { opacity: 0, y: 32 },
@@ -91,31 +81,22 @@ export default function Home() {
               opacity: 1, y: 0,
               duration: 1.1,
               ease: 'power3.out',
-              scrollTrigger: {
-                trigger: eyeSection,
-                start: 'top 75%',
-                once: true,
-              },
+              scrollTrigger: { trigger: eyeSection, start: 'top 75%', once: true },
             }
           );
         }
       }
 
-      // Horizontal marquee speed boost on scroll
+      // Marquee scroll velocity boost
       const marqueeTrack = document.querySelector<HTMLElement>('.marquee-track');
       if (marqueeTrack) {
-        let velocity = 1;
         let lastScroll = 0;
         window.addEventListener('scroll', () => {
-          const currentScroll = window.scrollY;
-          const delta = Math.abs(currentScroll - lastScroll);
-          velocity = Math.min(4, 1 + delta * 0.05);
+          const delta = Math.abs(window.scrollY - lastScroll);
+          const velocity = Math.min(4, 1 + delta * 0.05);
           marqueeTrack.style.animationDuration = `${26 / velocity}s`;
-          lastScroll = currentScroll;
-          setTimeout(() => {
-            marqueeTrack.style.animationDuration = '26s';
-            velocity = 1;
-          }, 500);
+          lastScroll = window.scrollY;
+          setTimeout(() => { marqueeTrack.style.animationDuration = '26s'; }, 500);
         }, { passive: true });
       }
     });
@@ -124,10 +105,8 @@ export default function Home() {
     const progressBar = document.querySelector<HTMLElement>('.scroll-progress');
     if (progressBar) {
       const updateProgress = () => {
-        const scrolled = window.scrollY;
         const total = document.body.scrollHeight - window.innerHeight;
-        const progress = (scrolled / total) * 100;
-        progressBar.style.width = `${progress}%`;
+        progressBar.style.width = `${(window.scrollY / total) * 100}%`;
       };
       window.addEventListener('scroll', updateProgress, { passive: true });
     }
@@ -146,31 +125,28 @@ export default function Home() {
       {/* MARQUEE */}
       <div className="marquee-wrap">
         <div className="marquee-track">
-          <div className="m-item">{marqueeText}</div>
-          <div className="m-item">{marqueeText}</div>
+          <div className="m-item">{marqueeText} <span className="m-dot">·</span> </div>
+          <div className="m-item">{marqueeText} <span className="m-dot">·</span> </div>
         </div>
       </div>
 
       <About />
 
-      {/* EYE SECTION - INTERSTITIAL */}
+      {/* EYE SECTION */}
       <div className="eye-section" ref={eyeSectionRef}>
         <img
           src="/images/og-image.png"
-          alt="Ashok Verma"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center 30%',
-            filter: 'grayscale(100%) contrast(1.2) brightness(0.55)',
-          }}
+          alt=""
+          aria-hidden="true"
         />
+        <div className="eye-overlay" />
         <div className="eye-text">
           <p>The Detail That Changes Everything</p>
-          <h2>Most businesses<br />have <em>data.</em><br />Few have <em>clarity.</em></h2>
+          <h2>
+            Most businesses<br />
+            have <em>data.</em><br />
+            Few have <em>clarity.</em>
+          </h2>
         </div>
       </div>
 
