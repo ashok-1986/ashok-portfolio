@@ -21,12 +21,10 @@ export default function Home() {
   useEffect(() => {
     const ctx = gsap.context(() => {
 
-      // Reveal all .rev elements — but never touch anything inside #hero
-      const revealElements = document.querySelectorAll('.rev');
-      revealElements.forEach((el) => {
-
-        // Hero has its own GSAP timeline — leave it completely alone
-        if (el.closest('#hero')) return;
+      // Scroll reveal — ALL sections EXCEPT #hero (hero uses CSS)
+      const revealEls = document.querySelectorAll('.rev');
+      revealEls.forEach((el) => {
+        if (el.closest('#hero')) return; // NEVER touch hero elements
 
         if (el.classList.contains('sec-title')) {
           // Safe fade-up — no innerHTML destruction
@@ -34,7 +32,8 @@ export default function Home() {
             { opacity: 0, y: 40 },
             {
               opacity: 1, y: 0,
-              duration: 0.9, ease: 'power3.out',
+              duration: 0.9,
+              ease: 'power3.out',
               scrollTrigger: {
                 trigger: el,
                 start: 'top 85%',
@@ -54,7 +53,7 @@ export default function Home() {
         }
       });
 
-      // Timeline item reveals
+      // Timeline items
       document.querySelectorAll('.t-item').forEach((el) => {
         ScrollTrigger.create({
           trigger: el,
@@ -90,7 +89,8 @@ export default function Home() {
             { opacity: 0, y: 32 },
             {
               opacity: 1, y: 0,
-              duration: 1.1, ease: 'power3.out',
+              duration: 1.1,
+              ease: 'power3.out',
               scrollTrigger: {
                 trigger: eyeSection,
                 start: 'top 75%',
@@ -100,25 +100,54 @@ export default function Home() {
           );
         }
       }
+
+      // Horizontal marquee speed boost on scroll
+      const marqueeTrack = document.querySelector<HTMLElement>('.marquee-track');
+      if (marqueeTrack) {
+        let velocity = 1;
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.scrollY;
+          const delta = Math.abs(currentScroll - lastScroll);
+          velocity = Math.min(4, 1 + delta * 0.05);
+          marqueeTrack.style.animationDuration = `${26 / velocity}s`;
+          lastScroll = currentScroll;
+          setTimeout(() => {
+            marqueeTrack.style.animationDuration = '26s';
+            velocity = 1;
+          }, 500);
+        }, { passive: true });
+      }
     });
+
+    // Scroll progress bar
+    const progressBar = document.querySelector<HTMLElement>('.scroll-progress');
+    if (progressBar) {
+      const updateProgress = () => {
+        const scrolled = window.scrollY;
+        const total = document.body.scrollHeight - window.innerHeight;
+        const progress = (scrolled / total) * 100;
+        progressBar.style.width = `${progress}%`;
+      };
+      window.addEventListener('scroll', updateProgress, { passive: true });
+    }
 
     return () => ctx.revert();
   }, []);
 
+  const marqueeText = 'GA4 ANALYTICS · BIGQUERY · LOOKER STUDIO · MARKETING AUTOMATION · GTM · DATA STRATEGY · CRO · DECISION INTELLIGENCE · AI WORKFLOWS · MAKE.COM · HUBSPOT · RETENTION ·';
+
   return (
     <main>
+      <div className="scroll-progress" />
       <Navigation />
       <Hero />
 
       {/* MARQUEE */}
       <div className="marquee-wrap">
         <div className="marquee-track">
-          <div className="m-item">
-            GA4 Analytics <span className="m-dot">✦</span> BigQuery <span className="m-dot">✦</span> Looker Studio <span className="m-dot">✦</span> Marketing Automation <span className="m-dot">✦</span> Klaviyo <span className="m-dot">✦</span> SEO Strategy <span className="m-dot">✦</span> GTM <span className="m-dot">✦</span> Data Strategy <span className="m-dot">✦</span> CRO <span className="m-dot">✦</span> Retention <span className="m-dot">✦</span>
-          </div>
-          <div className="m-item">
-            GA4 Analytics <span className="m-dot">✦</span> BigQuery <span className="m-dot">✦</span> Looker Studio <span className="m-dot">✦</span> Marketing Automation <span className="m-dot">✦</span> Klaviyo <span className="m-dot">✦</span> SEO Strategy <span className="m-dot">✦</span> GTM <span className="m-dot">✦</span> Data Strategy <span className="m-dot">✦</span> CRO <span className="m-dot">✦</span> Retention <span className="m-dot">✦</span>
-          </div>
+          <div className="m-item">{marqueeText}</div>
+          <div className="m-item">{marqueeText}</div>
         </div>
       </div>
 

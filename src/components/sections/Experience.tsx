@@ -9,6 +9,9 @@ export default function Experience() {
       <h2 className="sec-title rev d1">Where I&apos;ve<br /><em>Been</em></h2>
 
       <div className="timeline">
+        {/* Animated scanning line */}
+        <div className="t-line" />
+
         {EXPERIENCE.map((item, index) => (
           <div key={index} className="t-item rev">
             <div className="t-dot"></div>

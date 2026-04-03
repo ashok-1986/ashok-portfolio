@@ -1,88 +1,99 @@
 'use client';
-
-import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
+import { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
-    const cursorRef = useRef<HTMLDivElement>(null);
-    const followerRef = useRef<HTMLDivElement>(null);
-    const [cursorText, setCursorText] = useState('');
-    const [isHovering, setIsHovering] = useState(false);
+    const dotRef = useRef<HTMLDivElement>(null);
+    const ringRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const cursor = cursorRef.current;
-        const follower = followerRef.current;
-        if (!cursor || !follower) return;
+        const dot = dotRef.current;
+        const ring = ringRef.current;
+        if (!dot || !ring) return;
 
-        // Movement logic
-        const moveCursor = (e: MouseEvent) => {
-            gsap.to(cursor, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.1,
-                ease: 'none'
-            });
-            gsap.to(follower, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.4,
-                ease: 'power3.out'
-            });
+        let cx = window.innerWidth / 2;
+        let cy = window.innerHeight / 2;
+        let rx = cx, ry = cy;
+        let rafId: number;
+
+        const onMove = (e: MouseEvent) => {
+            cx = e.clientX;
+            cy = e.clientY;
+            dot.style.left = `${cx}px`;
+            dot.style.top = `${cy}px`;
         };
 
-        // Hover logic
-        const handleMouseOver = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const hoverElement = target.closest('a, button, .card-link, [data-cursor]');
+        const trackRing = () => {
+            rx += (cx - rx) * 0.12;
+            ry += (cy - ry) * 0.12;
+            ring.style.left = `${rx}px`;
+            ring.style.top = `${ry}px`;
+            rafId = requestAnimationFrame(trackRing);
+        };
+        trackRing();
 
-            if (hoverElement) {
-                setIsHovering(true);
-                const text = hoverElement.getAttribute('data-cursor');
-                setCursorText(text || '');
-
-                gsap.to(follower, {
-                    scale: 3,
-                    backgroundColor: 'rgba(252, 79, 47, 0.1)',
-                    borderColor: 'rgba(252, 79, 47, 0.5)',
-                    duration: 0.3
-                });
-            }
+        const onEnter = () => {
+            dot.style.transform = 'translate(-50%,-50%) scale(1.8)';
+            ring.style.width = '56px';
+            ring.style.height = '56px';
+            ring.style.borderColor = 'var(--edge)';
         };
 
-        const handleMouseOut = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            const hoverElement = target.closest('a, button, .card-link, [data-cursor]');
-
-            if (hoverElement) {
-                setIsHovering(false);
-                setCursorText('');
-
-                gsap.to(follower, {
-                    scale: 1,
-                    backgroundColor: 'transparent',
-                    borderColor: 'rgba(240, 243, 245, 0.2)',
-                    duration: 0.3
-                });
-            }
+        const onLeave = () => {
+            dot.style.transform = 'translate(-50%,-50%) scale(1)';
+            ring.style.width = '38px';
+            ring.style.height = '38px';
+            ring.style.borderColor = 'rgba(252,79,47,0.4)';
         };
 
-        window.addEventListener('mousemove', moveCursor);
-        window.addEventListener('mouseover', handleMouseOver);
-        window.addEventListener('mouseout', handleMouseOut);
+        document.addEventListener('mousemove', onMove, { passive: true });
+        const targets = document.querySelectorAll('a, button, .expertise-card, .t-item, .card, .card-link');
+        targets.forEach(el => {
+            el.addEventListener('mouseenter', onEnter);
+            el.addEventListener('mouseleave', onLeave);
+        });
+
+        // Hide on mobile
+        const isMobile = window.matchMedia('(pointer: coarse)').matches;
+        if (isMobile) {
+            dot.style.display = 'none';
+            ring.style.display = 'none';
+        }
 
         return () => {
-            window.removeEventListener('mousemove', moveCursor);
-            window.removeEventListener('mouseover', handleMouseOver);
-            window.removeEventListener('mouseout', handleMouseOut);
+            cancelAnimationFrame(rafId);
+            document.removeEventListener('mousemove', onMove);
         };
     }, []);
 
     return (
         <>
-            <div ref={cursorRef} className="custom-cursor-point" />
-            <div ref={followerRef} className="custom-cursor-follower">
-                {cursorText && <span className="cursor-text">{cursorText}</span>}
-            </div>
+            <div ref={dotRef} style={{
+                position: 'fixed',
+                width: '10px',
+                height: '10px',
+                background: 'var(--edge)',
+                borderRadius: '50%',
+                pointerEvents: 'none',
+                zIndex: 9999,
+                transform: 'translate(-50%, -50%)',
+                transition: 'transform 0.25s var(--ease-out)',
+                mixBlendMode: 'screen',
+                top: 0,
+                left: 0,
+            }} />
+            <div ref={ringRef} style={{
+                position: 'fixed',
+                width: '38px',
+                height: '38px',
+                border: '1px solid rgba(252,79,47,0.4)',
+                borderRadius: '50%',
+                pointerEvents: 'none',
+                zIndex: 9998,
+                transform: 'translate(-50%, -50%)',
+                transition: 'width 0.3s var(--ease-out), height 0.3s var(--ease-out), border-color 0.3s ease',
+                top: 0,
+                left: 0,
+            }} />
         </>
     );
 }
