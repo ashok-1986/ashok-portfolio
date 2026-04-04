@@ -111,8 +111,8 @@ export default function Home() {
         };
         window.addEventListener('scroll', onScroll, { passive: true });
 
-        if (typeof window !== 'undefined' && window.__lenis) {
-          window.__lenis.on('scroll', ({ velocity }: { velocity: number }) => {
+        if (typeof window !== 'undefined' && (window as any).__lenis) {
+          (window as any).__lenis.on('scroll', ({ velocity }: { velocity: number }) => {
             targetDuration = Math.max(6, 26 - Math.abs(velocity) * 3);
             clearTimeout((window as any)._marqueeTimer);
             (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
