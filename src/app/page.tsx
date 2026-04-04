@@ -106,16 +106,16 @@ export default function Home() {
           const delta = Math.abs(window.scrollY - lastY);
           targetDuration = Math.max(6, 26 - delta * 0.8);
           lastY = window.scrollY;
-          clearTimeout(window._marqueeTimer);
-          window._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600) as unknown as number;
+          clearTimeout((window as any)._marqueeTimer);
+          (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
         };
         window.addEventListener('scroll', onScroll, { passive: true });
 
         if (typeof window !== 'undefined' && window.__lenis) {
           window.__lenis.on('scroll', ({ velocity }: { velocity: number }) => {
             targetDuration = Math.max(6, 26 - Math.abs(velocity) * 3);
-            clearTimeout(window._marqueeTimer);
-            window._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600) as unknown as number;
+            clearTimeout((window as any)._marqueeTimer);
+            (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
           });
         }
 
