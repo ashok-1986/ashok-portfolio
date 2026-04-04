@@ -76,7 +76,7 @@ export default function About() {
               sizes="30vw"
               style={{
                 objectFit: 'cover',
-                objectPosition: 'center top',
+                objectPosition: 'center 15%',
                 filter: 'brightness(0.75) contrast(1.1) saturate(0.4)',
               }}
             />
@@ -87,13 +87,13 @@ export default function About() {
         <div className="about-right rev">
           <div className="about-photo-small">
             <Image
-              src="/images/photo4.jpg"
+              src="/images/hero.png"
               alt="Ashok Verma"
               fill
               sizes="20vw"
               style={{
                 objectFit: 'cover',
-                objectPosition: 'center top',
+                objectPosition: 'center 10%',
                 filter: 'brightness(0.75) contrast(1.1) saturate(0.4)',
               }}
             />

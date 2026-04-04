@@ -12,6 +12,12 @@ export default function Expertise() {
 
   useEffect(() => {
     const cards = gsap.utils.toArray<HTMLElement>('.exp-card');
+    const eventListeners: Array<{
+      element: Element;
+      type: string;
+      handler: EventListener;
+    }> = [];
+
     gsap.fromTo(
       cards,
       { opacity: 0, y: 40 },
@@ -29,10 +35,11 @@ export default function Expertise() {
     );
 
     cards.forEach((card) => {
-      const onMove = (e: MouseEvent) => {
+      const onMove = (e: Event) => {
+        const mouseEvent = e as MouseEvent;
         const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
-        const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12;
+        const x = ((mouseEvent.clientX - rect.left) / rect.width - 0.5) * 12;
+        const y = ((mouseEvent.clientY - rect.top) / rect.height - 0.5) * -12;
         card.style.transform =
           `perspective(1000px) rotateX(${y}deg) rotateY(${x}deg) translateZ(6px)`;
       };
@@ -42,9 +49,19 @@ export default function Expertise() {
       };
       card.addEventListener('mousemove', onMove);
       card.addEventListener('mouseleave', onLeave);
+
+      eventListeners.push(
+        { element: card, type: 'mousemove', handler: onMove },
+        { element: card, type: 'mouseleave', handler: onLeave }
+      );
     });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+      eventListeners.forEach(({ element, type, handler }) => {
+        element.removeEventListener(type, handler);
+      });
+    };
   }, []);
 
   return (
@@ -61,8 +78,8 @@ export default function Expertise() {
       </div>
 
       <div className="exp-grid" ref={gridRef}>
-        {EXPERTISE.map((item, index) => (
-          <div key={index} className="exp-card">
+        {EXPERTISE.map((item) => (
+          <div key={item.slug} className="exp-card">
             <div className="exp-card-inner">
               <span className="exp-num">{item.num}</span>
               <div className="exp-label">{item.label}</div>

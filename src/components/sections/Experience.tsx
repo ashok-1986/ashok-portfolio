@@ -12,8 +12,8 @@ export default function Experience() {
         {/* Animated scanning line */}
         <div className="t-line" />
 
-        {EXPERIENCE.map((item, index) => (
-          <div key={index} className="t-item rev">
+        {EXPERIENCE.map((item) => (
+          <div key={item.id} className="t-item rev">
             <div className="t-dot"></div>
             <div className="t-period">{item.period}</div>
             <h3 className="t-role">{item.role}</h3>

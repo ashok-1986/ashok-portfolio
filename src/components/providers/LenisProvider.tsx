@@ -26,7 +26,7 @@ export default function LenisProvider({
 
         globalLenis = lenis;
         if (typeof window !== 'undefined') {
-            (window as any).__lenis = lenis;
+            window.__lenis = lenis;
         }
 
 

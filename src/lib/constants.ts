@@ -110,6 +110,7 @@ export const TESTIMONIALS = [
 
 export const EXPERIENCE = [
   {
+    id: 'alchemetryx-founder',
     period: 'Jun 2024 — Present',
     role: 'Founder & Principal',
     company: 'Alchemetryx Consulting · London / Mumbai',
@@ -117,6 +118,7 @@ export const EXPERIENCE = [
     metric: 'alchemetryx.com',
   },
   {
+    id: 'seamless-ai-partner',
     period: 'Aug 2024 — Mar 2025',
     role: 'Strategic Partner',
     company: 'Seamless.AI · United States',
@@ -124,6 +126,7 @@ export const EXPERIENCE = [
     metric: 'AI Sales Partnership',
   },
   {
+    id: 'lt-finance-manager',
     period: 'Aug 2022 — Jul 2023',
     role: 'Team Manager',
     company: 'L&T Finance · Mumbai',
@@ -131,6 +134,7 @@ export const EXPERIENCE = [
     metric: '+10% Customer Engagement',
   },
   {
+    id: 'fichmu-foods-vp',
     period: 'May 2020 — Apr 2023',
     role: 'VP Analytics',
     company: 'Fichmu Foods · Mumbai',
@@ -138,6 +142,7 @@ export const EXPERIENCE = [
     metric: '30% CAC Reduction · 20% Conversion Lift',
   },
   {
+    id: 'bookmyshow-analytics',
     period: 'Jul 2014 — Mar 2020',
     role: 'Senior Manager, Digital Analytics',
     company: 'BookMyShow · Mumbai',
@@ -145,6 +150,7 @@ export const EXPERIENCE = [
     metric: '5 Years 9 Months · +10% Conversion',
   },
   {
+    id: 'mtc-ecom-manager',
     period: 'Nov 2013 — Jul 2014',
     role: 'Manager, Analytics & Retention',
     company: 'MTC Ecom (PrettySecrets) · Mumbai',
@@ -152,6 +158,7 @@ export const EXPERIENCE = [
     metric: 'Multi-team KPI Architecture',
   },
   {
+    id: 'interactive-avenues-assistant',
     period: 'Dec 2012 — Oct 2013',
     role: 'Assistant Manager',
     company: 'Interactive Avenues · Mumbai',
@@ -159,6 +166,7 @@ export const EXPERIENCE = [
     metric: 'Agency Analytics Lead',
   },
   {
+    id: 'eclerx-analyst',
     period: 'Jul 2009 — Dec 2012',
     role: 'Web Analyst → Sr Analyst → Assoc Manager',
     company: 'eClerx · Mumbai',
