@@ -87,18 +87,39 @@ export default function Home() {
         }
       }
 
-      // Marquee scroll velocity boost
+      // Marquee speed boost — RAF lerp + Lenis velocity
       const marqueeTrack = document.querySelector<HTMLElement>('.marquee-track');
       if (marqueeTrack) {
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-          const delta = Math.abs(window.scrollY - lastScroll);
-          const velocity = Math.min(4, 1 + delta * 0.05);
-          marqueeTrack.style.animationDuration = `${26 / velocity}s`;
-          lastScroll = window.scrollY;
-          setTimeout(() => { marqueeTrack.style.animationDuration = '26s'; }, 500);
-        }, { passive: true });
+        let currentDuration = 26;
+        let targetDuration = 26;
+        let lastY = 0;
+        let rafMarquee: number;
+
+        const updateMarquee = () => {
+          currentDuration += (targetDuration - currentDuration) * 0.05;
+          marqueeTrack.style.animationDuration = `${currentDuration}s`;
+          rafMarquee = requestAnimationFrame(updateMarquee);
+        };
+        rafMarquee = requestAnimationFrame(updateMarquee);
+
+        const onScroll = () => {
+          const delta = Math.abs(window.scrollY - lastY);
+          targetDuration = Math.max(6, 26 - delta * 0.8);
+          lastY = window.scrollY;
+          clearTimeout((window as any)._marqueeTimer);
+          (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        if (typeof window !== 'undefined' && (window as any).__lenis) {
+          (window as any).__lenis.on('scroll', ({ velocity }: { velocity: number }) => {
+            targetDuration = Math.max(6, 26 - Math.abs(velocity) * 3);
+            clearTimeout((window as any)._marqueeTimer);
+            (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
+          });
+        }
       }
+
     });
 
     // Scroll progress bar

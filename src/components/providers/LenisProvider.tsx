@@ -25,6 +25,10 @@ export default function LenisProvider({
         });
 
         globalLenis = lenis;
+        if (typeof window !== 'undefined') {
+            (window as any).__lenis = lenis;
+        }
+
 
         let rafId: number;
         const raf = (time: number) => {

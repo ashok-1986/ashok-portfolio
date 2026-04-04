@@ -87,7 +87,7 @@ export default function About() {
         <div className="about-right rev">
           <div className="about-photo-small">
             <Image
-              src="/images/hero.png"
+              src="/images/photo4.jpg"
               alt="Ashok Verma"
               fill
               sizes="20vw"
@@ -99,6 +99,7 @@ export default function About() {
             />
             <div className="photo-arrow-btn">↗</div>
           </div>
+
 
           <div className="about-bullets">
             <div className="about-bullet">
