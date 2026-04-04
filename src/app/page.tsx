@@ -127,8 +127,7 @@ export default function Home() {
           window.removeEventListener('scroll', onScroll);
         };
 
-        // Store cleanup for later use if needed
-        window._cleanupMarquee = cleanupMarquee;
+
       }
 
     });
