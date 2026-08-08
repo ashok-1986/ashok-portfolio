@@ -48,6 +48,7 @@ export default function Navigation() {
             <a
               href={item.href}
               className={activeSection === item.href.replace('#', '') ? 'active' : ''}
+              aria-current={activeSection === item.href.replace('#', '') ? 'true' : undefined}
             >
               {item.label}
             </a>

@@ -20,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Scroll reveal — skip #hero (uses CSS animations)
+      // Scroll reveal — skip #hero (GSAP owns its entrance)
       const revealEls = document.querySelectorAll('.rev');
       revealEls.forEach((el) => {
         if (el.closest('#hero')) return;

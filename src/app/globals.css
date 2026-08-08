@@ -1141,35 +1141,6 @@ section {
   color: var(--edge);
 }
 
-.fi,
-.ft {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(240, 243, 245, .1);
-  color: var(--clarity);
-  font-family: 'Urbanist', sans-serif;
-  font-size: 15px;
-  padding: 12px 0;
-  outline: none;
-  transition: border-color .3s;
-  width: 100%;
-}
-
-.fi:focus,
-.ft:focus {
-  border-bottom-color: var(--edge);
-}
-
-.fi::placeholder,
-.ft::placeholder {
-  color: rgba(240, 243, 245, .18);
-}
-
-.ft {
-  resize: none;
-  min-height: 90px;
-}
-
 .fsub {
   display: inline-flex;
   align-items: center;
@@ -1360,6 +1331,15 @@ footer {
 .rev-char.vis {
   transform: translateY(0);
   transition: transform .8s var(--ease-out);
+}
+
+/* Anchor targets offset for the fixed nav */
+#hero,
+#about,
+#expertise,
+#experience,
+#contact {
+  scroll-margin-top: 80px;
 }
 
 /* DESKTOP — 100vh sections */
@@ -3370,5 +3350,23 @@ li {
   .btn-fire,
   .btn-ghost {
     font-size: 10px;
+  }
+}
+
+/* Reduced motion: reveal instantly, pause decorative motion */
+@media (prefers-reduced-motion: reduce) {
+  .rev,
+  .rev-char,
+  .t-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-chip,
+  .marquee-track,
+  .t-line::after,
+  .scroll-line {
+    animation: none !important;
   }
 }

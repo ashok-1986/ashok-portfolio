@@ -87,7 +87,7 @@ export default function About() {
             killing decisions and growth.
           </p>
           <p className="about-intro">
-            We don&apos;t sell AI hype. We design simple, integrated systems
+            I don&apos;t sell AI hype. I design simple, integrated systems
             that turn fragmented workflows into a single source of truth.
             Think: 10-15 hours reclaimed weekly, 20-40% lead leaks plugged,
             and decisions that stick — without owner dependency.
@@ -100,7 +100,7 @@ export default function About() {
           <div className="about-stat-card">
             <div className="stat-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-                stroke="#FC4F2F" strokeWidth="1.5">
+                stroke="#FC4F2F" strokeWidth="1.5" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 2a10 10 0 0 1 10 10" />
                 <path d="M12 6v6l4 2" />
@@ -146,7 +146,7 @@ export default function About() {
           <div className="about-bullets">
             <div className="about-bullet">
               <span className="bullet-icon">+</span>
-              <p>With 15+ years of experience, I specialise in decision intelligence, digital analytics, and marketing automation that solves real operational problems.</p>
+              <p>With 15+ years of experience, I specialise in decision intelligence, digital analytics, and marketing automation that solve real operational problems.</p>
             </div>
             <div className="about-bullet">
               <span className="bullet-icon">+</span>
@@ -164,7 +164,7 @@ export default function About() {
               <span className="stat-lbl">Avg. CAC Reduction</span>
             </div>
             <div className="about-stat-item">
-              <span className="stat-val">100<em>%</em></span>
+              <span className="stat-val">✓</span>
               <span className="stat-lbl">Data Accuracy</span>
             </div>
           </div>
