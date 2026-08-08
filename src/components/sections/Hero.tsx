@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
 import ParticleCanvas from '@/components/canvas/ParticleCanvas';
 import { WHATSAPP_URL } from '@/lib/constants';
 
@@ -18,6 +19,28 @@ export default function Hero() {
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
+  }, []);
+
+  useLayoutEffect(() => {
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const tl = gsap.timeline({ delay: 0.5, defaults: { ease: 'expo.out' } });
+      tl.fromTo(
+        '.h1 span',
+        { clipPath: 'inset(0 0 100% 0)', y: 40 },
+        { clipPath: 'inset(0 0 0% 0)', y: 0, duration: 1.1, stagger: 0.08 }
+      ).fromTo(
+        '.h1 .fire',
+        { textShadow: '0 0 0px rgba(252, 79, 47, 0)' },
+        {
+          textShadow: '0 0 100px rgba(252, 79, 47, 0.55)',
+          duration: 0.9,
+          ease: 'power2.out',
+        },
+        '-=0.5'
+      );
+    });
+    return () => mm.revert();
   }, []);
 
   const SERVICES = [

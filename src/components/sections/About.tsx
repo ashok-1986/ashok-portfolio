@@ -1,6 +1,11 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CERTS = [
   'Google Analytics Certified',
@@ -27,8 +32,45 @@ const SKILLS = [
 ];
 
 export default function About() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        document.querySelectorAll<HTMLElement>('.stat-number, .stat-val').forEach((el) => {
+          const raw = el.textContent ?? '';
+          const match = raw.match(/^([\d.]+)(.*)$/);
+          if (!match) return;
+          const target = parseFloat(match[1]);
+          const suffix = match[2];
+          const em = el.querySelector('em');
+          const counter = { value: 0 };
+          const render = () => {
+            const digits = String(Math.round(counter.value));
+            if (em) {
+              em.textContent = suffix;
+              el.replaceChildren(document.createTextNode(digits), em);
+            } else {
+              el.textContent = `${digits}${suffix}`;
+            }
+          };
+          render();
+          gsap.to(counter, {
+            value: target,
+            duration: 1.4,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+            onUpdate: render,
+          });
+        });
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="about">
+    <section id="about" ref={sectionRef}>
       <div className="about-label rev">The Founder</div>
 
       {/* Three column layout */}

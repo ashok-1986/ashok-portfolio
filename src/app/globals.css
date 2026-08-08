@@ -242,7 +242,6 @@ nav::before,
   text-transform: uppercase;
   letter-spacing: 0.03em;
   margin-bottom: 44px;
-  animation: heroReveal 1.0s var(--ease-out) 0.55s both;
 }
 
 .h1 .solid {
