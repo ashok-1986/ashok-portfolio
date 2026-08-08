@@ -1193,6 +1193,64 @@ section {
   transform: translateY(-2px);
 }
 
+/* WHATSAPP CTA */
+.wa-card {
+  background: rgba(240, 243, 245, .04);
+  border: 1px solid rgba(240, 243, 245, .08);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.wa-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, .12);
+}
+
+.wa-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  line-height: 1.1;
+  color: var(--clarity);
+  margin: 0;
+}
+
+.wa-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--clarity-mid);
+  margin: 0;
+}
+
+.wa-cta {
+  margin-top: 12px;
+}
+
+.wa-note {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(240, 243, 245, .35);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .wa-card {
+    padding: 32px;
+  }
+}
+
 /* FOOTER */
 footer {
   padding: 44px 60px;
@@ -1641,107 +1699,6 @@ footer {
   }
 }
 
-/* TESTIMONIALS SECTION */
-.testimonials-section {
-  padding: 140px 60px;
-  background: var(--void);
-  border-top: 1px solid rgba(240, 243, 245, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5px;
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 80px;
-  background: rgba(240, 243, 245, 0.05);
-}
-
-.testimonial-card {
-  background: var(--void2);
-  padding: 60px 50px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: transform 0.4s ease, background 0.4s ease;
-}
-
-.testimonial-card:hover {
-  background: rgba(252, 79, 47, 0.02);
-}
-
-.quote-icon {
-  font-family: var(--font-display);
-  font-size: 84px;
-  line-height: 1;
-  color: #FC4F2F;
-  opacity: 0.15;
-  position: absolute;
-  top: 30px;
-  left: 40px;
-  pointer-events: none;
-}
-
-.testimonial-content {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--clarity-mid);
-  margin-bottom: 48px;
-  position: relative;
-  z-index: 2;
-  font-weight: 500;
-}
-
-.testimonial-author {
-  margin-top: auto;
-}
-
-.author-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--clarity);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
-}
-
-.author-role {
-  font-size: 12px;
-  color: rgba(240, 243, 245, 0.4);
-  letter-spacing: 0.02em;
-}
-
-.author-company {
-  color: #FC4F2F;
-  font-weight: 600;
-}
-
-@media (max-width: 1100px) {
-  .testimonial-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .testimonials-section {
-    padding: 100px 30px;
-  }
-
-  .testimonial-grid {
-    grid-template-columns: 1fr;
-    margin-top: 60px;
-  }
-
-  .testimonial-card {
-    padding: 50px 30px;
-  }
-}
-
-
 /* CUSTOM CURSOR */
 .custom-cursor-point {
   width: 6px;
@@ -1953,12 +1910,6 @@ footer {
    These rules override previous declarations for all new sections.
 ═══════════════════════════════════════════════════════════════ */
 
-/* Font display token: Bebas Neue for all headings */
-:root {
-  --font-display: 'Bebas Neue', 'Arial Black', sans-serif;
-  --font-weight-display: 400;
-}
-
 /* ═══ HERO ═══ */
 #hero {
   position: relative;
@@ -2045,7 +1996,7 @@ footer {
 }
 
 .h1 {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(72px, 12vw, 180px);
   line-height: 0.88;
@@ -2292,7 +2243,7 @@ footer {
 }
 
 .about-heading {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(48px, 6vw, 80px);
   font-weight: 400;
   color: #F0F3F5;
@@ -2334,7 +2285,7 @@ footer {
 }
 
 .stat-number {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: 72px;
   font-weight: 400;
   color: #190805;
@@ -2429,7 +2380,7 @@ footer {
 }
 
 .stat-val {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: 36px;
   font-weight: 400;
   color: #F0F3F5;
@@ -2530,7 +2481,7 @@ footer {
 }
 
 .sec-title {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(64px, 10vw, 140px);
   color: #F0F3F5;
@@ -2601,7 +2552,7 @@ footer {
 }
 
 .exp-num {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-size: 80px;
   font-weight: 400;
   color: rgba(240, 243, 245, 0.06);
@@ -2623,7 +2574,7 @@ footer {
 }
 
 .exp-card-title {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(28px, 3vw, 40px);
   color: #F0F3F5;
@@ -2748,7 +2699,7 @@ footer {
 }
 
 .eye-text h2 {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(48px, 9vw, 130px);
   color: #F0F3F5;
@@ -2805,17 +2756,17 @@ footer {
   }
 }
 
-/* ═══ HEADING WEIGHTS (Bebas Neue looks great at 400) ═══ */
+/* ═══ HEADING WEIGHTS ═══ */
 .about-statement,
 .phil-quote,
 .contact-cta {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
 .t-role {
-  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
 /* ═══ RESPONSIVE ═══ */

@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ashok Verma — Portfolio
 
-## Getting Started
+Portfolio site for Ashok Verma, systems & operational clarity consultant. Built with Next.js (App Router), TypeScript, and GSAP.
 
-First, run the development server:
+## Stack
+
+- **Framework**: Next.js 16 (App Router), React 19, TypeScript
+- **Animation**: GSAP (ScrollTrigger, SplitText) + Lenis-style smooth scroll
+- **Canvas**: Lightweight particle/background canvases (no Three.js)
+- **Fonts**: `next/font` — Urbanist (display) + variable sans
+
+## Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev        # development server
+npm run build      # production build
+npm run start      # serve production build
+npm run lint       # eslint (flat config: next/core-web-vitals + next/typescript)
+npx tsc --noEmit   # typecheck
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contact
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+No forms, no email integration, no environment variables. All contact flows point to a single WhatsApp CTA:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Link: `https://wa.link/3c06rx`
+- Defined once in `src/lib/constants.ts` (`WHATSAPP_URL`) and reused across `Contact`, `Footer`, and `Hero` CTAs.
 
-## Learn More
+## SEO
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/sitemap.ts` and `src/app/robots.ts` generate `sitemap.xml` / `robots.txt` at build time (no static copies in `public/`).
+- Case study pages (`src/app/work/[slug]`) are server components with `generateStaticParams()` and per-slug `generateMetadata()`; the GSAP-rendered markup lives in a client child (`CaseStudyContent.tsx`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Image pipeline
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`public/images/` stores only optimized outputs — no raw PNGs in the repo:
 
-## Deploy on Vercel
+- `hero.webp`, `about.webp` — photos at ~quality 80 (from 1–2 MB PNGs, ~98% smaller)
+- `og-image.webp` — full-res (1920×1080) backdrop used in the eye section
+- `og-image.jpg` — 1200×630 Open Graph card for `layout.tsx` metadata
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To regenerate from source, use `sharp` (already present in `node_modules`):
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+node -e "const s=require('sharp'); s('hero.png').webp({quality:80}).toFile('public/images/hero.webp')"
+```

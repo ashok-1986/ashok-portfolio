@@ -20,7 +20,6 @@ export default function Home() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
       // Scroll reveal — skip #hero (uses CSS animations)
       const revealEls = document.querySelectorAll('.rev');
       revealEls.forEach((el) => {
@@ -58,91 +57,98 @@ export default function Home() {
         });
       });
 
-      // Eye section
-      const eyeSection = eyeSectionRef.current;
-      if (eyeSection) {
-        const eyeImg = eyeSection.querySelector<HTMLElement>('img');
-
-        if (eyeImg) {
-          const onEyeScroll = () => {
-            const rect = eyeSection.getBoundingClientRect();
-            const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
-            const y = progress * 40;
-            eyeImg.style.transform = `translateY(${y}%)`;
-          };
-          window.addEventListener('scroll', onEyeScroll, { passive: true });
-        }
-
-        const eyeText = eyeSection.querySelector<HTMLElement>('.eye-text');
-        if (eyeText) {
-          gsap.fromTo(eyeText,
-            { opacity: 0, y: 32 },
-            {
-              opacity: 1, y: 0,
-              duration: 1.1,
-              ease: 'power3.out',
-              scrollTrigger: { trigger: eyeSection, start: 'top 75%', once: true },
-            }
-          );
-        }
-      }
-
-      // Marquee speed boost — RAF lerp + Lenis velocity
-      const marqueeTrack = document.querySelector<HTMLElement>('.marquee-track');
-      if (marqueeTrack) {
-        let currentDuration = 26;
-        let targetDuration = 26;
-        let lastY = 0;
-        let rafMarquee: number;
-
-        const updateMarquee = () => {
-          currentDuration += (targetDuration - currentDuration) * 0.05;
-          marqueeTrack.style.animationDuration = `${currentDuration}s`;
-          rafMarquee = requestAnimationFrame(updateMarquee);
-        };
-        rafMarquee = requestAnimationFrame(updateMarquee);
-
-        const onScroll = () => {
-          const delta = Math.abs(window.scrollY - lastY);
-          targetDuration = Math.max(6, 26 - delta * 0.8);
-          lastY = window.scrollY;
-          clearTimeout((window as any)._marqueeTimer);
-          (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-
-        if (typeof window !== 'undefined' && (window as any).__lenis) {
-          (window as any).__lenis.on('scroll', ({ velocity }: { velocity: number }) => {
-            targetDuration = Math.max(6, 26 - Math.abs(velocity) * 3);
-            clearTimeout((window as any)._marqueeTimer);
-            (window as any)._marqueeTimer = setTimeout(() => { targetDuration = 26; }, 600);
-          });
-        }
-
-        // Cleanup function for marquee animation
-        const cleanupMarquee = () => {
-          if (rafMarquee) {
-            cancelAnimationFrame(rafMarquee);
+      // Eye section text reveal
+      const eyeText = eyeSectionRef.current?.querySelector<HTMLElement>('.eye-text');
+      if (eyeText) {
+        gsap.fromTo(eyeText,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1, y: 0,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: eyeSectionRef.current, start: 'top 75%', once: true },
           }
-          window.removeEventListener('scroll', onScroll);
-        };
-
-
+        );
       }
-
     });
+
+    // Eye section scroll parallax
+    const eyeSection = eyeSectionRef.current;
+    const eyeImg = eyeSection?.querySelector<HTMLElement>('img') ?? null;
+    const onEyeScroll = () => {
+      if (!eyeSection || !eyeImg) return;
+      const rect = eyeSection.getBoundingClientRect();
+      const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
+      eyeImg.style.transform = `translateY(${progress * 40}%)`;
+    };
+    window.addEventListener('scroll', onEyeScroll, { passive: true });
+
+    // Marquee speed boost — RAF lerp + Lenis velocity
+    let cleanupMarquee = () => {};
+    const marqueeTrack = document.querySelector<HTMLElement>('.marquee-track');
+    if (marqueeTrack) {
+      let currentDuration = 26;
+      let targetDuration = 26;
+      let lastY = 0;
+      let rafMarquee = 0;
+
+      const updateMarquee = () => {
+        currentDuration += (targetDuration - currentDuration) * 0.05;
+        marqueeTrack.style.animationDuration = `${currentDuration}s`;
+        rafMarquee = requestAnimationFrame(updateMarquee);
+      };
+      rafMarquee = requestAnimationFrame(updateMarquee);
+
+      const resetTarget = () => { targetDuration = 26; };
+      const scheduleReset = () => {
+        clearTimeout(window._marqueeTimer);
+        window._marqueeTimer = setTimeout(resetTarget, 600);
+      };
+
+      const onScroll = () => {
+        const delta = Math.abs(window.scrollY - lastY);
+        targetDuration = Math.max(6, 26 - delta * 0.8);
+        lastY = window.scrollY;
+        scheduleReset();
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Lenis may not be mounted yet (child effects run before the provider's)
+      let unsubscribeLenis: (() => void) | null = null;
+      const attachLenis = () => {
+        if (unsubscribeLenis || !window.__lenis) return;
+        unsubscribeLenis = window.__lenis.on('scroll', (lenis) => {
+          targetDuration = Math.max(6, 26 - Math.abs(lenis.velocity) * 3);
+          scheduleReset();
+        });
+      };
+      attachLenis();
+      const retryLenis = setTimeout(attachLenis, 0);
+
+      cleanupMarquee = () => {
+        cancelAnimationFrame(rafMarquee);
+        window.removeEventListener('scroll', onScroll);
+        if (unsubscribeLenis) unsubscribeLenis();
+        clearTimeout(retryLenis);
+        clearTimeout(window._marqueeTimer);
+      };
+    }
 
     // Scroll progress bar
     const progressBar = document.querySelector<HTMLElement>('.scroll-progress');
-    if (progressBar) {
-      const updateProgress = () => {
-        const total = document.body.scrollHeight - window.innerHeight;
-        progressBar.style.width = `${(window.scrollY / total) * 100}%`;
-      };
-      window.addEventListener('scroll', updateProgress, { passive: true });
-    }
+    const updateProgress = () => {
+      if (!progressBar) return;
+      const total = document.body.scrollHeight - window.innerHeight;
+      progressBar.style.width = `${(window.scrollY / total) * 100}%`;
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
 
-    return () => ctx.revert();
+    return () => {
+      cleanupMarquee();
+      window.removeEventListener('scroll', onEyeScroll);
+      window.removeEventListener('scroll', updateProgress);
+      ctx.revert();
+    };
   }, []);
 
   const marqueeText = 'GA4 ANALYTICS · BIGQUERY · LOOKER STUDIO · MARKETING AUTOMATION · GTM · DATA STRATEGY · CRO · DECISION INTELLIGENCE · AI WORKFLOWS · MAKE.COM · HUBSPOT · RETENTION ·';
@@ -166,9 +172,10 @@ export default function Home() {
       {/* EYE SECTION */}
       <div className="eye-section" ref={eyeSectionRef}>
         <img
-          src="/images/og-image.png"
+          src="/images/og-image.webp"
           alt=""
           aria-hidden="true"
+          loading="lazy"
         />
         <div className="eye-overlay" />
         <div className="eye-text">

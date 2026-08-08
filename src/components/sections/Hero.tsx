@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import ParticleCanvas from '@/components/canvas/ParticleCanvas';
+import { WHATSAPP_URL } from '@/lib/constants';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,7 +35,7 @@ export default function Hero() {
       <div className="hero-photo-col">
         <img
           ref={imageRef}
-          src="/images/hero.png"
+          src="/images/hero.webp"
           alt="Ashok Verma"
           className="hero-photo-img"
         />
@@ -70,7 +71,7 @@ export default function Hero() {
         </p>
 
         <div className="hero-btns">
-          <a href="#contact" className="btn-fire">
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-fire">
             Book a Free Audit →
           </a>
           <a href="#expertise" className="btn-ghost">

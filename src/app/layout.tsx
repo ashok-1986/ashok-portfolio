@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     siteName: 'Ashok Verma Portfolio',
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Ashok Verma | Operational Clarity',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Ashok Verma | Systems & Operational Clarity',
     description: '15 years of transforming data into predictable growth systems.',
-    images: ['/images/og-image.png'],
+    images: ['/images/og-image.jpg'],
   },
 };
 

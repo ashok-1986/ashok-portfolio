@@ -1,3 +1,5 @@
+import { WHATSAPP_URL } from '@/lib/constants';
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -13,8 +15,8 @@ export default function Footer() {
         <a href="https://linkedin.com/in/averma1986" target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>
-        <a href="mailto:verma.86ashok@gmail.com">
-          Email
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+          WhatsApp
         </a>
       </div>
     </footer>

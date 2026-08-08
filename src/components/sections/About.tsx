@@ -70,7 +70,7 @@ export default function About() {
 
           <div className="about-photo-main">
             <Image
-              src="/images/about.png"
+              src="/images/about.webp"
               alt="Ashok Verma"
               fill
               sizes="30vw"
@@ -87,7 +87,7 @@ export default function About() {
         <div className="about-right rev">
           <div className="about-photo-small">
             <Image
-              src="/images/hero.png"
+              src="/images/hero.webp"
               alt="Ashok Verma"
               fill
               sizes="20vw"
