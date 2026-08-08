@@ -2002,7 +2002,6 @@ footer {
   text-transform: uppercase;
   letter-spacing: -0.01em;
   margin-bottom: 40px;
-  animation: heroReveal 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.50s both;
 }
 
 .h1 .solid {
@@ -3145,7 +3144,20 @@ li {
   }
 
   .about-right {
+    display: block;
+    grid-column: 1 / -1;
+    padding-top: 40px;
+    border-top: 1px solid rgba(240, 243, 245, 0.12);
+  }
+
+  .about-right .about-photo-small,
+  .about-right .about-bullets {
     display: none;
+  }
+
+  .about-right .about-stats-row {
+    padding-top: 0;
+    border-top: none;
   }
 
   #expertise {
@@ -3243,6 +3255,10 @@ li {
   }
 
   #about {
+    padding: 80px 24px;
+  }
+
+  #philosophy {
     padding: 80px 24px;
   }
 
